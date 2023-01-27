@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nutrial/screens/login/login_screen.dart';
+import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/screens/on_boarding/on_boarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +13,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowMaterialGrid: false,
-      title: 'Flutter Demo',
+      title: 'Nutrial',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: AppColors.primaryColor,
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.white
+        ),
       ),
-      home: const LoginScreen(),
+      home: const OnBoardScreen(),
     );
   }
 }
