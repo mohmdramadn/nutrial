@@ -47,10 +47,11 @@ class _Body extends StatelessWidget {
                   const _UserName(),
                   const SizedBox(height: 10),
                   const _Password(),
-                  SizedBox(height: size.height * 0.02),
-                  const _SignInButton(),
+                  SizedBox(height: size.height * 0.015),
+                  const _loginButton(),
                   const SizedBox(height: 60),
                   const _SocialMediaDivider(),
+                  const SizedBox(height: 20),
                   const _SocialMedia(),
                   const SizedBox(height: 10),
                 ],
@@ -163,12 +164,12 @@ class _Password extends StatelessWidget {
           width: size.width * 0.24,
           height: size.height * 0.05,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: Center(
             child: Text(
-              'password',
+              S.of(context).password,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 14,
                 color: Colors.grey[600],
               ),
             ),
@@ -178,11 +179,11 @@ class _Password extends StatelessWidget {
         Container(
           width: size.width * 0.6,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: TextField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: 'password',
+                hintText: '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -209,12 +210,12 @@ class _UserName extends StatelessWidget {
           width: size.width * 0.24,
           height: size.height * 0.05,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: Center(
               child: Text(
-            'username',
+            S.of(context).username,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               color: Colors.grey[600],
             ),
           )),
@@ -223,11 +224,11 @@ class _UserName extends StatelessWidget {
         Container(
           width: size.width * 0.6,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(12)),
+              color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: TextFormField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: 'username',
+                hintText: '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -250,7 +251,7 @@ class _HeaderLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: size.width * 0.8,
-      height: size.height * 0.3,
+      height: size.height * 0.4,
       child: Image.asset('assets/images/logo.png'),
     );
   }
@@ -288,8 +289,11 @@ class _PoweredByLogo extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 5.0, left: 5.0),
                         child: Text(
-                          'skip',
-                          style: TextStyle(color: Colors.white),
+                          S.of(context).skip,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 2.5,
+                          ),
                         ),
                       ),
                       const Icon(
@@ -309,20 +313,20 @@ class _PoweredByLogo extends StatelessWidget {
   }
 }
 
-class _SignInButton extends StatefulWidget {
+class _loginButton extends StatefulWidget {
   //TODO add when adding firebase
   // final CollectionReference users;
 
-  const _SignInButton({
+  const _loginButton({
     Key? key,
     // required this.users,
   }) : super(key: key);
 
   @override
-  State<_SignInButton> createState() => _SignInButtonState();
+  State<_loginButton> createState() => _loginButtonState();
 }
 
-class _SignInButtonState extends State<_SignInButton> {
+class _loginButtonState extends State<_loginButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -352,9 +356,9 @@ class _SignInButtonState extends State<_SignInButton> {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                       side: const BorderSide(color: AppColors.primaryColor)))),
-          child: const Text(
-            'sign_in',
-            style: TextStyle(color: Colors.white, fontSize: 18),
+          child: Text(
+            S.of(context).login,
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ));
   }
