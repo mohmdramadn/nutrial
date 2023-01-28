@@ -1,0 +1,12 @@
+const String splashRoute = 'splashRoute';
+const String loginRoute = 'loginRoute';
+const String signUpRoute = 'signUpRoute';
+const String onBoardingRoute = 'onBoardingRoute';
+const String firstIntroRoute = 'firstIntroRoute';
+const String secondIntroRoute = 'secondIntroRoute';
+const String thirdIntroRoute = 'thirdIntroRoute';
+const String genderRoute = 'genderRoute';
+const String ageRoute = 'ageRoute';
+const String percentageRoute = 'percentageRoute';
+const String userInfoRoute = 'userInfoRoute';
+const String passwordRoute = 'passwordRoute';
