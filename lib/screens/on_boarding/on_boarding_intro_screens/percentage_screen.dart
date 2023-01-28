@@ -6,8 +6,8 @@ import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
-class PercentageScreen extends StatelessWidget {
-  const PercentageScreen({Key? key}) : super(key: key);
+class BodyPercentageScreen extends StatelessWidget {
+  const BodyPercentageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

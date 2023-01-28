@@ -44,7 +44,7 @@ class _BodyState extends State<_Body> {
       const ThirdIntroScreen(),
       const GenderScreen(),
       const AgeScreen(),
-      const PercentageScreen(),
+      const BodyPercentageScreen(),
       const UserInfoScreen(),
       const PasswordScreen(),
     ];

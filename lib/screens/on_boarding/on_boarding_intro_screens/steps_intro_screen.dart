@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutrial/generated/l10n.dart';
 
 class StepsScreen extends StatelessWidget {
   const StepsScreen({
