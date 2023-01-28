@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -32,9 +33,9 @@ class _Male extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'MALE',
-          style: TextStyle(
+        Text(
+          S.of(context).male,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -61,9 +62,9 @@ class _Female extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'FEMALE',
-          style: TextStyle(
+        Text(
+          S.of(context).female,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -108,8 +109,8 @@ class _UnselectedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        if(isMale) {
+      onTap: () {
+        if (isMale) {
           context.read<OnBoardViewModel>().setGender(0);
           return;
         }

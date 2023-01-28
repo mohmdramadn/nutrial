@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -28,9 +31,9 @@ class _Body extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.1),
-        const Text(
-          'Finally set start date ..',
-          style: TextStyle(
+        Text(
+          S.of(context).setPasswordTitle,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -38,12 +41,15 @@ class _Body extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: 30.h),
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 60.0),
-              child: _InfoTextField(controller: passwordController, title: 'Password'),
+              padding: EdgeInsets.only(left: 60.0.w),
+              child: _InfoTextField(
+                controller: passwordController,
+                title: S.of(context).password,
+              ),
             ),
             InkWell(
               onTap: ()=> context.read<OnBoardViewModel>().setShowPassState(),
@@ -57,11 +63,11 @@ class _Body extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 15),
+        SizedBox(height: 15.h),
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 60.0),
+              padding: EdgeInsets.only(left: 60.0.w),
               child: _InfoTextField(controller: confirmPassController, title: 'Re-enter'),
             ),
             InkWell(
@@ -176,7 +182,7 @@ class _InfoTextFieldState extends State<_InfoTextField> {
                           ),
                         ),
                         const Text(
-                          ': ...............................................',
+                          ConstStrings.dots,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,

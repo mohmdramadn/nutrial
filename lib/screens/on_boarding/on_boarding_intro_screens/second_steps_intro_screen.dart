@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutrial/generated/l10n.dart';
 
 class SecondStepsIntroScreen extends StatelessWidget {
   const SecondStepsIntroScreen({
@@ -13,9 +14,9 @@ class SecondStepsIntroScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'Calculate your needed calories per day',
-          style: TextStyle(
+        Text(
+          S.of(context).boardTwoTitle,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,

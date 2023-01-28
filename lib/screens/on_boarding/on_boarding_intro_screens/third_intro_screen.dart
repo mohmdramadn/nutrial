@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutrial/generated/l10n.dart';
 
 class ThirdIntroScreen extends StatelessWidget {
   const ThirdIntroScreen({Key? key}) : super(key: key);
@@ -11,9 +12,9 @@ class ThirdIntroScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'Now ..\nIts time to fill your own application for\nDaily follow up\nto reach your goal.',
-          style: TextStyle(
+        Text(
+          S.of(context).boardThreeTitle,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
