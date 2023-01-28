@@ -649,6 +649,36 @@ class S {
       args: [],
     );
   }
+
+  /// `SKIP`
+  String get skip {
+    return Intl.message(
+      'SKIP',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ID`
+  String get id {
+    return Intl.message(
+      'ID',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Re-enter`
+  String get reEnter {
+    return Intl.message(
+      'Re-enter',
+      name: 'reEnter',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

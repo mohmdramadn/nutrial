@@ -62,5 +62,8 @@
        "newPassword": "كلمه المرور الجديده",
        "commWith": "أو تواصل معنا من خلال",
        "searchWorkout": "ابحث عن تمرين",
-       "setPasswordTitle":"و اخيرا ادخل كلمة المرور الخاصة بك"
+       "setPasswordTitle":"و اخيرا ادخل كلمة المرور الخاصة بك",
+       "skip":"تخطي",
+       "id":"ID",
+       "reEnter":"اعد الكلمة"
 }

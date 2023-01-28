@@ -68,7 +68,10 @@ class _Body extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 60.0.w),
-              child: _InfoTextField(controller: confirmPassController, title: 'Re-enter'),
+              child: _InfoTextField(
+                controller: confirmPassController,
+                title: S.of(context).reEnter,
+              ),
             ),
             InkWell(
               onTap: ()=> context.read<OnBoardViewModel>().setShowPassState(),

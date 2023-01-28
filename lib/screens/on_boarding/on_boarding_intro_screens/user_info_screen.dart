@@ -42,11 +42,11 @@ class _Body extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
-        _InfoTextField(controller: nameController, title: 'Name'),
+        _InfoTextField(controller: nameController, title: S.of(context).name),
         const SizedBox(height: 15),
-        _InfoTextField(controller: idController, title: 'ID'),
+        _InfoTextField(controller: idController, title: S.of(context).id),
         const SizedBox(height: 15),
-        _InfoTextField(controller: emailController, title: 'Email'),
+        _InfoTextField(controller: emailController, title: S.of(context).email),
       ],
     );
   }

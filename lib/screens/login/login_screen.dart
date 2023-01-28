@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/login/login_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -274,11 +275,6 @@ class _PoweredByLogo extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 //TODO adjust navigation
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (_) => const DashboardScreen(index: 2)),
-                // );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -288,15 +284,15 @@ class _PoweredByLogo extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
+                    children: [
                       Padding(
-                        padding: EdgeInsets.only(right: 5.0, left: 5.0),
+                        padding: const EdgeInsets.only(right: 5.0, left: 5.0),
                         child: Text(
                           'skip',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.white,
                         size: 15,

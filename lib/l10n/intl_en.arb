@@ -61,5 +61,8 @@
    "newPassword": "New Password",
    "commWith": "Or communicate with",
    "searchWorkout": "Search WorkOut",
-   "setPasswordTitle":"Finally set your password .."
+   "setPasswordTitle":"Finally set your password ..",
+   "skip":"SKIP",
+   "id":"ID",
+   "reEnter":"Re-enter"
 }

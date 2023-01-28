@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
         onGenerateRoute: onGenerateRoute,
         opaqueRoute: Get.isOpaqueRouteDefault,
-        locale: const Locale('ar'),
       ),
     );
   }

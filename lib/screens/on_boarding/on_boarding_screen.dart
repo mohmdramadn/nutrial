@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/age_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/gender_screen.dart';
@@ -183,7 +184,7 @@ class _BottomBar extends StatelessWidget {
             children: [
               _PreviousButton(controller: controller),
               const SizedBox(width: 8),
-              _NextButton(controller: controller,pagesLength: pagesLength),
+              _NextButton(controller: controller, pagesLength: pagesLength),
             ],
           ),
         )
@@ -207,7 +208,7 @@ class _NextButton extends StatelessWidget {
     var currentBoard = context.select((OnBoardViewModel vm) => vm.currentBoard);
     return GestureDetector(
       onTap: () {
-        if (currentBoard != pagesLength -1) {
+        if (currentBoard != pagesLength - 1) {
           controller.nextPage(
             duration: const Duration(milliseconds: 1000),
             curve: Curves.fastOutSlowIn,
@@ -217,17 +218,16 @@ class _NextButton extends StatelessWidget {
         context.read<OnBoardViewModel>().onDoneProfileDataEntryAction();
       },
       child: currentBoard != pagesLength - 1
-          ? Image.asset('assets/icons/next.png')
+          ? Get.locale == const Locale('ar')
+              ? Image.asset('assets/icons/before.png')
+              : Image.asset('assets/icons/next.png')
           : Image.asset('assets/icons/done.png'),
     );
   }
 }
 
 class _PreviousButton extends StatelessWidget {
-  _PreviousButton({
-    Key? key,
-    required this.controller
-  }) : super(key: key);
+  _PreviousButton({Key? key, required this.controller}) : super(key: key);
 
   late PageController controller;
 
@@ -244,7 +244,9 @@ class _PreviousButton extends StatelessWidget {
         }
       },
       child: currentBoard != 0
-          ? Image.asset('assets/icons/before.png')
+          ? Get.locale == const Locale('ar')
+              ? Image.asset('assets/icons/next.png')
+              : Image.asset('assets/icons/before.png')
           : Image.asset('assets/icons/skip.png'),
     );
   }

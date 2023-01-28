@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "female": MessageLookupByLibrary.simpleMessage("FEMALE"),
         "genderTitle": MessageLookupByLibrary.simpleMessage("Choose sex"),
         "height": MessageLookupByLibrary.simpleMessage("HEIGHT"),
+        "id": MessageLookupByLibrary.simpleMessage("ID"),
         "itemCalories": MessageLookupByLibrary.simpleMessage("Item calories"),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("Item quantity"),
@@ -88,11 +89,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
+        "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search WorkOut"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "Calories burned/ hour based on body weight"),

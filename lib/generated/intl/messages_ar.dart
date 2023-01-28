@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "female": MessageLookupByLibrary.simpleMessage("انثي"),
         "genderTitle": MessageLookupByLibrary.simpleMessage("اختر الجنس"),
         "height": MessageLookupByLibrary.simpleMessage("طولك"),
+        "id": MessageLookupByLibrary.simpleMessage("ID"),
         "itemCalories":
             MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "itemName": MessageLookupByLibrary.simpleMessage("الاسم"),
@@ -88,11 +89,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "percentage": MessageLookupByLibrary.simpleMessage("النسب"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("القائمة الرئيسية"),
+        "reEnter": MessageLookupByLibrary.simpleMessage("اعد الكلمة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("ابحث عن تمرين"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "و اخيرا ادخل كلمة المرور الخاصة بك"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "السعرات الحرارية المحروقه بالنسبة لوزن الجسم ف الساعه"),
