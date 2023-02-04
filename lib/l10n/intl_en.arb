@@ -64,5 +64,8 @@
    "setPasswordTitle":"Finally set your password ..",
    "skip":"SKIP",
    "id":"ID",
-   "reEnter":"Re-enter"
+   "reEnter":"Re-enter",
+   "signup":"Sign Up",
+   "error":"Something happened please try again later",
+   "passNotMatching":"Passwords doesn't match"
 }

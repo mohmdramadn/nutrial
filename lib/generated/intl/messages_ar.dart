@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterYourHeight":
             MessageLookupByLibrary.simpleMessage("ادخل الطول ب سم"),
         "enterYourName": MessageLookupByLibrary.simpleMessage("ادخل اسمك"),
+        "error": MessageLookupByLibrary.simpleMessage(
+            "حدث خطأ برجاء المحاولة في وقت لاحق"),
         "fats": MessageLookupByLibrary.simpleMessage("الدهون"),
         "fatsPercentage": MessageLookupByLibrary.simpleMessage("نسبة الدهون"),
         "female": MessageLookupByLibrary.simpleMessage("انثي"),
@@ -86,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextSession": MessageLookupByLibrary.simpleMessage("السيشن القادمة"),
         "oldPassword":
             MessageLookupByLibrary.simpleMessage("كلمه المرور القديمه"),
+        "passNotMatching":
+            MessageLookupByLibrary.simpleMessage("كلمة المرور غير متطابقة"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "percentage": MessageLookupByLibrary.simpleMessage("النسب"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("القائمة الرئيسية"),
@@ -95,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "و اخيرا ادخل كلمة المرور الخاصة بك"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "signup": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(

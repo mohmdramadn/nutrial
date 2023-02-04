@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your height in CM"),
         "enterYourName":
             MessageLookupByLibrary.simpleMessage("Enter your name"),
+        "error": MessageLookupByLibrary.simpleMessage(
+            "Something happened please try again later"),
         "fats": MessageLookupByLibrary.simpleMessage("Fats"),
         "fatsPercentage":
             MessageLookupByLibrary.simpleMessage("Fats percentage"),
@@ -86,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newUser": MessageLookupByLibrary.simpleMessage("New User"),
         "nextSession": MessageLookupByLibrary.simpleMessage("Next Session"),
         "oldPassword": MessageLookupByLibrary.simpleMessage("Old Password"),
+        "passNotMatching":
+            MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
@@ -95,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(

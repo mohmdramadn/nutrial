@@ -679,6 +679,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Sign Up`
+  String get signup {
+    return Intl.message(
+      'Sign Up',
+      name: 'signup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something happened please try again later`
+  String get error {
+    return Intl.message(
+      'Something happened please try again later',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords doesn't match`
+  String get passNotMatching {
+    return Intl.message(
+      'Passwords doesn\'t match',
+      name: 'passNotMatching',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
