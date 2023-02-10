@@ -1,3 +1,13 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:nutrial/firebase_options.dart';
+import 'package:nutrial/helper/shared_prefrence.dart';
+import 'package:nutrial/providers.dart';
+import 'package:nutrial/services/app_language.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,11 +17,36 @@ import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/routes/router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    Preference.instance.initSharedPreference();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black,
+      statusBarColor: Colors.transparent,
+    ));
+
+    final AppLanguage appLanguage = AppLanguage();
+    await appLanguage.fetchLocale();
+
+    runApp(
+      ChangeNotifierProvider<AppLanguage>.value(
+        value: appLanguage,
+        child: MyApp(appLanguage: appLanguage),
+      ),
+    );
+  }, (error, stack) => log('$error'));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key, required this.appLanguage}) : super(key: key);
+
+  final AppLanguage appLanguage;
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +54,30 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 760),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => GetMaterialApp(
-        useInheritedMediaQuery: true,
-        debugShowMaterialGrid: false,
-        title: 'Nutrial',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: AppColors.primaryColor,
+      builder: (context, child) => MultiProvider(
+        providers: provider,
+        child: GetMaterialApp(
+          useInheritedMediaQuery: true,
+          debugShowMaterialGrid: false,
+          title: 'Nutrial',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: AppColors.primaryColor,
+            ),
+            textSelectionTheme:
+                const TextSelectionThemeData(cursorColor: Colors.white),
           ),
-          textSelectionTheme: const TextSelectionThemeData(
-              cursorColor: Colors.white
-          ),
+          locale: appLanguage.appLocal,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          onGenerateRoute: onGenerateRoute,
+          opaqueRoute: Get.isOpaqueRouteDefault,
         ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        onGenerateRoute: onGenerateRoute,
-        opaqueRoute: Get.isOpaqueRouteDefault,
       ),
     );
   }
