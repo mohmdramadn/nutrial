@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 60.0.w),
-              child: _InfoTextField(
+              child: _PasswordTextField(
                 controller: passwordController,
                 title: S.of(context).password,
               ),
@@ -68,7 +68,7 @@ class _Body extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 60.0.w),
-              child: _InfoTextField(
+              child: _PasswordTextField(
                 controller: confirmPassController,
                 title: S.of(context).reEnter,
               ),
@@ -90,8 +90,8 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _InfoTextField extends StatefulWidget {
-  const _InfoTextField({
+class _PasswordTextField extends StatefulWidget {
+  const _PasswordTextField({
     Key? key,
     required this.controller,
     required this.title,
@@ -101,10 +101,10 @@ class _InfoTextField extends StatefulWidget {
   final String title;
 
   @override
-  State<_InfoTextField> createState() => _InfoTextFieldState();
+  State<_PasswordTextField> createState() => _PasswordTextFieldState();
 }
 
-class _InfoTextFieldState extends State<_InfoTextField> {
+class _PasswordTextFieldState extends State<_PasswordTextField> {
   late FocusNode myFocusNode;
 
   @override

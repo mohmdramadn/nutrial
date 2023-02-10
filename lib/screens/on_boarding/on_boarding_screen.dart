@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/age_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/gender_screen.dart';
@@ -10,6 +12,8 @@ import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/second_ste
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/steps_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/third_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/user_info_screen.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
 class OnBoardScreen extends StatelessWidget {
@@ -18,7 +22,12 @@ class OnBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<OnBoardViewModel>(
-        create: (_) => OnBoardViewModel(), child: const _Body());
+        create: (_) => OnBoardViewModel(
+            firebaseService: context.read<FirebaseService>(),
+            messageService: context.read<MessageService>(),
+            localization: context.read<S>(),
+        ),
+        child: const _Body());
   }
 }
 
@@ -54,6 +63,7 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     var currentBoard = context.select((OnBoardViewModel vm) => vm.currentBoard);
+    var isLoading = context.select((OnBoardViewModel vm) => vm.isLoading);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -80,35 +90,15 @@ class _BodyState extends State<_Body> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/logo.png',
-                      width: size.width * 0.7,
-                      height: size.height * 0.27,
-                    ),
-                    SizedBox(
-                      height: 15,
-                      width: size.width * 0.479,
-                      child: ListView.separated(
-                        itemCount: pages.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return Container(
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                color: currentBoard == index
-                                    ? Colors.white
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(70),
-                              ));
-                        },
-                        separatorBuilder: (_, context) {
-                          return const SizedBox(width: 9.0);
-                        },
+                    _Logo(size: size),
+                    _Dots(size: size, pages: pages, currentBoard: currentBoard),
+                    _PageView(pages: pages, controller: controller),
+                    Visibility(
+                      visible: isLoading,
+                      child: const CircularProgressIndicator(
+                        color: AppColors.primaryColor,
                       ),
                     ),
-                    _PageView(pages: pages, controller: controller),
                     _BottomBar(
                       controller: controller,
                       pagesLength: pages.length,
@@ -119,6 +109,64 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Logo extends StatelessWidget {
+  const _Logo({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/logo.png',
+      width: size.width * 0.7,
+      height: size.height * 0.27,
+    );
+  }
+}
+
+class _Dots extends StatelessWidget {
+  const _Dots({
+    Key? key,
+    required this.size,
+    required this.pages,
+    required this.currentBoard,
+  }) : super(key: key);
+
+  final Size size;
+  final List<Widget> pages;
+  final int currentBoard;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 15,
+      width: size.width * 0.479,
+      child: ListView.separated(
+        itemCount: pages.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, index) {
+          return Container(
+              height: 15,
+              width: 15,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+                color: currentBoard == index
+                    ? Colors.white
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(70),
+              ));
+        },
+        separatorBuilder: (_, context) {
+          return const SizedBox(width: 9.0);
+        },
       ),
     );
   }
