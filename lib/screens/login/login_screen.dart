@@ -48,7 +48,7 @@ class _Body extends StatelessWidget {
                   const SizedBox(height: 10),
                   const _Password(),
                   SizedBox(height: size.height * 0.015),
-                  const _loginButton(),
+                  const _LoginButton(),
                   const SizedBox(height: 60),
                   const _SocialMediaDivider(),
                   const SizedBox(height: 20),
@@ -313,20 +313,20 @@ class _PoweredByLogo extends StatelessWidget {
   }
 }
 
-class _loginButton extends StatefulWidget {
+class _LoginButton extends StatefulWidget {
   //TODO add when adding firebase
   // final CollectionReference users;
 
-  const _loginButton({
+  const _LoginButton({
     Key? key,
     // required this.users,
   }) : super(key: key);
 
   @override
-  State<_loginButton> createState() => _loginButtonState();
+  State<_LoginButton> createState() => _LoginButtonState();
 }
 
-class _loginButtonState extends State<_loginButton> {
+class _LoginButtonState extends State<_LoginButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -53,8 +53,8 @@ class FirebaseService extends ChangeNotifier {
     await database
         .collection('users_profile')
         .add(newUser)
-        .then((DocumentReference doc) => log('${doc}'))
-        .onError((error, stackTrace) => log('${error}'));
+        .then((DocumentReference doc) => log('$doc'))
+        .onError((error, stackTrace) => log('$error'));
 
     return Result.value('');
   }
