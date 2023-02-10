@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1044312033911",
+    "firebase_url": "https://nutrial-f7956-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nutrial-f7956",
+    "storage_bucket": "nutrial-f7956.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044312033911:android:a9d9c87180f368f19f1472",
+        "android_client_info": {
+          "package_name": "com.example.nutrial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044312033911-lj3o9p34grdjp77g1c2omb461astlcm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2a15S6SSFIkaTDzhRJdlsqwyyLYycgMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044312033911-lj3o9p34grdjp77g1c2omb461astlcm1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1044312033911-v5u10dj1gebbl7cjksg819kvc5glkc3p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nutrial"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
