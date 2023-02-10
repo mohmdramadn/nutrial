@@ -10,6 +10,7 @@ import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/steps_intr
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/third_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/user_info_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_screen.dart';
+import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/screens/sign_up/sign_up_screen.dart';
 import 'package:nutrial/screens/welcome_screen/welcome_screen.dart';
 
@@ -62,6 +63,10 @@ Route onGenerateRoute(RouteSettings settings) {
     case passwordRoute:
       return MaterialPageRoute(
           builder: (context) => const PasswordScreen(), settings: settings);
+
+      case homeRoute:
+      return MaterialPageRoute(
+          builder: (context) => const HomeScreen(), settings: settings);
 
     default:
       return MaterialPageRoute(builder: (context) => const WelcomeScreen());

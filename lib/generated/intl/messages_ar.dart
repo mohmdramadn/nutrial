@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حساب السعرات الحرارية"),
         "cardio": MessageLookupByLibrary.simpleMessage("الكارديو"),
         "changeInfo": MessageLookupByLibrary.simpleMessage("تغير المعلومات"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
         "checkInputs": MessageLookupByLibrary.simpleMessage(
             "تحقق من المدخلات مره اخره اولأ"),
         "commWith":
@@ -68,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "itemName": MessageLookupByLibrary.simpleMessage("الاسم"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("الكمية"),
+        "lastBodyComp": MessageLookupByLibrary.simpleMessage("اخر تكوين للجسم"),
         "lastBodyComposition":
             MessageLookupByLibrary.simpleMessage("Last body composition"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
@@ -78,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "musclesPercentage":
             MessageLookupByLibrary.simpleMessage("نسبة العضلات"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My Account"),
+        "myOtherCalories":
+            MessageLookupByLibrary.simpleMessage("الكالوريز الأخري"),
         "myOtherSessions":
             MessageLookupByLibrary.simpleMessage("السيشن الاخري"),
         "mySessions": MessageLookupByLibrary.simpleMessage("السيشن"),
@@ -105,11 +110,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "السعرات الحرارية المحروقه بالنسبة لوزن الجسم ف الساعه"),
         "today": MessageLookupByLibrary.simpleMessage("اليوم"),
+        "totalWeight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "updateProfile":
-            MessageLookupByLibrary.simpleMessage("تحديث الملف الشخصي"),
+            MessageLookupByLibrary.simpleMessage("تحديث البيانات الشخصية"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "water": MessageLookupByLibrary.simpleMessage("المياه"),
         "waterPercentage": MessageLookupByLibrary.simpleMessage("نسبة المياه"),
+        "welcome": MessageLookupByLibrary.simpleMessage("أهلا"),
         "yesterday": MessageLookupByLibrary.simpleMessage("أمس")
       };
 }

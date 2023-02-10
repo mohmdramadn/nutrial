@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addTimeWeight": MessageLookupByLibrary.simpleMessage(
             "Please add Time and Body Weight"),
-        "ageTitle": MessageLookupByLibrary.simpleMessage("AGE"),
+        "ageTitle": MessageLookupByLibrary.simpleMessage("Age"),
         "allFieldsRequired":
             MessageLookupByLibrary.simpleMessage("Please all fields required"),
         "alreadyHaveAccount":
@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardio": MessageLookupByLibrary.simpleMessage("CARDIO"),
         "changeInfo":
             MessageLookupByLibrary.simpleMessage("Change Information"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change Password"),
         "checkInputs": MessageLookupByLibrary.simpleMessage(
             "Please check your inputs again"),
         "commWith": MessageLookupByLibrary.simpleMessage("Or communicate with"),
@@ -65,21 +67,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fats percentage"),
         "female": MessageLookupByLibrary.simpleMessage("FEMALE"),
         "genderTitle": MessageLookupByLibrary.simpleMessage("Choose sex"),
-        "height": MessageLookupByLibrary.simpleMessage("HEIGHT"),
+        "height": MessageLookupByLibrary.simpleMessage("Height"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
         "itemCalories": MessageLookupByLibrary.simpleMessage("Item calories"),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("Item quantity"),
+        "lastBodyComp":
+            MessageLookupByLibrary.simpleMessage("Last Body Composition"),
         "lastBodyComposition":
             MessageLookupByLibrary.simpleMessage("Last body composition"),
         "login": MessageLookupByLibrary.simpleMessage("Log in"),
         "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
-        "logout": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "male": MessageLookupByLibrary.simpleMessage("MALE"),
         "muscles": MessageLookupByLibrary.simpleMessage("Muscles"),
         "musclesPercentage":
             MessageLookupByLibrary.simpleMessage("Muscles percentage"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My Account"),
+        "myOtherCalories":
+            MessageLookupByLibrary.simpleMessage("My Other Calories"),
         "myOtherSessions":
             MessageLookupByLibrary.simpleMessage("My Other Sessions"),
         "mySessions": MessageLookupByLibrary.simpleMessage("My Sessions"),
@@ -105,11 +111,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "Calories burned/ hour based on body weight"),
         "today": MessageLookupByLibrary.simpleMessage("TODAY"),
+        "totalWeight": MessageLookupByLibrary.simpleMessage("Total weight"),
         "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
         "username": MessageLookupByLibrary.simpleMessage("User Name"),
         "water": MessageLookupByLibrary.simpleMessage("Water"),
         "waterPercentage":
             MessageLookupByLibrary.simpleMessage("Water percentage"),
+        "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "yesterday": MessageLookupByLibrary.simpleMessage("YESTERDAY")
       };
 }

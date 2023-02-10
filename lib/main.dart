@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:nutrial/firebase_options.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/providers.dart';
+import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/services/app_language.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: S.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
           opaqueRoute: Get.isOpaqueRouteDefault,
+          // home: const HomeScreen(),
         ),
       ),
     );

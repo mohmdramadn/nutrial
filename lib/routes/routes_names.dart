@@ -10,3 +10,4 @@ const String ageRoute = 'ageRoute';
 const String percentageRoute = 'percentageRoute';
 const String userInfoRoute = 'userInfoRoute';
 const String passwordRoute = 'passwordRoute';
+const String homeRoute = 'homeRoute';
