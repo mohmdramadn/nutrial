@@ -2,16 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
-import 'package:nutrial/screens/login/login_view_model.dart';
+import 'package:nutrial/screens/sign_up/sign_up_view_model.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginViewModel>(
-        create: (_) => LoginViewModel(), child: const _Body());
+    return ChangeNotifierProvider<SignUpViewModel>(
+      create: (_) => SignUpViewModel(
+        firebaseService: context.read<FirebaseService>(),
+        messageService: context.read<MessageService>(),
+        localization: context.read<S>(),
+      ),
+      child: const _Body(),
+    );
   }
 }
 
@@ -48,7 +56,7 @@ class _Body extends StatelessWidget {
                   const SizedBox(height: 10),
                   const _Password(),
                   SizedBox(height: size.height * 0.015),
-                  const _loginButton(),
+                  const _signUpButton(),
                   const SizedBox(height: 60),
                   const _SocialMediaDivider(),
                   const SizedBox(height: 20),
@@ -155,7 +163,8 @@ class _Password extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.select((LoginViewModel vm) => vm.passwordController);
+    var controller =
+        context.select((SignUpViewModel vm) => vm.passwordController);
     var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +176,7 @@ class _Password extends StatelessWidget {
               color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: Center(
             child: Text(
-              S.of(context).password,
+              'Password',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -183,7 +192,8 @@ class _Password extends StatelessWidget {
           child: TextField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: '.....................................................',
+                hintText:
+                    '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -201,7 +211,7 @@ class _UserName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.select((LoginViewModel vm) => vm.nameController);
+    var controller = context.select((SignUpViewModel vm) => vm.nameController);
     var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -213,7 +223,7 @@ class _UserName extends StatelessWidget {
               color: Colors.white, borderRadius: BorderRadius.circular(19)),
           child: Center(
               child: Text(
-            S.of(context).username,
+            'User Name',
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[600],
@@ -228,7 +238,8 @@ class _UserName extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: '.....................................................',
+                hintText:
+                    '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -275,7 +286,7 @@ class _PoweredByLogo extends StatelessWidget {
             padding: const EdgeInsets.only(right: 18.0),
             child: GestureDetector(
               onTap: () {
-                //TODO adjust navigation
+
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -285,18 +296,18 @@ class _PoweredByLogo extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.only(right: 5.0, left: 5.0),
+                        padding: EdgeInsets.only(right: 5.0, left: 5.0),
                         child: Text(
-                          S.of(context).skip,
-                          style: const TextStyle(
+                          'SKIP',
+                          style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 2.5,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.white,
                         size: 15,
@@ -313,39 +324,17 @@ class _PoweredByLogo extends StatelessWidget {
   }
 }
 
-class _loginButton extends StatefulWidget {
-  //TODO add when adding firebase
-  // final CollectionReference users;
-
-  const _loginButton({
+class _signUpButton extends StatelessWidget {
+  const _signUpButton({
     Key? key,
-    // required this.users,
   }) : super(key: key);
 
-  @override
-  State<_loginButton> createState() => _loginButtonState();
-}
-
-class _loginButtonState extends State<_loginButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.85,
         child: ElevatedButton(
-          onPressed: () async {
-            // widget.focusEmail.unfocus();
-            // widget.focusPassword.unfocus();
-            // if (widget.nameCntr.text.isNotEmpty &&
-            //     widget.passwordCntr.text.isNotEmpty) {
-            //   login();
-            // } else if (widget.passwordCntr.text.isEmpty) {
-            //   showInSnackBarError('all_fields_required 1');
-            // } else if (widget.nameCntr.text.isEmpty) {
-            //   showInSnackBarError('all_fields_required 2');
-            // } else {
-            //   showInSnackBarError('all_fields_required 3');
-            // }
-          },
+          onPressed: () => context.read<SignUpViewModel>().signUpAsync(),
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
                   const EdgeInsets.all(15)),
@@ -357,22 +346,9 @@ class _loginButtonState extends State<_loginButton> {
                       borderRadius: BorderRadius.circular(25),
                       side: const BorderSide(color: AppColors.primaryColor)))),
           child: Text(
-            S.of(context).login,
+            S.of(context).signup,
             style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ));
-  }
-
-  void showInSnackBarError(String value) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Row(
-        children: [
-          const Icon(Icons.error, color: Colors.white),
-          const SizedBox(width: 10),
-          Text(value)
-        ],
-      ),
-      backgroundColor: Colors.red,
-    ));
   }
 }

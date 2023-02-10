@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
-class PercentageScreen extends StatelessWidget {
-  const PercentageScreen({Key? key}) : super(key: key);
+class BodyPercentageScreen extends StatelessWidget {
+  const BodyPercentageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,9 @@ class _Body extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'Percentage',
-          style: TextStyle(
+        Text(
+          S.of(context).percentage,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -41,11 +43,11 @@ class _Body extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
-        _BodyComponent(controller: musclesController, title: 'Muscles'),
+        _BodyComponent(controller: musclesController, title: S.of(context).muscles),
         const SizedBox(height: 20),
-        _BodyComponent(controller: waterController, title: 'Water'),
+        _BodyComponent(controller: waterController, title: S.of(context).water),
         const SizedBox(height: 20),
-        _BodyComponent(controller: fatController, title: 'Fat')
+        _BodyComponent(controller: fatController, title: S.of(context).fats)
 
 
       ],
@@ -87,7 +89,7 @@ class _BodyComponent extends StatelessWidget {
 }
 
 class _PercentageTextField extends StatefulWidget {
-  _PercentageTextField({
+  const _PercentageTextField({
     Key? key,
     required this.controller,
   }) : super(key: key);
@@ -156,7 +158,7 @@ class _PercentageTextFieldState extends State<_PercentageTextField> {
               child: SizedBox(
                 height: size.height * 0.1,
                 child: const Text(
-                  '... %',
+                  ConstStrings.percentageSign,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

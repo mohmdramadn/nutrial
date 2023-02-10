@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,9 +25,9 @@ class _Body extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.11),
-        const Text(
-          'AGE',
-          style: TextStyle(
+        Text(
+          S.of(context).ageTitle,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -57,7 +58,7 @@ class _AgeTextField extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide.none,
           ),
           filled: true,
@@ -67,7 +68,8 @@ class _AgeTextField extends StatelessWidget {
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(2)
         ],
       ),
     );

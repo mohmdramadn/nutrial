@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,9 +31,9 @@ class _Body extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: size.height * 0.1),
-        const Text(
-          'Now enter your personal details ..',
-          style: TextStyle(
+        Text(
+          S.of(context).enterPersonalDetails,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             height: 1.7,
@@ -40,11 +42,11 @@ class _Body extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
-        _InfoTextField(controller: nameController, title: 'Name'),
+        _InfoTextField(controller: nameController, title: S.of(context).name),
         const SizedBox(height: 15),
-        _InfoTextField(controller: idController, title: 'ID'),
+        _InfoTextField(controller: idController, title: S.of(context).id),
         const SizedBox(height: 15),
-        _InfoTextField(controller: emailController, title: 'Email'),
+        _InfoTextField(controller: emailController, title: S.of(context).email),
       ],
     );
   }
@@ -145,7 +147,7 @@ class _InfoTextFieldState extends State<_InfoTextField> {
                             ),
                           ),
                           const Text(
-                            ': ...............................................',
+                            ConstStrings.dots,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

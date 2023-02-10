@@ -38,6 +38,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   get: ^4.6.5
+  intl: 0.17.0
+  flutter_screenutil: 5.6.0
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.5
+  shared_preferences: ^2.0.17
+  cloud_firestore: ^4.0.5
+
+
+  flutter_localizations:
+    sdk: flutter
+
 
 dev_dependencies:
   flutter_test:
@@ -91,3 +102,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
