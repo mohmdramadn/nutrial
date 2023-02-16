@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "الآن ..\nحان الوقت لملء التطبيق الخاص بك لالمتابعة اليومية\nللوصول إلى هدفك"),
         "boardTwoTitle": MessageLookupByLibrary.simpleMessage(
             "حساب الكلوريز الي الجسم محتاجه"),
+        "cal": MessageLookupByLibrary.simpleMessage("Cal"),
         "calories": MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("حساب السعرات الحرارية"),
@@ -66,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "genderTitle": MessageLookupByLibrary.simpleMessage("اختر الجنس"),
         "height": MessageLookupByLibrary.simpleMessage("طولك"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "inviteFriend": MessageLookupByLibrary.simpleMessage("ادعو صديق"),
         "itemCalories":
             MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "itemName": MessageLookupByLibrary.simpleMessage("الاسم"),
@@ -77,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الان"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
+        "min": MessageLookupByLibrary.simpleMessage("الدقائق"),
         "muscles": MessageLookupByLibrary.simpleMessage("العضلات"),
         "musclesPercentage":
             MessageLookupByLibrary.simpleMessage("نسبة العضلات"),
@@ -97,25 +100,28 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور غير متطابقة"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "percentage": MessageLookupByLibrary.simpleMessage("النسب"),
+        "popUpNotification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("القائمة الرئيسية"),
         "reEnter": MessageLookupByLibrary.simpleMessage("اعد الكلمة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("ابحث عن تمرين"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "و اخيرا ادخل كلمة المرور الخاصة بك"),
-        "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "signup": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "السعرات الحرارية المحروقه بالنسبة لوزن الجسم ف الساعه"),
         "today": MessageLookupByLibrary.simpleMessage("اليوم"),
+        "total": MessageLookupByLibrary.simpleMessage("الإجمالي"),
         "totalWeight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "updateProfile":
             MessageLookupByLibrary.simpleMessage("تحديث البيانات الشخصية"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "water": MessageLookupByLibrary.simpleMessage("المياه"),
         "waterPercentage": MessageLookupByLibrary.simpleMessage("نسبة المياه"),
+        "weight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا"),
         "yesterday": MessageLookupByLibrary.simpleMessage("أمس")
       };

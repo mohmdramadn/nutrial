@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Now ..\nIts time to fill your own application for\nDaily follow up\nto reach your goal."),
         "boardTwoTitle": MessageLookupByLibrary.simpleMessage(
             "Calculate your needed calories per day"),
+        "cal": MessageLookupByLibrary.simpleMessage("Cal"),
         "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("Calories Calculator"),
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "genderTitle": MessageLookupByLibrary.simpleMessage("Choose sex"),
         "height": MessageLookupByLibrary.simpleMessage("Height"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
+        "inviteFriend": MessageLookupByLibrary.simpleMessage("Invite a friend"),
         "itemCalories": MessageLookupByLibrary.simpleMessage("Item calories"),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("Item quantity"),
@@ -80,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "male": MessageLookupByLibrary.simpleMessage("MALE"),
+        "min": MessageLookupByLibrary.simpleMessage("Minutes"),
         "muscles": MessageLookupByLibrary.simpleMessage("Muscles"),
         "musclesPercentage":
             MessageLookupByLibrary.simpleMessage("Muscles percentage"),
@@ -98,10 +101,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
+        "popUpNotification":
+            MessageLookupByLibrary.simpleMessage("Pop-up Notifications"),
         "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
-        "searchWorkout": MessageLookupByLibrary.simpleMessage("Search WorkOut"),
+        "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
@@ -111,12 +116,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "Calories burned/ hour based on body weight"),
         "today": MessageLookupByLibrary.simpleMessage("TODAY"),
+        "total": MessageLookupByLibrary.simpleMessage("Total"),
         "totalWeight": MessageLookupByLibrary.simpleMessage("Total weight"),
         "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
         "username": MessageLookupByLibrary.simpleMessage("User Name"),
         "water": MessageLookupByLibrary.simpleMessage("Water"),
         "waterPercentage":
             MessageLookupByLibrary.simpleMessage("Water percentage"),
+        "weight": MessageLookupByLibrary.simpleMessage("Weight"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "yesterday": MessageLookupByLibrary.simpleMessage("YESTERDAY")
       };

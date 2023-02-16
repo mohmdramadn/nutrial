@@ -75,5 +75,12 @@
        "lastBodyComp":"اخر تكوين للجسم",
        "updateProfile":"تحديث البيانات الشخصية",
        "id":"ID",
-       "totalWeight":"الوزن"
+       "totalWeight":"الوزن",
+       "settings":"الإعدادات",
+       "popUpNotification":"الإشعارات",
+       "inviteFriend":"ادعو صديق",
+       "total":"الإجمالي",
+       "cal":"Cal",
+       "min":"الدقائق",
+       "weight":"الوزن"
 }

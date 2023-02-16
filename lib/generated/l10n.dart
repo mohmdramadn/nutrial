@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  /// `Search WorkOut`
+  /// `Search workout`
   String get searchWorkout {
     return Intl.message(
-      'Search WorkOut',
+      'Search workout',
       name: 'searchWorkout',
       desc: '',
       args: [],
@@ -755,6 +755,66 @@ class S {
     return Intl.message(
       'Total weight',
       name: 'totalWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pop-up Notifications`
+  String get popUpNotification {
+    return Intl.message(
+      'Pop-up Notifications',
+      name: 'popUpNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite a friend`
+  String get inviteFriend {
+    return Intl.message(
+      'Invite a friend',
+      name: 'inviteFriend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cal`
+  String get cal {
+    return Intl.message(
+      'Cal',
+      name: 'cal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minutes`
+  String get min {
+    return Intl.message(
+      'Minutes',
+      name: 'min',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight`
+  String get weight {
+    return Intl.message(
+      'Weight',
+      name: 'weight',
       desc: '',
       args: [],
     );
