@@ -44,6 +44,9 @@ dependencies:
   firebase_auth: ^4.2.5
   shared_preferences: ^2.0.17
   cloud_firestore: ^4.0.5
+  toggle_switch: ^1.4.0
+  persistent_bottom_nav_bar: ^5.0.2
+  dotted_line: ^3.1.0
 
 
   flutter_localizations:

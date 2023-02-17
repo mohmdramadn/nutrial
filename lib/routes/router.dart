@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
 import 'package:nutrial/screens/cardio/cardio_screen.dart';
+import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/screens/login/login_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/age_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/gender_screen.dart';
@@ -83,6 +84,10 @@ Route onGenerateRoute(RouteSettings settings) {
       case sessionsRoute:
       return MaterialPageRoute(
           builder: (context) => const SessionsScreen(), settings: settings);
+
+      case homeRoute:
+      return MaterialPageRoute(
+          builder: (context) => const HomeScreen(), settings: settings);
 
     default:
       return MaterialPageRoute(builder: (context) => const WelcomeScreen());

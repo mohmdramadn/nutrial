@@ -38,7 +38,7 @@ class SignUpViewModel extends ChangeNotifier {
       return;
     }
     setLoadingState(false);
-    Get.toNamed(homeRoute);
+    Get.toNamed(profileRoute);
     notifyListeners();
   }
 
@@ -51,6 +51,6 @@ class SignUpViewModel extends ChangeNotifier {
   Future<void> snapchatSignUpAsync() async {}
 
   void skipAction() {
-    Get.toNamed(homeRoute);
+    Get.toNamed(profileRoute);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:nutrial/routes/routes_names.dart';
 
 class LoginViewModel extends ChangeNotifier{
   final TextEditingController nameController = TextEditingController();
@@ -15,5 +17,7 @@ class LoginViewModel extends ChangeNotifier{
   Future<void> loginWithAppleAsync()async{}
   Future<void> loginWithFacebookAsync()async{}
   Future<void> loginWithSnapchatAsync()async{}
-  void skipAction()async{}
+  void skipAction(){
+    Get.toNamed(homeRoute);
+  }
 }

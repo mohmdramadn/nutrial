@@ -11,6 +11,7 @@ const String percentageRoute = 'percentageRoute';
 const String userInfoRoute = 'userInfoRoute';
 const String passwordRoute = 'passwordRoute';
 const String profileRoute = 'profileRoute';
+const String homeRoute = 'homeRoute';
 const String categoriesRoute = 'categoriesRoute';
 const String cardioRoute = 'cardioRoute';
 const String sessionsRoute = 'sessionsRoute';

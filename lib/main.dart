@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
         providers: provider,
         child: GetMaterialApp(
           useInheritedMediaQuery: true,
+          debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
           title: 'Nutrial',
           theme: ThemeData(
@@ -78,7 +79,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: S.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
           opaqueRoute: Get.isOpaqueRouteDefault,
-          // home: const HomeScreen(),
+          color: AppColors.backgroundColor,
         ),
       ),
     );

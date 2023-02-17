@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
@@ -27,37 +28,39 @@ class _Body extends StatelessWidget {
 
     return Scaffold(
       key: scaffoldKey,
-      body: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          height: size.height,
-          decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
-                  fit: BoxFit.cover),
-              color: Colors.grey[800]),
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _HeaderLogo(size: size),
-                  SizedBox(height: size.height * 0.08),
-                  const _UserName(),
-                  const SizedBox(height: 10),
-                  const _Password(),
-                  SizedBox(height: size.height * 0.015),
-                  const _LoginButton(),
-                  const SizedBox(height: 60),
-                  const _SocialMediaDivider(),
-                  const SizedBox(height: 20),
-                  const _SocialMedia(),
-                  const SizedBox(height: 10),
-                ],
-              ),
-              const _PoweredByLogo(),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            width: size.width,
+            height: size.height,
+            decoration: BoxDecoration(
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.cover),
+                color: Colors.grey[800]),
+            child: Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _HeaderLogo(size: size),
+                    SizedBox(height: 10.h),
+                    const _UserName(),
+                    SizedBox(height: 10.h),
+                    const _Password(),
+                    SizedBox(height: 10.h),
+                    const _LoginButton(),
+                    SizedBox(height: 10.h),
+                    const _SocialMediaDivider(),
+                    SizedBox(height: 20.h),
+                    const _SocialMedia(),
+                    SizedBox(height: 10.h),
+                  ],
+                ),
+                const _PoweredByLogo(),
+              ],
+            ),
           ),
         ),
       ),
@@ -155,7 +158,8 @@ class _Password extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.select((LoginViewModel vm) => vm.passwordController);
+    var controller =
+        context.select((LoginViewModel vm) => vm.passwordController);
     var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +187,8 @@ class _Password extends StatelessWidget {
           child: TextField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: '.....................................................',
+                hintText:
+                    '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -228,7 +233,8 @@ class _UserName extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             decoration: const InputDecoration(
-                hintText: '.....................................................',
+                hintText:
+                    '.....................................................',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
                 hintStyle: TextStyle(fontSize: 15)),
@@ -252,7 +258,7 @@ class _HeaderLogo extends StatelessWidget {
     return SizedBox(
       width: size.width * 0.8,
       height: size.height * 0.4,
-      child: Image.asset('assets/images/logo.png'),
+      child: Image.asset('assets/images/logo.png', scale: 1.5),
     );
   }
 }
@@ -265,51 +271,50 @@ class _PoweredByLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset('assets/images/powerBy.png'),
-          Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: GestureDetector(
-              onTap: () {
-                //TODO adjust navigation
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.darkPrimaryColor,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5.0, left: 5.0),
-                        child: Text(
-                          S.of(context).skip,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            letterSpacing: 2.5,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/images/powerBy.png'),
+            Padding(
+              padding: const EdgeInsets.only(right: 18.0),
+              child: GestureDetector(
+                onTap: ()=> context.read<LoginViewModel>().skipAction(),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.darkPrimaryColor,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0, left: 5.0),
+                          child: Text(
+                            S.of(context).skip,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 2.5,
+                            ),
                           ),
                         ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                        size: 15,
-                      )
-                    ],
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
 
