@@ -13,7 +13,7 @@ class PdfViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createTableRowsInitAsync() {
+  void createTableRowsInit() {
     for (int index = 0; index < items.length; index++) {
       itemsList.add(
         ItemModel(

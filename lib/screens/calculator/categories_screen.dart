@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/calculator/categories_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -58,19 +59,19 @@ class _Body extends StatelessWidget {
               _CategoryCard(
                 size: size,
                 image: 'assets/images/calories_background.png',
-                title: 'calories',
+                title: S.of(context).calories,
               ),
               SizedBox(height: size.height * 0.015),
               _CategoryCard(
                 size: size,
                 image: 'assets/images/water_background.png',
-                title: 'water',
+                title: S.of(context).water,
               ),
               SizedBox(height: size.height * 0.015),
               _CategoryCard(
                 size: size,
                 image: 'assets/images/cardio_background.png',
-                title: 'cardio',
+                title: S.of(context).cardio,
               ),
               SizedBox(height: 50.h),
             ],
@@ -96,7 +97,8 @@ class _CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.read<CategoriesViewModel>().navigateToExercise(),
+      onTap: () =>
+          context.read<CategoriesViewModel>().navigateToExercise(screen: title),
       child: Container(
         height: size.height * 0.14,
         width: size.width * 0.799,

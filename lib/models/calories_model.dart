@@ -3,147 +3,147 @@ import 'package:nutrial/models/piece_model.dart';
 
 class CaloriesDB {
   final List<dynamic> calories = [
-    PieceModel(itemName: 'Egg_White', itemCalories: 17, itemQuantity: 'piece'),
+    PieceModel(itemName: 'Egg White', itemCalories: 17, itemQuantity: 'piece'),
 
     GmsModel(
-        itemName: 'Boiled_Chicken_Skinless_Breast',
+        itemName: 'BoiledChicken Skinless Breast',
         itemCalories: 155,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Chicken_Skinless_thigh',
+        itemName: 'Boiled Chicken Skinless thigh',
         itemCalories: 195,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_lean_Beef',
+        itemName: 'Boiled lean Beef',
         itemCalories: 150,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Chicken_liver', itemCalories: 180, itemQuantity: '100 gms'),
-    GmsModel(itemName: 'Egg_White', itemCalories: 17, itemQuantity: '100 gms'),
+        itemName: 'Chicken liver', itemCalories: 180, itemQuantity: '100 gms'),
+    GmsModel(itemName: 'Egg White', itemCalories: 17, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Bolty', itemCalories: 140, itemQuantity: '100 gms'),
+        itemName: 'Grilled Bolty', itemCalories: 140, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Bory', itemCalories: 150, itemQuantity: '100 gms'),
+        itemName: 'Grilled Bory', itemCalories: 150, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_calamari',
+        itemName: 'Grilled calamari',
         itemCalories: 140,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Chicken_Skinless_Breast',
+        itemName: 'Grilled Chicken Skinless Breast',
         itemCalories: 170,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Chicken_Skinless_thigh',
+        itemName: 'Grilled Chicken Skinless thigh',
         itemCalories: 210,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Crab', itemCalories: 100, itemQuantity: '100 gms'),
+        itemName: 'Grilled Crab', itemCalories: 100, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Denes', itemCalories: 90, itemQuantity: '100 gms'),
+        itemName: 'Grilled Denes', itemCalories: 90, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Dove_hamam',
+        itemName: 'Grilled Dove hamam',
         itemCalories: 220,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_fillet_keshr_bayad',
+        itemName: 'Grilled fillet keshr bayad',
         itemCalories: 100,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_lean_beef_or_steak',
+        itemName: 'Grilled lean beef or steak',
         itemCalories: 190,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Mackrel',
+        itemName: 'Grilled Mackrel',
         itemCalories: 270,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_Mackrel_liver',
+        itemName: 'Grilled Mackrel liver',
         itemCalories: 200,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_minced_beef_or_kofta',
+        itemName: 'Grilled minced beef or kofta',
         itemCalories: 280,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_moussa', itemCalories: 100, itemQuantity: '100 gms'),
+        itemName: 'Grilled moussa', itemCalories: 100, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_rabbit', itemCalories: 190, itemQuantity: '100 gms'),
+        itemName: 'Grilled rabbit', itemCalories: 190, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_salmon', itemCalories: 170, itemQuantity: '100 gms'),
+        itemName: 'Grilled salmon', itemCalories: 170, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_shrimps',
+        itemName: 'Grilled shrimps',
         itemCalories: 100,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_skinless_duck',
+        itemName: 'Grilled skinless duck',
         itemCalories: 205,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_turkey_skinless_breast',
+        itemName: 'Grilled turkey skinless breast',
         itemCalories: 150,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_turkey_skinless_thigh',
+        itemName: 'Grilled turkey skinless thigh',
         itemCalories: 170,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Grilled_wakar', itemCalories: 100, itemQuantity: '100 gms'),
+        itemName: 'Grilled wakar', itemCalories: 100, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Sardines', itemCalories: 220, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'water_Canned_light_tuna',
+        itemName: 'water Canned light tuna',
         itemCalories: 200,
         itemQuantity: 'can'),
 
     GmsModel(
-        itemName: 'Air_popped_Corn',
+        itemName: 'Air popped Corn',
         itemCalories: 390,
         itemQuantity: '100 gms'),
     GmsModel(itemName: 'Apple', itemCalories: 60, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Apricot', itemCalories: 50, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Aresh_Cheese', itemCalories: 110, itemQuantity: '100 gms'),
+        itemName: 'Aresh Cheese', itemCalories: 110, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Arsya', itemCalories: 250, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Artichoke', itemCalories: 50, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Avocado_(fats)', itemCalories: 180, itemQuantity: '100 gms'),
+        itemName: 'Avocado (fats)', itemCalories: 180, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Balady_Bread', itemCalories: 300, itemQuantity: '100 gms'),
+        itemName: 'Balady Bread', itemCalories: 300, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Banana', itemCalories: 95, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'BBQ_Sauce_(12g)',
+        itemName: 'BBQ Sauce (12g)',
         itemCalories: 25,
         itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'Beets', itemCalories: 60, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Berries', itemCalories: 60, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Beans_Fool',
+        itemName: 'Boiled Beans Fool',
         itemCalories: 120,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Chickpeas',
+        itemName: 'Boiled Chickpeas',
         itemCalories: 180,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Freek', itemCalories: 130, itemQuantity: '100 gms'),
+        itemName: 'Boiled Freek', itemCalories: 130, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Green_peas',
+        itemName: 'Boiled Green peas',
         itemCalories: 90,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_Lupine', itemCalories: 120, itemQuantity: '100 gms'),
+        itemName: 'Boiled Lupine', itemCalories: 120, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_pasta', itemCalories: 160, itemQuantity: '100 gms'),
+        itemName: 'Boiled pasta', itemCalories: 160, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_potato', itemCalories: 100, itemQuantity: '100 gms'),
+        itemName: 'Boiled potato', itemCalories: 100, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_ricc', itemCalories: 130, itemQuantity: '100 gms'),
+        itemName: 'Boiled ricc', itemCalories: 130, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Boiled_taro', itemCalories: 150, itemQuantity: '100 gms'),
+        itemName: 'Boiled taro', itemCalories: 150, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Broccoli', itemCalories: 35, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Butter_(fats)', itemCalories: 900, itemQuantity: '100 gms'),
+        itemName: 'Butter (fats)', itemCalories: 900, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Cabbage', itemCalories: 30, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Cantaloupe', itemCalories: 50, itemQuantity: '100 gms'),
 
@@ -151,47 +151,47 @@ class CaloriesDB {
     GmsModel(
         itemName: 'Cauliflower', itemCalories: 35, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Cheddar_cheese(fats)',
+        itemName: 'Cheddar cheese(fats)',
         itemCalories: 400,
         itemQuantity: '100 gms'),
     GmsModel(itemName: 'Cherries', itemCalories: 60, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Chia_Seeds', itemCalories: 500, itemQuantity: '100 gms'),
+        itemName: 'Chia Seeds', itemCalories: 500, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Coconut_(fats)', itemCalories: 370, itemQuantity: '100 gms'),
+        itemName: 'Coconut (fats)', itemCalories: 370, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'Coconut_milk_(fats)',
+        itemName: 'Coconut milk (fats)',
         itemCalories: 140,
         itemQuantity: '100 ml'),
     GmsModel(
-        itemName: 'Coloured_pepper', itemCalories: 35, itemQuantity: '100 gms'),
+        itemName: 'Coloured pepper', itemCalories: 35, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Corn_oil_(fats)',
+        itemName: 'Corn oil (fats)',
         itemCalories: 45,
         itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'Date', itemCalories: 300, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Edamame', itemCalories: 130, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Egg_Yolk_(fats)', itemCalories: 70, itemQuantity: 'piece'),
+        itemName: 'Egg Yolk (fats)', itemCalories: 70, itemQuantity: 'piece'),
     GmsModel(itemName: 'Eggplant', itemCalories: 40, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Flaxseed_Oil_(fats)',
+        itemName: 'Flaxseed Oil (fats)',
         itemCalories: 45,
         itemQuantity: 'teaspoon'),
     GmsModel(
-        itemName: 'Fresh_Orange_juice',
+        itemName: 'Fresh Orange juice',
         itemCalories: 55,
         itemQuantity: '100 ml'),
     GmsModel(
-        itemName: 'Full_cream_milk', itemCalories: 70, itemQuantity: '100 ml'),
+        itemName: 'Full cream milk', itemCalories: 70, itemQuantity: '100 ml'),
     GmsModel(
-        itemName: 'Full_Cream_Yogurt(105g)',
+        itemName: 'Full Cream Yogurt(105g)',
         itemCalories: 70,
         itemQuantity: 'smallcup'),
-    GmsModel(itemName: 'Garlic_Clove', itemCalories: 5, itemQuantity: 'piece'),
+    GmsModel(itemName: 'Garlic Clove', itemCalories: 5, itemQuantity: 'piece'),
     GmsModel(
-        itemName: 'Gouda_cheese_(fats)',
+        itemName: 'Gouda cheese (fats)',
         itemCalories: 380,
         itemQuantity: '100 gms'),
     GmsModel(itemName: 'Grapefruit', itemCalories: 45, itemQuantity: '100 gms'),
@@ -199,45 +199,45 @@ class CaloriesDB {
     GmsModel(itemName: 'Guava', itemCalories: 70, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'Half_Cream_MILK', itemCalories: 55, itemQuantity: '100 ml'),
+        itemName: 'Half Cream MILK', itemCalories: 55, itemQuantity: '100 ml'),
     GmsModel(itemName: 'Harankash', itemCalories: 60, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Hazelnuts', itemCalories: 750, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Honey(8g)', itemCalories: 30, itemQuantity: 'teaspoon'),
-    GmsModel(itemName: 'jam_diet', itemCalories: 250, itemQuantity: '100 gms'),
+    GmsModel(itemName: 'jam diet', itemCalories: 250, itemQuantity: '100 gms'),
     GmsModel(
         itemName: 'ketchuo(12g)', itemCalories: 15, itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'kiwi', itemCalories: 65, itemQuantity: '100 gms'),
     GmsModel(itemName: 'lemon', itemCalories: 17, itemQuantity: 'piece'),
     GmsModel(
-        itemName: 'lemon_greek_yogurt(105g)',
+        itemName: 'lemon greek yogurt(105g)',
         itemCalories: 55,
         itemQuantity: 'smallcup'),
 
     GmsModel(
-        itemName: 'Light_White_Cheese',
+        itemName: 'Light White Cheese',
         itemCalories: 180,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Light_yogurt(105g)',
+        itemName: 'Light yogurt(105g)',
         itemCalories: 50,
         itemQuantity: 'smallcup'),
     GmsModel(itemName: 'Mango', itemCalories: 80, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'mayonnaise_light(10g)(fats)',
+        itemName: 'mayonnaise light(10g)(fats)',
         itemCalories: 35,
         itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'Molasses', itemCalories: 25, itemQuantity: 'teaspoon'),
     GmsModel(
-        itemName: 'Moarella_Cheese',
+        itemName: 'Moarella Cheese',
         itemCalories: 300,
         itemQuantity: '100 gms'),
     GmsModel(itemName: 'Mshmsheya', itemCalories: 250, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Mushrooms', itemCalories: 40, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Olive_Oil(fats)',
+        itemName: 'Olive Oil(fats)',
         itemCalories: 45,
         itemQuantity: 'teaspoon'),
-    GmsModel(itemName: 'Olive_(fats)', itemCalories: 6, itemQuantity: 'peice'),
+    GmsModel(itemName: 'Olive (fats)', itemCalories: 6, itemQuantity: 'peice'),
     GmsModel(itemName: 'Onions', itemCalories: 40, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Orange', itemCalories: 50, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Peach', itemCalories: 40, itemQuantity: '100 gms'),
@@ -248,88 +248,88 @@ class CaloriesDB {
         itemName: 'pomegranates', itemCalories: 85, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'pomegranates_molasses',
+        itemName: 'pomegranates molasses',
         itemCalories: 25,
         itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'pumpkin', itemCalories: 30, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'pumpkin_seeds', itemCalories: 500, itemQuantity: '100 gms'),
+        itemName: 'pumpkin seeds', itemCalories: 500, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Raisins', itemCalories: 300, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_ALmonds_(fats)',
+        itemName: 'Raw ALmonds (fats)',
         itemCalories: 580,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Belila', itemCalories: 380, itemQuantity: '100 gms'),
+        itemName: 'Raw Belila', itemCalories: 380, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Cashew(fats)',
+        itemName: 'Raw Cashew(fats)',
         itemCalories: 550,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Lentils', itemCalories: 360, itemQuantity: '100 gms'),
-    GmsModel(itemName: 'Raw_Oats', itemCalories: 380, itemQuantity: '100 gms'),
+        itemName: 'Raw Lentils', itemCalories: 360, itemQuantity: '100 gms'),
+    GmsModel(itemName: 'Raw Oats', itemCalories: 380, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Peanut_butter(fats)',
+        itemName: 'Raw Peanut butter(fats)',
         itemCalories: 580,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Peanuts(fats)',
+        itemName: 'Raw Peanuts(fats)',
         itemCalories: 550,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_pecan(fats)',
+        itemName: 'Raw pecan(fats)',
         itemCalories: 700,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_pistachio(fats)',
+        itemName: 'Raw pistachio(fats)',
         itemCalories: 560,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Raw_Quinoa', itemCalories: 387, itemQuantity: '100 gms'),
+        itemName: 'Raw Quinoa', itemCalories: 387, itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'Raw_Walnuts(fats)',
+        itemName: 'Raw Walnuts(fats)',
         itemCalories: 660,
         itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Romy_Cheese(fats)',
+        itemName: 'Romy Cheese(fats)',
         itemCalories: 410,
         itemQuantity: '100 gms'),
 
     GmsModel(
-        itemName: 'Skimmed_milk', itemCalories: 35, itemQuantity: '100 ml'),
+        itemName: 'Skimmed milk', itemCalories: 35, itemQuantity: '100 ml'),
     GmsModel(itemName: 'Strawberry', itemCalories: 40, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Suger(4g)', itemCalories: 17, itemQuantity: 'teaspoon'),
     GmsModel(
-        itemName: 'Sunflower_oil(fats)',
+        itemName: 'Sunflower oil(fats)',
         itemCalories: 45,
         itemQuantity: 'teaspoon'),
 
     GmsModel(
-        itemName: 'Sunflower_seeds_(fats)',
+        itemName: 'Sunflower seeds (fats)',
         itemCalories: 600,
         itemQuantity: '100 gms'),
-    GmsModel(itemName: 'Sweet_corn', itemCalories: 90, itemQuantity: '100 gms'),
+    GmsModel(itemName: 'Sweet corn', itemCalories: 90, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Sweet_potato', itemCalories: 90, itemQuantity: '100 gms'),
+        itemName: 'Sweet potato', itemCalories: 90, itemQuantity: '100 gms'),
     GmsModel(
         itemName: 'Tahini(5g)(fats)',
         itemCalories: 45,
         itemQuantity: 'teaspoon'),
     GmsModel(itemName: 'Tangerine', itemCalories: 65, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Teen_barshomy', itemCalories: 70, itemQuantity: 'piece'),
-    GmsModel(itemName: 'Teen_shoky', itemCalories: 45, itemQuantity: 'piece'),
+        itemName: 'Teen barshomy', itemCalories: 70, itemQuantity: 'piece'),
+    GmsModel(itemName: 'Teen shoky', itemCalories: 45, itemQuantity: 'piece'),
     GmsModel(itemName: 'Tomato', itemCalories: 20, itemQuantity: '100 gms'),
     GmsModel(itemName: 'Watermelon', itemCalories: 35, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'White_beans', itemCalories: 150, itemQuantity: '100 gms'),
+        itemName: 'White beans', itemCalories: 150, itemQuantity: '100 gms'),
     GmsModel(
-        itemName: 'Whole_Wheat_brown_toast',
+        itemName: 'Whole Wheat brown toast',
         itemCalories: 75,
         itemQuantity: 'piece'),
     GmsModel(
-        itemName: 'Whole_wheat_flour',
+        itemName: 'Whole wheat flour',
         itemCalories: 400,
         itemQuantity: '100 gms'),
 

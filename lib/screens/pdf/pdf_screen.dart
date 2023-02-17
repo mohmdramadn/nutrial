@@ -26,7 +26,7 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PdfViewModel>().createTableRowsInitAsync();
+      context.read<PdfViewModel>().createTableRowsInit();
     });
     super.initState();
   }
