@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
 
-class HomeDetailsItem extends StatelessWidget {
-  const HomeDetailsItem({
+class ProfileDetailsItem extends StatelessWidget {
+  const ProfileDetailsItem({
     Key? key,
     required this.title,
     required this.value,

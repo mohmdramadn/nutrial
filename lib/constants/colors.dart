@@ -11,6 +11,7 @@ class AppColors{
   static const Color primaryTextColor = Color(0xFF7EA382);
   static const Color primaryLightColor = Color(0xFF6D7D6D);
   static const Color primaryLightColor2 = Color(0xFFB8CEBB);
+  static const Color primaryLightColor3 = Color(0xFF4C946C);
   static const Color textFieldColor = Color(0xFFB3C9B6);
   static const Color errorColor = Color(0xFFCD1D1D);
   static const Color redColorLight = Color(0xFFFEC9B9);
@@ -18,4 +19,9 @@ class AppColors{
   static const Color orangeTextColor = Color(0xFFFCA17D);
   static const Color yellowTextColor = Color(0xFFFEFDE3);
   static const Color backgroundColor = Color(0xFF505050);
+  static const Color settingsHeaderColor = Color(0xFF3E5F4D);
+  static const Color settingsBoxColor = Color(0xFF747B65);
+  static const Color settingsTitleBoxColor = Color(0xFFC7DC96);
+  static const Color cardioHeaderColor = Color(0xFF4545D6);
+  static const Color saveButtonColor = Color(0xFFE59D80);
 }
