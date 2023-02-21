@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
+import 'package:nutrial/screens/calories/calories_screen.dart';
 import 'package:nutrial/screens/cardio/cardio_screen.dart';
 import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/screens/login/login_screen.dart';
@@ -88,6 +89,10 @@ Route onGenerateRoute(RouteSettings settings) {
       case homeRoute:
       return MaterialPageRoute(
           builder: (context) => const HomeScreen(), settings: settings);
+
+    case caloriesRoute:
+      return MaterialPageRoute(
+          builder: (context) => const CaloriesScreen(), settings: settings);
 
     default:
       return MaterialPageRoute(builder: (context) => const WelcomeScreen());
