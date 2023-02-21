@@ -68,5 +68,19 @@
        "reEnter":"اعد الكلمة",
        "signup":"إنشاء حساب جديد",
        "error":"حدث خطأ برجاء المحاولة في وقت لاحق",
-       "passNotMatching":"كلمة المرور غير متطابقة"
+       "passNotMatching":"كلمة المرور غير متطابقة",
+       "welcome":"أهلا",
+       "myOtherCalories":"الكالوريز الأخري",
+       "changePassword":"تغيير كلمة المرور",
+       "lastBodyComp":"اخر تكوين للجسم",
+       "updateProfile":"تحديث البيانات الشخصية",
+       "id":"ID",
+       "totalWeight":"الوزن",
+       "settings":"الإعدادات",
+       "popUpNotification":"الإشعارات",
+       "inviteFriend":"ادعو صديق",
+       "total":"الإجمالي",
+       "cal":"Cal",
+       "min":"الدقائق",
+       "weight":"الوزن"
 }

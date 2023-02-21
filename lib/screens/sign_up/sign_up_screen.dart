@@ -56,7 +56,7 @@ class _Body extends StatelessWidget {
                   const SizedBox(height: 10),
                   const _Password(),
                   SizedBox(height: size.height * 0.015),
-                  const _signUpButton(),
+                  const _SignUpButton(),
                   const SizedBox(height: 60),
                   const _SocialMediaDivider(),
                   const SizedBox(height: 20),
@@ -324,8 +324,8 @@ class _PoweredByLogo extends StatelessWidget {
   }
 }
 
-class _signUpButton extends StatelessWidget {
-  const _signUpButton({
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton({
     Key? key,
   }) : super(key: key);
 

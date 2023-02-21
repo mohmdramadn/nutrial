@@ -150,10 +150,10 @@ class S {
     );
   }
 
-  /// `Log out`
+  /// `Logout`
   String get logout {
     return Intl.message(
-      'Log out',
+      'Logout',
       name: 'logout',
       desc: '',
       args: [],
@@ -230,10 +230,10 @@ class S {
     );
   }
 
-  /// `AGE`
+  /// `Age`
   String get ageTitle {
     return Intl.message(
-      'AGE',
+      'Age',
       name: 'ageTitle',
       desc: '',
       args: [],
@@ -250,10 +250,10 @@ class S {
     );
   }
 
-  /// `HEIGHT`
+  /// `Height`
   String get height {
     return Intl.message(
-      'HEIGHT',
+      'Height',
       name: 'height',
       desc: '',
       args: [],
@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  /// `Search WorkOut`
+  /// `Search workout`
   String get searchWorkout {
     return Intl.message(
-      'Search WorkOut',
+      'Search workout',
       name: 'searchWorkout',
       desc: '',
       args: [],
@@ -705,6 +705,116 @@ class S {
     return Intl.message(
       'Passwords doesn\'t match',
       name: 'passNotMatching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome`
+  String get welcome {
+    return Intl.message(
+      'Welcome',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Other Calories`
+  String get myOtherCalories {
+    return Intl.message(
+      'My Other Calories',
+      name: 'myOtherCalories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Body Composition`
+  String get lastBodyComp {
+    return Intl.message(
+      'Last Body Composition',
+      name: 'lastBodyComp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total weight`
+  String get totalWeight {
+    return Intl.message(
+      'Total weight',
+      name: 'totalWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pop-up Notifications`
+  String get popUpNotification {
+    return Intl.message(
+      'Pop-up Notifications',
+      name: 'popUpNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite a friend`
+  String get inviteFriend {
+    return Intl.message(
+      'Invite a friend',
+      name: 'inviteFriend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cal`
+  String get cal {
+    return Intl.message(
+      'Cal',
+      name: 'cal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minutes`
+  String get min {
+    return Intl.message(
+      'Minutes',
+      name: 'min',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight`
+  String get weight {
+    return Intl.message(
+      'Weight',
+      name: 'weight',
       desc: '',
       args: [],
     );

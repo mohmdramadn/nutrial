@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/routes/routes_names.dart';
+import 'package:nutrial/screens/calculator/categories_screen.dart';
+import 'package:nutrial/screens/calories/calories_screen.dart';
+import 'package:nutrial/screens/cardio/cardio_screen.dart';
+import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/screens/login/login_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/age_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/gender_screen.dart';
@@ -10,6 +14,9 @@ import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/steps_intr
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/third_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/user_info_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_screen.dart';
+import 'package:nutrial/screens/profile/profile_screen.dart';
+import 'package:nutrial/screens/sessions/sessions_screen.dart';
+
 import 'package:nutrial/screens/sign_up/sign_up_screen.dart';
 import 'package:nutrial/screens/welcome_screen/welcome_screen.dart';
 
@@ -62,6 +69,30 @@ Route onGenerateRoute(RouteSettings settings) {
     case passwordRoute:
       return MaterialPageRoute(
           builder: (context) => const PasswordScreen(), settings: settings);
+
+      case profileRoute:
+      return MaterialPageRoute(
+          builder: (context) => const ProfileScreen(), settings: settings);
+
+      case categoriesRoute:
+      return MaterialPageRoute(
+          builder: (context) => const CategoriesScreen(), settings: settings);
+
+      case cardioRoute:
+      return MaterialPageRoute(
+          builder: (context) => const CardioScreen(), settings: settings);
+
+      case sessionsRoute:
+      return MaterialPageRoute(
+          builder: (context) => const SessionsScreen(), settings: settings);
+
+      case homeRoute:
+      return MaterialPageRoute(
+          builder: (context) => const HomeScreen(), settings: settings);
+
+    case caloriesRoute:
+      return MaterialPageRoute(
+          builder: (context) => const CaloriesScreen(), settings: settings);
 
     default:
       return MaterialPageRoute(builder: (context) => const WelcomeScreen());
