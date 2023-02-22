@@ -100,10 +100,9 @@ class _CategoryCard extends StatelessWidget {
       onTap: () =>
           context.read<CategoriesViewModel>().navigateToExercise(screen: title),
       child: Container(
-        height: size.height * 0.14,
+        height: size.height * 0.20,
         width: size.width * 0.799,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
           image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
         ),
         child: Align(
