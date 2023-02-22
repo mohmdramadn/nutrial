@@ -87,8 +87,15 @@ class CaloriesViewModel extends ChangeNotifier{
   double proteinGoalCalories = 100;
   double proteinProgressRatio = 0.0;
 
-  bool _isAboveGoal = false;
-  bool get isAboveGoal => _isAboveGoal;
+  double totalCarbsCalories = 0;
+  double carbsGoalCalories = 1000;
+  double carbsProgressRatio = 0.0;
+
+  bool _isMetProteinGoal = false;
+  bool get isMetProteinGoal => _isMetProteinGoal;
+
+  bool _isMetCarbsGoal = false;
+  bool get isMetCarbsGoal => _isMetCarbsGoal;
 
   int _waterBottlesCount = 0;
   int get waterBottlesCount => _waterBottlesCount;
@@ -132,7 +139,7 @@ class CaloriesViewModel extends ChangeNotifier{
 
   void _resetCarbsValues() {
     _selectedCarbsItem = null;
-    _calculatedProteinCalories = '0';
+    _calculatedCarbsCalories = '0';
     carbsQtyController.text = '';
   }
 
@@ -164,6 +171,7 @@ class CaloriesViewModel extends ChangeNotifier{
     item!.itemQuantity = carbsQtyController.text;
     item.totalCal = double.tryParse(_calculatedCarbsCalories!);
     _carbsSelectedItems.add(item);
+    calculateCarbsProgress();
     notifyListeners();
   }
 
@@ -207,8 +215,19 @@ class CaloriesViewModel extends ChangeNotifier{
 
   void calculateProteinProgress() {
     totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
-    proteinProgressRatio = ((totalProteinCalories * 1.0) / 100);
-    _isAboveGoal = totalProteinCalories > (proteinGoalCalories - 50);
+    proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
+    _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
+        totalProteinCalories <= (proteinGoalCalories + 50);
+    totalProteinCalories = totalProteinCalories.roundToDouble();
+    notifyListeners();
+  }
+
+  void calculateCarbsProgress() {
+    totalCarbsCalories += num.tryParse(_calculatedCarbsCalories!)!;
+    carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+    _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
+        totalCarbsCalories <= (carbsGoalCalories + 50);
+    totalCarbsCalories = totalCarbsCalories.roundToDouble();
     notifyListeners();
   }
 }

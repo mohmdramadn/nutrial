@@ -74,7 +74,7 @@ class _BodyState extends State<_Body> {
                   ),
                   LinearProgressIndicatorApp(
                     consumedCaloriesPercentage: vm.proteinProgressRatio,
-                    color: vm.isAboveGoal
+                    color: vm.isMetProteinGoal
                         ? const AlwaysStoppedAnimation<Color>(
                             AppColors.floatingButton)
                         : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
@@ -101,11 +101,18 @@ class _BodyState extends State<_Body> {
                     _SavedItems(itemsList: vm.proteinsSelectedItems),
                   if (showProteinMenu) const _Items(isProtein: true),
                   SizedBox(height: 50.h),
-                  const _CategoryImage(
+                  _CategoryImage(
                     imgName: 'fats',
                     isHasNumbers: true,
-                    caloriesRate: '1000',
-                    consumedCalories: '300',
+                    caloriesRate: vm.carbsGoalCalories.roundToDouble().toString(),
+                    consumedCalories: vm.totalCarbsCalories.toString(),
+                  ),
+                  LinearProgressIndicatorApp(
+                    consumedCaloriesPercentage: vm.carbsProgressRatio,
+                    color: vm.isMetCarbsGoal
+                        ? const AlwaysStoppedAnimation<Color>(
+                        AppColors.floatingButton)
+                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                   ),
                   const _HeaderCategory(isProtein: false),
                   if (vm.showNewCarbsItem)
