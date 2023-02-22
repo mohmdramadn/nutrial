@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nutrial/components/progress_bar.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
@@ -61,11 +62,27 @@ class _BodyState extends State<_Body> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 30.h),
-                  const _CategoryImage(imgName: 'protiens'),
+                  const _WaterHeader(),
+                  if (vm.waterBottlesCount != 0) const _WaterBottles(),
+                  SizedBox(height: 50.h),
+                  _CategoryImage(
+                    imgName: 'protiens',
+                    isHasNumbers: true,
+                    caloriesRate:
+                        vm.proteinGoalCalories.roundToDouble().toString(),
+                    consumedCalories: vm.totalProteinCalories.toString(),
+                  ),
+                  LinearProgressIndicatorApp(
+                    consumedCaloriesPercentage: vm.proteinProgressRatio,
+                    color: vm.isAboveGoal
+                        ? const AlwaysStoppedAnimation<Color>(
+                            AppColors.floatingButton)
+                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+                  ),
                   const _HeaderCategory(isProtein: true),
                   if (vm.showNewProteinItem)
                     NewItemsRow(
-                      itemName: 'Choose Item',
+                      itemName: S.of(context).chooseItem,
                       showMenu: showProteinMenu,
                       onMenuTapped: () => context
                           .read<CaloriesViewModel>()
@@ -83,7 +100,13 @@ class _BodyState extends State<_Body> {
                   if (vm.proteinsSelectedItems.length != 0)
                     _SavedItems(itemsList: vm.proteinsSelectedItems),
                   if (showProteinMenu) const _Items(isProtein: true),
-                  const _CategoryImage(imgName: 'fats'),
+                  SizedBox(height: 50.h),
+                  const _CategoryImage(
+                    imgName: 'fats',
+                    isHasNumbers: true,
+                    caloriesRate: '1000',
+                    consumedCalories: '300',
+                  ),
                   const _HeaderCategory(isProtein: false),
                   if (vm.showNewCarbsItem)
                     NewItemsRow(
@@ -110,6 +133,81 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _WaterBottles extends StatelessWidget {
+  const _WaterBottles({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+    var waterBottlesCount =
+        context.select((CaloriesViewModel vm) => vm.waterBottlesCount);
+
+    return Flexible(
+      child: Container(
+        height: 300.h,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(20.0),
+        child: GridView.builder(
+          controller: vm.scrollController,
+          itemCount: waterBottlesCount,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 2.0,
+            mainAxisSpacing: 2.0,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return Stack(
+              children: [
+                Center(
+                  child: Image.asset(
+                    'assets/images/water_bottle.png',
+                  ),
+                ),
+                Center(
+                  child: Image.asset(
+                    'assets/images/waterbottleSel.png',
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _WaterHeader extends StatelessWidget {
+  const _WaterHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Flexible(
+            child: _CategoryImage(
+              imgName: 'water',
+              isHasNumbers: false,
+            ),
+          ),
+          InkWell(
+            onTap: () =>
+                context.read<CaloriesViewModel>().addWaterBottleAction(),
+            child: Image.asset('assets/icons/add.png'),
+          )
+        ],
       ),
     );
   }
@@ -333,9 +431,15 @@ class _CategoryImage extends StatelessWidget {
   const _CategoryImage({
     Key? key,
     required this.imgName,
+    required this.isHasNumbers,
+    this.caloriesRate,
+    this.consumedCalories,
   }) : super(key: key);
 
   final String imgName;
+  final bool isHasNumbers;
+  final String? consumedCalories;
+  final String? caloriesRate;
 
   @override
   Widget build(BuildContext context) {
@@ -345,9 +449,17 @@ class _CategoryImage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
             child: Image.asset('assets/images/$imgName.png'),
           ),
+          if (isHasNumbers)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                '$consumedCalories / $caloriesRate',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
         ],
       ),
     );

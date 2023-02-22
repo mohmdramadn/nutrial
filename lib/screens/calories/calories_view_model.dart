@@ -83,6 +83,21 @@ class CaloriesViewModel extends ChangeNotifier{
   ItemModel? _selectedCarbsItem;
   ItemModel? get selectedCarbsItem => _selectedCarbsItem;
 
+  double totalProteinCalories = 0;
+  double proteinGoalCalories = 100;
+  double proteinProgressRatio = 0.0;
+
+  bool _isAboveGoal = false;
+  bool get isAboveGoal => _isAboveGoal;
+
+  int _waterBottlesCount = 0;
+  int get waterBottlesCount => _waterBottlesCount;
+
+  final ScrollController scrollController = ScrollController(
+    initialScrollOffset: 0.0,
+    keepScrollOffset: true,
+  );
+
   void onAddProteinButtonAction(){
     if(_selectedProteinItem == null){
       setNewProteinItemState();
@@ -139,31 +154,61 @@ class CaloriesViewModel extends ChangeNotifier{
 
   void _addProteinItemAction(ItemModel? item) {
     item!.itemQuantity = proteinQtyController.text;
-    item.totalCal = int.tryParse(_calculatedProteinCalories!);
+    item.totalCal = double.tryParse(_calculatedProteinCalories!);
     _proteinsSelectedItems.add(item);
+    calculateProteinProgress();
     notifyListeners();
   }
 
   void _addCarbsItemAction(ItemModel? item) {
     item!.itemQuantity = carbsQtyController.text;
-    item.totalCal = int.tryParse(_calculatedProteinCalories!);
+    item.totalCal = double.tryParse(_calculatedCarbsCalories!);
     _carbsSelectedItems.add(item);
     notifyListeners();
   }
 
-  void onProteinQuantityAddedAction(){
+  void onProteinQuantityAddedAction() {
     var numberOfPieces = int.tryParse(proteinQtyController.text) ?? 0;
-    var calories =
-        numberOfPieces * _selectedProteinItem!.itemCalories!;
+    var weightNumbers = _selectedProteinItem!.itemQuantity!.replaceAll(
+        RegExp(r'[^0-9]'), '');
+    var itemWeight = int.tryParse(weightNumbers);
+    var calories = itemWeight != null
+        ? (numberOfPieces * _selectedProteinItem!.itemCalories!) / itemWeight
+        : numberOfPieces * _selectedProteinItem!.itemCalories!;
     _calculatedProteinCalories = calories.toString();
     notifyListeners();
   }
 
-  void onCarbsQuantityAddedAction(){
+  void onCarbsQuantityAddedAction() {
     var numberOfPieces = int.tryParse(carbsQtyController.text) ?? 0;
-    var calories =
-        numberOfPieces * _selectedProteinItem!.itemCalories!;
+    var weightNumbers =
+        _selectedCarbsItem!.itemQuantity!.replaceAll(RegExp(r'[^0-9]'), '');
+    var itemWeight = int.tryParse(weightNumbers);
+    var calories = itemWeight != null
+        ? (numberOfPieces * _selectedCarbsItem!.itemCalories!) / itemWeight
+        : numberOfPieces * _selectedCarbsItem!.itemCalories!;
     _calculatedCarbsCalories = calories.toString();
+    notifyListeners();
+  }
+
+  void addWaterBottleAction() {
+    if(_waterBottlesCount != 0)_scrollToTheEndAction();
+    _waterBottlesCount++;
+    notifyListeners();
+  }
+
+  void _scrollToTheEndAction() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.bounceOut,
+    );
+  }
+
+  void calculateProteinProgress() {
+    totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
+    proteinProgressRatio = ((totalProteinCalories * 1.0) / 100);
+    _isAboveGoal = totalProteinCalories > (proteinGoalCalories - 50);
     notifyListeners();
   }
 }

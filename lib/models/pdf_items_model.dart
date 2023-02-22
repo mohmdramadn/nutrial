@@ -7,7 +7,7 @@ class ItemModel {
   TextEditingController? itemQty;
   bool? isEnableEditing;
   String? itemQtyNum;
-  int? totalCal;
+  double? totalCal;
 
   ItemModel({
     this.itemName,
