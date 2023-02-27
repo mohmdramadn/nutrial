@@ -15,6 +15,10 @@ class CardioExerciseViewModel extends ChangeNotifier{
   bool get isSuccess => _isSuccess;
   void setSuccessState(value){
     _isSuccess = value;
+    Future.delayed(const Duration(seconds: 3),(){
+      _isSuccess = !value;
+      notifyListeners();
+    });
     notifyListeners();
   }
 
@@ -46,7 +50,7 @@ class CardioExerciseViewModel extends ChangeNotifier{
         .value.replaceAll(RegExp(r'[^0-9]'), '');
     var calories = int.tryParse(caloriesValue);
     _totalCalories =
-        ((minutesInt! * calories!) / minutesInt).round().toString();
+        ((minutesInt! * calories!) / 60).round().toString();
     notifyListeners();
   }
 }

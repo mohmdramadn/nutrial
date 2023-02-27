@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/logo.dart';
 import 'package:nutrial/constants/colors.dart';
@@ -36,6 +37,7 @@ class _Body extends StatelessWidget {
             const _BackgroundImg(),
             SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 20.h),
@@ -48,7 +50,8 @@ class _Body extends StatelessWidget {
                       children: const [_Minutes(), _BodyWeight()],
                     ),
                   if (!isSuccess) SizedBox(height: size.height * 0.02),
-                  if (!isSuccess) _TotalCalories(size: size, total: 'total'),
+                  if (!isSuccess)
+                    Flexible(child: _TotalCalories(size: size, total: 'total')),
                   if (!isSuccess) const _SaveButton(),
                   if (!isSuccess) SizedBox(height: size.height * 0.04),
                   if (!isSuccess) _BottomKilosCalories(size: size)
@@ -167,7 +170,7 @@ class _TotalCalories extends StatelessWidget {
     var totalCalories =
         context.select((CardioExerciseViewModel vm) => vm.totalCalories);
     return Container(
-      width: size.width * 0.30,
+      width: 130.w,
       height: size.height * 0.06,
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -273,8 +276,8 @@ class _SaveButtonState extends State<_SaveButton> {
         context.select((CardioExerciseViewModel vm) => vm.isLoading);
 
     return ElevatedButton(
-      //TODO add save functionality
-      onPressed: () {},
+      onPressed: () =>
+          context.read<CardioExerciseViewModel>().setSuccessState(true),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: AppColors.saveButtonColor,
@@ -354,18 +357,27 @@ class _Minutes extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        Container(
-          width: 90,
-          height: 90,
-          decoration:
-              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        SizedBox(
+          width: 80,
           child: Center(
             child: TextField(
+              style: const TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
+              cursorColor: AppColors.floatingButton,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(3)
+              ],
               controller: controller,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 20, right: 20)),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 25),
+              ),
               onChanged: (min) => context
                   .read<CardioExerciseViewModel>()
                   .onMinutesChangedAction(min),
