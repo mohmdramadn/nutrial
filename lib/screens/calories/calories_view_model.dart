@@ -71,6 +71,8 @@ class CaloriesViewModel extends ChangeNotifier{
 
   TextEditingController proteinQtyController = TextEditingController();
   TextEditingController carbsQtyController = TextEditingController();
+  TextEditingController proteinGoalController = TextEditingController();
+  TextEditingController carbsGoalController = TextEditingController();
 
   List<ItemModel> _proteinsSelectedItems = [];
   List<ItemModel> get proteinsSelectedItems => _proteinsSelectedItems;
@@ -87,6 +89,20 @@ class CaloriesViewModel extends ChangeNotifier{
   double totalProteinCalories = 0;
   double proteinGoalCalories = 100;
   double proteinProgressRatio = 0.0;
+
+  void setProteinGoalValue(value){
+    var newValue = double.tryParse(value);
+    proteinGoalCalories = newValue ?? proteinGoalCalories;
+    calculateProteinProgress();
+    notifyListeners();
+  }
+
+  void setCarbsGoalValue(value){
+    var newValue = double.tryParse(value);
+    carbsGoalCalories = newValue ?? carbsGoalCalories;
+    calculateCarbsProgress();
+    notifyListeners();
+  }
 
   double totalCarbsCalories = 0;
   double carbsGoalCalories = 1000;
@@ -119,6 +135,24 @@ class CaloriesViewModel extends ChangeNotifier{
     keepScrollOffset: true,
   );
 
+  bool _isEditProteinGoal = false;
+  bool get isEditProteinGoal => _isEditProteinGoal;
+  void setEditProteinGoalState(){
+    _isEditProteinGoal = !_isEditProteinGoal;
+    if (!isEditProteinGoal && _calculatedProteinCalories != null) {
+      setProteinGoalValue(proteinGoalController.text);
+    }
+    notifyListeners();
+  }
+
+  bool _isEditCarbsGoal = false;
+  bool get isEditCarbsGoal => _isEditCarbsGoal;
+  void setEditCarbsGoalState(){
+    _isEditCarbsGoal = !_isEditCarbsGoal;
+    if (_isEditCarbsGoal) setCarbsGoalValue(carbsGoalController.text);
+    notifyListeners();
+  }
+
   void onAddProteinButtonAction(){
     if(_selectedProteinItem == null){
       setNewProteinItemState();
@@ -127,6 +161,16 @@ class CaloriesViewModel extends ChangeNotifier{
     }
     _addProteinItemAction(_selectedProteinItem);
     setNewProteinItemState();
+    setSelectedProteinItemState();
+    _resetProteinValues();
+    notifyListeners();
+  }
+
+  void onSubmitProteinButtonAction(){
+    if(_selectedProteinItem == null || proteinQtyController.text == ''){
+      return;
+    }
+    _addProteinItemAction(_selectedProteinItem);
     setSelectedProteinItemState();
     _resetProteinValues();
     notifyListeners();
@@ -145,10 +189,21 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  void onSubmitCarbsButtonAction(){
+    if(_selectedCarbsItem == null || carbsQtyController.text == ''){
+      return;
+    }
+    _addCarbsItemAction(_selectedCarbsItem);
+    setSelectedCarbsItemState();
+    _resetCarbsValues();
+    notifyListeners();
+  }
+
   void _resetProteinValues() {
     _selectedProteinItem = null;
     _calculatedProteinCalories = '0';
     proteinQtyController.text = '';
+    notifyListeners();
   }
 
   void _resetCarbsValues() {
@@ -228,6 +283,14 @@ class CaloriesViewModel extends ChangeNotifier{
   }
 
   void calculateProteinProgress() {
+    if (_proteinsSelectedItems.length == 0) {
+      totalProteinCalories = 0;
+      proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
+      _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
+          totalProteinCalories <= (proteinGoalCalories + 50);
+      notifyListeners();
+      return;
+    }
     totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
     proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
     _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
@@ -237,11 +300,31 @@ class CaloriesViewModel extends ChangeNotifier{
   }
 
   void calculateCarbsProgress() {
+    if (_carbsSelectedItems.length == 0) {
+      totalCarbsCalories = 0;
+      carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+      _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
+          totalCarbsCalories <= (carbsGoalCalories + 50);
+      notifyListeners();
+      return;
+    }
     totalCarbsCalories += num.tryParse(_calculatedCarbsCalories!)!;
     carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
     _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
         totalCarbsCalories <= (carbsGoalCalories + 50);
     totalCarbsCalories = totalCarbsCalories.roundToDouble();
+    notifyListeners();
+  }
+
+  void onDeleteProteinItemSelectedAction({required ItemModel item}){
+    _proteinsSelectedItems.remove(item);
+    calculateProteinProgress();
+    notifyListeners();
+  }
+
+  void onDeleteCarbItemSelectedAction({required ItemModel item}){
+    _carbsSelectedItems.remove(item);
+    calculateCarbsProgress();
     notifyListeners();
   }
 }

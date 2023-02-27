@@ -1,6 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/progress_bar.dart';
 import 'package:nutrial/constants/colors.dart';
@@ -65,12 +64,21 @@ class _BodyState extends State<_Body> {
                   const _WaterHeader(),
                   if (vm.waterBottlesCount != 0) const _WaterBottles(),
                   SizedBox(height: 50.h),
-                  _CategoryImage(
+                  _Category(
                     imgName: 'protiens',
                     isHasNumbers: true,
                     caloriesRate:
                         vm.proteinGoalCalories.roundToDouble().toString(),
                     consumedCalories: vm.totalProteinCalories.toString(),
+                    controller: vm.proteinGoalController,
+                    initGoalValue: vm.proteinGoalCalories.toString(),
+                    isEditGoal: vm.isEditProteinGoal,
+                    onTap: () => context
+                        .read<CaloriesViewModel>()
+                        .setEditProteinGoalState(),
+                    onSubmitted: (value) => context
+                        .read<CaloriesViewModel>()
+                        .setProteinGoalValue(value),
                   ),
                   LinearProgressIndicatorApp(
                     consumedCaloriesPercentage: vm.proteinProgressRatio,
@@ -91,27 +99,44 @@ class _BodyState extends State<_Body> {
                     ),
                   if (vm.showSelectedIProteinItem)
                     SelectedItemRow(
-                        itemName: vm.selectedProteinItem!.itemName!,
-                        calories: vm.calculatedProteinCalories,
-                        controller: vm.proteinQtyController,
-                        onChanged: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onProteinQuantityAddedAction()),
+                      itemName: vm.selectedProteinItem!.itemName!,
+                      calories: vm.calculatedProteinCalories,
+                      controller: vm.proteinQtyController,
+                      onChanged: (value) => context
+                          .read<CaloriesViewModel>()
+                          .onProteinQuantityAddedAction(),
+                      onSubmitted: (value) => context
+                          .read<CaloriesViewModel>()
+                          .onSubmitProteinButtonAction(),
+                    ),
                   if (vm.proteinsSelectedItems.length != 0)
-                    _SavedItems(itemsList: vm.proteinsSelectedItems),
+                    _SavedItems(
+                      itemsList: vm.proteinsSelectedItems,
+                      isProtein: true,
+                    ),
                   if (showProteinMenu) const _Items(isProtein: true),
                   SizedBox(height: 50.h),
-                  _CategoryImage(
+                  _Category(
                     imgName: 'fats',
                     isHasNumbers: true,
-                    caloriesRate: vm.carbsGoalCalories.roundToDouble().toString(),
+                    caloriesRate:
+                        vm.carbsGoalCalories.roundToDouble().toString(),
                     consumedCalories: vm.totalCarbsCalories.toString(),
+                    controller: vm.carbsGoalController,
+                    initGoalValue: vm.carbsGoalCalories.toString(),
+                    isEditGoal: vm.isEditCarbsGoal,
+                    onTap: () => context
+                        .read<CaloriesViewModel>()
+                        .setEditCarbsGoalState(),
+                    onSubmitted: (value) => context
+                        .read<CaloriesViewModel>()
+                        .setCarbsGoalValue(value),
                   ),
                   LinearProgressIndicatorApp(
                     consumedCaloriesPercentage: vm.carbsProgressRatio,
                     color: vm.isMetCarbsGoal
                         ? const AlwaysStoppedAnimation<Color>(
-                        AppColors.floatingButton)
+                            AppColors.floatingButton)
                         : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                   ),
                   const _HeaderCategory(isProtein: false),
@@ -125,14 +150,21 @@ class _BodyState extends State<_Body> {
                     ),
                   if (vm.showSelectedCarbsItem)
                     SelectedItemRow(
-                        itemName: vm.selectedCarbsItem!.itemName!,
-                        calories: vm.calculatedCarbsCalories,
-                        controller: vm.carbsQtyController,
-                        onChanged: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onCarbsQuantityAddedAction()),
+                      itemName: vm.selectedCarbsItem!.itemName!,
+                      calories: vm.calculatedCarbsCalories,
+                      controller: vm.carbsQtyController,
+                      onChanged: (value) => context
+                          .read<CaloriesViewModel>()
+                          .onCarbsQuantityAddedAction(),
+                      onSubmitted: (value) => context
+                          .read<CaloriesViewModel>()
+                          .onSubmitCarbsButtonAction(),
+                    ),
                   if (vm.carbsSelectedItems.length != 0)
-                    _SavedItems(itemsList: vm.carbsSelectedItems),
+                    _SavedItems(
+                      itemsList: vm.carbsSelectedItems,
+                      isProtein: false,
+                    ),
                   if (showCarbsMenu) const _Items(isProtein: false),
                   const _SaveButton(),
                 ],
@@ -204,7 +236,7 @@ class _WaterHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Flexible(
-            child: _CategoryImage(
+            child: _Category(
               imgName: 'water',
               isHasNumbers: false,
             ),
@@ -221,9 +253,14 @@ class _WaterHeader extends StatelessWidget {
 }
 
 class _SavedItems extends StatelessWidget {
-  const _SavedItems({Key? key, required this.itemsList}) : super(key: key);
+  const _SavedItems({
+    Key? key,
+    required this.itemsList,
+    required this.isProtein,
+  }) : super(key: key);
 
   final List<ItemModel> itemsList;
+  final bool isProtein;
 
   @override
   Widget build(BuildContext context) {
@@ -235,6 +272,13 @@ class _SavedItems extends StatelessWidget {
               quantity: itemsList[i].itemQuantity,
               itemName: itemsList[i].itemName!,
               calories: itemsList[i].totalCal!.toString(),
+              onDelete: isProtein
+                  ? () => context
+                      .read<CaloriesViewModel>()
+                      .onDeleteProteinItemSelectedAction(item: itemsList[i])
+                  : () => context
+                      .read<CaloriesViewModel>()
+                      .onDeleteCarbItemSelectedAction(item: itemsList[i]),
             ),
         ],
       ),
@@ -339,36 +383,55 @@ class _Date extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var todayDate = context.select((CaloriesViewModel vm) => vm.todayDate);
+    var yesterdayDate =
+        context.select((CaloriesViewModel vm) => vm.yesterdayDate);
+    var isTodaySelected =
+        context.select((CaloriesViewModel vm) => vm.isTodaySelected);
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          flex: 2,
-          child: Container(
-            height: 45.h,
-            color: AppColors.primaryLightColor3,
-            child: Center(
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
-                child: const Text(
-                  'Yesterday',
-                  style: TextStyle(color: Colors.white, letterSpacing: 1.9),
+          flex: isTodaySelected ? 2 : 3,
+          child: InkWell(
+            onTap: () =>
+                context.read<CaloriesViewModel>().setTodaySelectedState(),
+            child: Container(
+              height: 45.h,
+              color: isTodaySelected
+                  ? AppColors.primaryLightColor3
+                  : AppColors.primaryDarkColor,
+              child: Center(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+                  child: Text(
+                    isTodaySelected ? yesterdayDate! : 'Yesterday',
+                    style: const TextStyle(
+                        color: Colors.white, letterSpacing: 1.9),
+                  ),
                 ),
               ),
             ),
           ),
         ),
         Expanded(
-          flex: 3,
-          child: Container(
-            height: 45.h,
-            color: AppColors.primaryDarkColor,
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text(
-                '11/10/2023',
-                style: TextStyle(color: Colors.white, letterSpacing: 1.5),
+          flex: isTodaySelected ? 3 : 2,
+          child: InkWell(
+            onTap: () =>
+                context.read<CaloriesViewModel>().setTodaySelectedState(),
+            child: Container(
+              height: 45.h,
+              color: isTodaySelected
+                  ? AppColors.primaryDarkColor
+                  : AppColors.primaryLightColor3,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  isTodaySelected ? 'Today' : todayDate!,
+                  style:
+                      const TextStyle(color: Colors.white, letterSpacing: 1.5),
+                ),
               ),
             ),
           ),
@@ -424,9 +487,9 @@ class _SaveButton extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 25.0),
-            child: Icon(Icons.check, size: 40, color: Colors.white),
+          Padding(
+            padding: EdgeInsets.only(bottom: 25.0.h),
+            child: Icon(Icons.check, size: 40.sp, color: Colors.white),
           ),
         ],
       ),
@@ -434,22 +497,33 @@ class _SaveButton extends StatelessWidget {
   }
 }
 
-class _CategoryImage extends StatelessWidget {
-  const _CategoryImage({
+class _Category extends StatelessWidget {
+  const _Category({
     Key? key,
     required this.imgName,
     required this.isHasNumbers,
+    this.controller,
     this.caloriesRate,
     this.consumedCalories,
+    this.initGoalValue,
+    this.onSubmitted,
+    this.onTap,
+    this.isEditGoal = false,
   }) : super(key: key);
 
   final String imgName;
   final bool isHasNumbers;
   final String? consumedCalories;
   final String? caloriesRate;
+  final TextEditingController? controller;
+  final String? initGoalValue;
+  final bool isEditGoal;
+  final Function(String)? onSubmitted;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
+    controller?.text = initGoalValue ?? "";
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       child: Row(
@@ -459,15 +533,63 @@ class _CategoryImage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.0.w),
             child: Image.asset('assets/images/$imgName.png'),
           ),
-          if (isHasNumbers)
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                '$consumedCalories / $caloriesRate',
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
+          Row(
+            children: [
+              if (isHasNumbers && !isEditGoal)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '$consumedCalories / $caloriesRate',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              SizedBox(width: 15.w),
+              if (isHasNumbers && isEditGoal)
+                _GoalTextField(
+                    controller: controller, onSubmitted: onSubmitted!),
+              if (isHasNumbers)
+                InkWell(
+                  onTap: onTap,
+                  child: Icon(
+                    isEditGoal ? Icons.close : Icons.edit,
+                    color: Colors.white,
+                  ),
+                ),
+            ],
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _GoalTextField extends StatelessWidget {
+  const _GoalTextField({
+    Key? key,
+    required this.controller,
+    required this.onSubmitted,
+  }) : super(key: key);
+
+  final TextEditingController? controller;
+  final Function(String) onSubmitted;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50.h,
+      width: 100.w,
+      child: TextField(
+        controller: controller,
+        onSubmitted: onSubmitted,
+        style: const TextStyle(color: Colors.white),
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          hintText: 'set goal',
+          hintStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
+        ),
       ),
     );
   }

@@ -9,12 +9,14 @@ class SelectedItemRow extends StatelessWidget {
     required this.calories,
     required this.controller,
     required this.onChanged,
+    required this.onSubmitted,
   }) : super(key: key);
 
   final String itemName;
   final String? calories;
   final TextEditingController controller;
   final Function(String) onChanged;
+  final Function(String) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,11 @@ class SelectedItemRow extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: Row(
         children: [
-          _Quantity(controller: controller,onChanged: onChanged),
+          _Quantity(
+            controller: controller,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted,
+          ),
           _ItemsButton(itemName: itemName),
           _EstimatedCalories(calories: calories),
         ],
@@ -35,10 +41,12 @@ class _Quantity extends StatelessWidget {
   const _Quantity({
     Key? key,
     required this.controller,
+    required this.onSubmitted,
     required this.onChanged,
   }) : super(key: key);
 
   final TextEditingController controller;
+  final Function(String) onSubmitted;
   final Function(String) onChanged;
 
   @override
@@ -50,6 +58,7 @@ class _Quantity extends StatelessWidget {
         height: 50.h,
         child: TextFormField(
           controller: controller,
+          onFieldSubmitted: onSubmitted,
           style: const TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
@@ -69,9 +78,7 @@ class _Quantity extends StatelessWidget {
               ),
             ),
             hintText: '0',
-            hintStyle: TextStyle(
-              color: Colors.white.withOpacity(0.4),
-            ),
+            hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
           ),
           onChanged: onChanged,
         ),
