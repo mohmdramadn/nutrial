@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/models/calories_model.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
 
@@ -99,6 +100,19 @@ class CaloriesViewModel extends ChangeNotifier{
 
   int _waterBottlesCount = 0;
   int get waterBottlesCount => _waterBottlesCount;
+
+
+  String? get todayDate => DateTime.now().dateOnly();
+
+  String? get yesterdayDate =>
+      DateTime.now().subtract(const Duration(days: 1)).dateOnly();
+
+  bool _isTodaySelected = false;
+  bool get isTodaySelected => _isTodaySelected;
+  void setTodaySelectedState(){
+    _isTodaySelected = !_isTodaySelected;
+    notifyListeners();
+  }
 
   final ScrollController scrollController = ScrollController(
     initialScrollOffset: 0.0,
