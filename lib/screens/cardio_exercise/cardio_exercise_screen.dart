@@ -164,6 +164,8 @@ class _TotalCalories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var totalCalories =
+        context.select((CardioExerciseViewModel vm) => vm.totalCalories);
     return Container(
       width: size.width * 0.30,
       height: size.height * 0.06,
@@ -172,7 +174,7 @@ class _TotalCalories extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Center(
           child: Text(
-        '${S.of(context).total}:  0 ${S.of(context).cal}',
+        '${S.of(context).total}:  ${totalCalories ?? 0} ${S.of(context).cal}',
         style: const TextStyle(fontSize: 18),
       )),
     );
@@ -208,7 +210,7 @@ class _KiloGrams extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        _CircularBox(title: Kilograms.fiftyEight),
+        _CircularBox(title: Kilograms.sixty),
         _CircularBox(title: Kilograms.seventy),
         _CircularBox(title: Kilograms.eighty),
         _CircularBox(title: Kilograms.ninety),
@@ -226,19 +228,31 @@ class _CircularBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60.w,
-      height: 60.h,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
+    var selectedWeight =
+        context.select((CardioExerciseViewModel vm) => vm.selectedWeight);
+    return InkWell(
+      onTap: () =>
+          context.read<CardioExerciseViewModel>().setSelectedWeight(title),
+      child: Container(
+        width: 60.w,
+        height: 60.h,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color:
+              selectedWeight == title ? AppColors.floatingButton : Colors.white,
+        ),
+        child: Center(
+            child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 18.sp,
+            color: selectedWeight == title
+                ? Colors.white
+                : AppColors.primaryDarkColor,
+          ),
+        )),
       ),
-      child: Center(
-          child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18.sp, color: AppColors.primaryDarkColor),
-      )),
     );
   }
 }
@@ -297,6 +311,8 @@ class _BodyWeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedWeight =
+        context.select((CardioExerciseViewModel vm) => vm.selectedWeight);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -309,18 +325,10 @@ class _BodyWeight extends StatelessWidget {
         ),
         Container(
           width: 90,
-          height: 90,
+          height: 80,
           decoration:
               const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: Center(
-            child: TextField(
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 20, right: 20)),
-              onChanged: (weight) {},
-            ),
-          ),
+          child: _CircularBox(title: selectedWeight ?? ''),
         )
       ],
     );
@@ -334,6 +342,8 @@ class _Minutes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller =
+        context.select((CardioExerciseViewModel vm) => vm.minutesController);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -351,11 +361,14 @@ class _Minutes extends StatelessWidget {
               const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           child: Center(
             child: TextField(
+              controller: controller,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(left: 20, right: 20)),
-              onChanged: (weight) {},
+              onChanged: (min) => context
+                  .read<CardioExerciseViewModel>()
+                  .onMinutesChangedAction(min),
             ),
           ),
         )
