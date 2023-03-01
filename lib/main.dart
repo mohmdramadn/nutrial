@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:nutrial/firebase_options.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/providers.dart';
-import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/services/app_language.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,10 @@ void main() {
     runApp(
       ChangeNotifierProvider<AppLanguage>.value(
         value: appLanguage,
-        child: MyApp(appLanguage: appLanguage),
+        child: DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => MyApp(appLanguage: appLanguage),
+        ),
       ),
     );
   }, (error, stack) => log('$error'));
