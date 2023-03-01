@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
         "checkInputs": MessageLookupByLibrary.simpleMessage(
             "تحقق من المدخلات مره اخره اولأ"),
+        "chooseItem": MessageLookupByLibrary.simpleMessage("اختار صنف"),
         "commWith":
             MessageLookupByLibrary.simpleMessage("أو تواصل معنا من خلال"),
         "done": MessageLookupByLibrary.simpleMessage("تم بنجاح"),

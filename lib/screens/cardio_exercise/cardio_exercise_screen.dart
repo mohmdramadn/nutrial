@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/logo.dart';
 import 'package:nutrial/constants/colors.dart';
@@ -36,6 +37,7 @@ class _Body extends StatelessWidget {
             const _BackgroundImg(),
             SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 20.h),
@@ -48,7 +50,8 @@ class _Body extends StatelessWidget {
                       children: const [_Minutes(), _BodyWeight()],
                     ),
                   if (!isSuccess) SizedBox(height: size.height * 0.02),
-                  if (!isSuccess) _TotalCalories(size: size, total: 'total'),
+                  if (!isSuccess)
+                    Flexible(child: _TotalCalories(size: size, total: 'total')),
                   if (!isSuccess) const _SaveButton(),
                   if (!isSuccess) SizedBox(height: size.height * 0.04),
                   if (!isSuccess) _BottomKilosCalories(size: size)
@@ -164,15 +167,17 @@ class _TotalCalories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var totalCalories =
+        context.select((CardioExerciseViewModel vm) => vm.totalCalories);
     return Container(
-      width: size.width * 0.30,
+      width: 130.w,
       height: size.height * 0.06,
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Center(
           child: Text(
-        '${S.of(context).total}:  0 ${S.of(context).cal}',
+        '${S.of(context).total}:  ${totalCalories ?? 0} ${S.of(context).cal}',
         style: const TextStyle(fontSize: 18),
       )),
     );
@@ -208,7 +213,7 @@ class _KiloGrams extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        _CircularBox(title: Kilograms.fiftyEight),
+        _CircularBox(title: Kilograms.sixty),
         _CircularBox(title: Kilograms.seventy),
         _CircularBox(title: Kilograms.eighty),
         _CircularBox(title: Kilograms.ninety),
@@ -226,19 +231,31 @@ class _CircularBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60.w,
-      height: 60.h,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
+    var selectedWeight =
+        context.select((CardioExerciseViewModel vm) => vm.selectedWeight);
+    return InkWell(
+      onTap: () =>
+          context.read<CardioExerciseViewModel>().setSelectedWeight(title),
+      child: Container(
+        width: 60.w,
+        height: 60.h,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color:
+              selectedWeight == title ? AppColors.floatingButton : Colors.white,
+        ),
+        child: Center(
+            child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 18.sp,
+            color: selectedWeight == title
+                ? Colors.white
+                : AppColors.primaryDarkColor,
+          ),
+        )),
       ),
-      child: Center(
-          child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18.sp, color: AppColors.primaryDarkColor),
-      )),
     );
   }
 }
@@ -259,8 +276,8 @@ class _SaveButtonState extends State<_SaveButton> {
         context.select((CardioExerciseViewModel vm) => vm.isLoading);
 
     return ElevatedButton(
-      //TODO add save functionality
-      onPressed: () {},
+      onPressed: () =>
+          context.read<CardioExerciseViewModel>().setSuccessState(true),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: AppColors.saveButtonColor,
@@ -297,6 +314,8 @@ class _BodyWeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedWeight =
+        context.select((CardioExerciseViewModel vm) => vm.selectedWeight);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -309,18 +328,10 @@ class _BodyWeight extends StatelessWidget {
         ),
         Container(
           width: 90,
-          height: 90,
+          height: 80,
           decoration:
               const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: Center(
-            child: TextField(
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 20, right: 20)),
-              onChanged: (weight) {},
-            ),
-          ),
+          child: _CircularBox(title: selectedWeight ?? ''),
         )
       ],
     );
@@ -334,6 +345,8 @@ class _Minutes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller =
+        context.select((CardioExerciseViewModel vm) => vm.minutesController);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -344,18 +357,30 @@ class _Minutes extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        Container(
-          width: 90,
-          height: 90,
-          decoration:
-              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        SizedBox(
+          width: 80,
           child: Center(
             child: TextField(
+              style: const TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
+              cursorColor: AppColors.floatingButton,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(3)
+              ],
+              controller: controller,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 20, right: 20)),
-              onChanged: (weight) {},
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 25),
+              ),
+              onChanged: (min) => context
+                  .read<CardioExerciseViewModel>()
+                  .onMinutesChangedAction(min),
             ),
           ),
         )

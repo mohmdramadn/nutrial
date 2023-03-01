@@ -23,46 +23,36 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      key: scaffoldKey,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: size.width,
-            height: size.height,
-            decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: AssetImage('assets/images/background.png'),
-                    fit: BoxFit.cover),
-                color: Colors.grey[800]),
-            child: Stack(
-              alignment: Alignment.bottomLeft,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _HeaderLogo(size: size),
-                    SizedBox(height: 10.h),
-                    const _UserName(),
-                    SizedBox(height: 10.h),
-                    const _Password(),
-                    SizedBox(height: 10.h),
-                    const _LoginButton(),
-                    SizedBox(height: 10.h),
-                    const _SocialMediaDivider(),
-                    SizedBox(height: 20.h),
-                    const _SocialMedia(),
-                    SizedBox(height: 10.h),
-                  ],
-                ),
-                const _PoweredByLogo(),
-              ],
-            ),
+      backgroundColor: Colors.grey[800],
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/background.png',
+            fit: BoxFit.cover,
           ),
-        ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Spacer(),
+              _HeaderLogo(size: size),
+              const Spacer(),
+              const _UserName(),
+              SizedBox(height: 10.h),
+              const _Password(),
+              SizedBox(height: 10.h),
+              const _LoginButton(),
+              SizedBox(height: 10.h),
+              const _SocialMediaDivider(),
+              const Spacer(),
+              const _SocialMedia(),
+              const Spacer(),
+              const _PoweredByLogo(),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -180,18 +170,19 @@ class _Password extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Container(
-          width: size.width * 0.6,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(19)),
-          child: TextField(
+        SizedBox(
+          width: 200.w,
+          child: TextFormField(
             controller: controller,
-            decoration: const InputDecoration(
-                hintText:
-                    '.....................................................',
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
-                hintStyle: TextStyle(fontSize: 15)),
+            cursorColor: AppColors.primaryDarkColor,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(19.0),
+              ),
+              contentPadding: const EdgeInsets.only(left: 12.0, right: 12.0),
+            ),
           ),
         ),
       ],
@@ -226,18 +217,19 @@ class _UserName extends StatelessWidget {
           )),
         ),
         const SizedBox(width: 10),
-        Container(
-          width: size.width * 0.6,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(19)),
+        SizedBox(
+          width: 200.w,
           child: TextFormField(
             controller: controller,
-            decoration: const InputDecoration(
-                hintText:
-                    '.....................................................',
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 12.0, right: 12.0),
-                hintStyle: TextStyle(fontSize: 15)),
+            cursorColor: AppColors.primaryDarkColor,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(19.0),
+              ),
+              contentPadding: const EdgeInsets.only(left: 12.0, right: 12.0),
+            ),
           ),
         ),
       ],
@@ -270,49 +262,47 @@ class _PoweredByLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/images/powerBy.png'),
-            Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: GestureDetector(
-                onTap: ()=> context.read<LoginViewModel>().skipAction(),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.darkPrimaryColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 5.0, left: 5.0),
-                          child: Text(
-                            S.of(context).skip,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 2.5,
-                            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/images/powerBy.png'),
+          Padding(
+            padding: const EdgeInsets.only(right: 18.0),
+            child: GestureDetector(
+              onTap: () => context.read<LoginViewModel>().skipAction(),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.darkPrimaryColor,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0, left: 5.0),
+                        child: Text(
+                          S.of(context).skip,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 2.5,
                           ),
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                          size: 15,
-                        )
-                      ],
-                    ),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                        size: 15,
+                      )
+                    ],
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -335,32 +325,22 @@ class _LoginButtonState extends State<_LoginButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.85,
+        width: 300.w,
         child: ElevatedButton(
-          onPressed: () async {
-            // widget.focusEmail.unfocus();
-            // widget.focusPassword.unfocus();
-            // if (widget.nameCntr.text.isNotEmpty &&
-            //     widget.passwordCntr.text.isNotEmpty) {
-            //   login();
-            // } else if (widget.passwordCntr.text.isEmpty) {
-            //   showInSnackBarError('all_fields_required 1');
-            // } else if (widget.nameCntr.text.isEmpty) {
-            //   showInSnackBarError('all_fields_required 2');
-            // } else {
-            //   showInSnackBarError('all_fields_required 3');
-            // }
-          },
+          onPressed: () {},
           style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.all(15)),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(AppColors.primaryColor),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      side: const BorderSide(color: AppColors.primaryColor)))),
+            padding:
+                MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(AppColors.primaryColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+                side: const BorderSide(color: AppColors.primaryColor),
+              ),
+            ),
+          ),
           child: Text(
             S.of(context).login,
             style: const TextStyle(color: Colors.white, fontSize: 18),

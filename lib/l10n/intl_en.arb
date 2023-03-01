@@ -81,5 +81,6 @@
    "total":"Total",
    "cal":"Cal",
    "min":"Minutes",
-   "weight":"Weight"
+   "weight":"Weight",
+   "chooseItem":"Choose Item"
 }

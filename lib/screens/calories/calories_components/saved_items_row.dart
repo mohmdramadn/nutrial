@@ -7,11 +7,13 @@ class SavedItemsRow extends StatelessWidget {
     required this.itemName,
     required this.calories,
     required this.quantity,
+    required this.onDelete,
   }) : super(key: key);
 
   final String itemName;
   final String? calories;
   final String? quantity;
+  final Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,10 @@ class SavedItemsRow extends StatelessWidget {
           _Quantity(quantity: quantity ?? '0'),
           _ItemsButton(itemName: itemName),
           _EstimatedCalories(calories: calories),
+          IconButton(
+            onPressed: onDelete,
+            icon: const Icon(Icons.delete, color: Colors.red),
+          )
         ],
       ),
     );

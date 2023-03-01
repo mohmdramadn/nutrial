@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "checkInputs": MessageLookupByLibrary.simpleMessage(
             "Please check your inputs again"),
+        "chooseItem": MessageLookupByLibrary.simpleMessage("Choose Item"),
         "commWith": MessageLookupByLibrary.simpleMessage("Or communicate with"),
         "done": MessageLookupByLibrary.simpleMessage("Successfully"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),

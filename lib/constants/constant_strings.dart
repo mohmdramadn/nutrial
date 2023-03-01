@@ -21,10 +21,10 @@ class Calories{
   static const String twoHundredAndThirtySix = '236\nCal';
   static const String fiveHundredAndNinetyEight = '598\nCal';
   static const String sixHundredAndNinetyFive = '695\nCal';
-  static const String sevenHundredAndNinetyOne = '695\nCal';
+  static const String sevenHundredAndNinetyOne = '791\nCal';
 }
 class Kilograms{
-  static const String fiftyEight = '58\nkg';
+  static const String sixty = '60\nkg';
   static const String seventy = '70\nkg';
   static const String eighty = '80\nkg';
   static const String ninety = '90\nkg';

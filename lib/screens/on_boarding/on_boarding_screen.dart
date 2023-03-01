@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
@@ -65,49 +66,35 @@ class _BodyState extends State<_Body> {
     var isLoading = context.select((OnBoardViewModel vm) => vm.isLoading);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       resizeToAvoidBottomInset: false,
-      body: Center(
-        child: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: size.width,
-                height: size.height,
-                decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: AssetImage('assets/images/background.png'),
-                        fit: BoxFit.cover),
-                    color: Colors.grey[800]),
-              ),
-              SizedBox(
-                width: size.width,
-                height: size.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _Logo(size: size),
-                    _Dots(size: size, pages: pages, currentBoard: currentBoard),
-                    _PageView(pages: pages, controller: controller),
-                    Visibility(
-                      visible: isLoading,
-                      child: const CircularProgressIndicator(
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                    _BottomBar(
-                      controller: controller,
-                      pagesLength: pages.length,
-                    ),
-                  ],
-                ),
-              )
-            ],
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
+            'assets/images/background.png',
+            fit: BoxFit.fill,
           ),
-        ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _Logo(size: size),
+              _Dots(size: size, pages: pages, currentBoard: currentBoard),
+              _PageView(pages: pages, controller: controller),
+              Visibility(
+                visible: isLoading,
+                child: const CircularProgressIndicator(
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              _BottomBar(
+                controller: controller,
+                pagesLength: pages.length,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -125,8 +112,9 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/logo.png',
-      width: size.width * 0.7,
-      height: size.height * 0.27,
+      width: 100.w,
+      height: 50.h,
+      fit: BoxFit.cover,
     );
   }
 }

@@ -28,10 +28,10 @@ class _Body extends StatelessWidget {
         context.select((OnBoardViewModel vm) => vm.waterController);
     var fatController =
         context.select((OnBoardViewModel vm) => vm.fatsController);
-    Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
-        SizedBox(height: size.height * 0.11),
+        const Spacer(),
         Text(
           S.of(context).percentage,
           style: const TextStyle(
