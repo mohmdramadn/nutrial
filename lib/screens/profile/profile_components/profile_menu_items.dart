@@ -27,20 +27,6 @@ class ProfileMenu extends StatelessWidget {
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.013),
         _MenuItem(
-          title: S.of(context).changeInfo,
-          screenToNavigate: null,
-          color: AppColors.primaryDarkColor2,
-          isLoggedIn: isLogin,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.013),
-        _MenuItem(
-          title: S.of(context).changePassword,
-          isLoggedIn: isLogin,
-          screenToNavigate: null,
-          color: AppColors.primaryDarkColor3,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.013),
-        _MenuItem(
           title: S.of(context).mySessions,
           isLoggedIn: isLogin,
           screenToNavigate: sessionsRoute,
