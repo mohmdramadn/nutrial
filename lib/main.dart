@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:nutrial/firebase_options.dart';
+import 'package:nutrial/helper/calories_database.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/providers.dart';
 import 'package:nutrial/services/app_language.dart';
@@ -35,6 +36,10 @@ void main() {
 
     final AppLanguage appLanguage = AppLanguage();
     await appLanguage.fetchLocale();
+
+    final caloriesDatabase = CaloriesDatabase.instance;
+    await caloriesDatabase.getProteinCaloriesData();
+    await caloriesDatabase.getCarbsFatsCaloriesData();
 
     runApp(
       ChangeNotifierProvider<AppLanguage>.value(
