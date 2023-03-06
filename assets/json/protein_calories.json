@@ -1,0 +1,407 @@
+[
+   {
+      "Food type":"Boiled Chicken Skinless Breast ",
+      "Wight":"100 gms",
+      "Calories":"155 cal"
+   },
+   {
+      "Food type":"Boiled Chicken Skinless Thigh ",
+      "Wight":"100 gms",
+      "Calories":"195 cal"
+   },
+   {
+      "Food type":"Boiled Lean Beef ",
+      "Wight":"100 gms",
+      "Calories":"150 cal"
+   },
+   {
+      "Food type":"Chicken Liver ",
+      "Wight":"100 gms",
+      "Calories":"180 cal"
+   },
+   {
+      "Food type":"Egg White ",
+      "Wight":"Piece",
+      "Calories":"17 cal"
+   },
+   {
+      "Food type":"Grilled Bolty ",
+      "Wight":"100 gms",
+      "Calories":"140 cal"
+   },
+   {
+      "Food type":"7 Grilled Bory",
+      "Wight":"100 gms",
+      "Calories":"150 cal"
+   },
+   {
+      "Food type":"Grilled Calamari ",
+      "Wight":"100 gms",
+      "Calories":"140 cal"
+   },
+   {
+      "Food type":"Grilled Chicken Skinless Breast",
+      "Wight":"100 gms",
+      "Calories":"170 cal"
+   },
+   {
+      "Food type":"Grilled Chicken Skinless Thigh",
+      "Wight":"100 gms",
+      "Calories":"210 cal"
+   },
+   {
+      "Food type":"Grilled Crab",
+      "Wight":"100 gms",
+      "Calories":"100 cal"
+   },
+   {
+      "Food type":"Grilled Denes",
+      "Wight":"100 gms",
+      "Calories":"90 cal"
+   },
+   {
+      "Food type":"Grilled Dove Hamam",
+      "Wight":"100 gms",
+      "Calories":"220 cal"
+   },
+   {
+      "Food type":"Grilled Fillet Kesher Bayad",
+      "Wight":"100 gms",
+      "Calories":"100 cal"
+   },
+   {
+      "Food type":"Grilled Lean Beef or Steak",
+      "Wight":"100 gms",
+      "Calories":"190 cal"
+   },
+   {
+      "Food type":"Grilled Mackrel",
+      "Wight":"100 gms",
+      "Calories":"270 cal"
+   },
+   {
+      "Food type":"Grilled Meat liver",
+      "Wight":"100 gms",
+      "Calories":"200 cal"
+   },
+   {
+      "Food type":"Grilled Minced Beef or Kofta ",
+      "Wight":"100 gms",
+      "Calories":"280 cal"
+   },
+   {
+      "Food type":"Grilled Moussa",
+      "Wight":"100 gms",
+      "Calories":"100 cal"
+   },
+   {
+      "Food type":"Grilled Rabbit",
+      "Wight":"100 gms",
+      "Calories":"190 cal"
+   },
+   {
+      "Food type":"Grilled Salmon ",
+      "Wight":"100 gms",
+      "Calories":"170 cal"
+   },
+   {
+      "Food type":"Grilled Shrimps ",
+      "Wight":"100 gms",
+      "Calories":"100 cal"
+   },
+   {
+      "Food type":"Grilled Skinless Duck ",
+      "Wight":"100 gms",
+      "Calories":"205 cal"
+   },
+   {
+      "Food type":"Grilled Turkey Skinless Breast ",
+      "Wight":"100 gms",
+      "Calories":"150 cal"
+   },
+   {
+      "Food type":"Grilled Turkey Skinless Thigh ",
+      "Wight":"100 gms",
+      "Calories":"170 cal"
+   },
+   {
+      "Food type":"Grilled Wakar",
+      "Wight":"100 gms",
+      "Calories":"100 cal"
+   },
+   {
+      "Food type":"Sardines",
+      "Wight":"100 gms",
+      "Calories":"220 cal"
+   },
+   {
+      "Food type":"Water Canned light Tuna",
+      "Wight":"can",
+      "Calories":"200 cal"
+   },
+   {
+      "Food type":"turkey pastrami",
+      "Wight":"gm 28",
+      "Calories":40
+   },
+   {
+      "Food type":"beef pepperoni",
+      "Wight":"gm 28",
+      "Calories":141
+   },
+   {
+      "Food type":"Salami - turkey",
+      "Wight":"gm 28",
+      "Calories":56
+   },
+   {
+      "Food type":"beef salami",
+      "Wight":"gm 28",
+      "Calories":72
+   },
+   {
+      "Food type":"beef mortadella",
+      "Wight":"gm 28",
+      "Calories":47
+   },
+   {
+      "Food type":"Turkey",
+      "Wight":"gm 28",
+      "Calories":57
+   },
+   {
+      "Food type":"Turkey meat",
+      "Wight":"42g",
+      "Calories":102
+   },
+   {
+      "Food type":"Lamb shoulder cooked with fat",
+      "Wight":"63 gm",
+      "Calories":220
+   },
+   {
+      "Food type":"Lamb shoulder cooked without fat",
+      "Wight":"48 gm",
+      "Calories":135
+   },
+   {
+      "Food type":"Roasted lamb thigh with fat",
+      "Wight":"g 85",
+      "Calories":205
+   },
+   {
+      "Food type":"Roasted lamb thigh without fat",
+      "Wight":"g 73",
+      "Calories":140
+   },
+   {
+      "Food type":"Grilled lamb chops without fat",
+      "Wight":"g 85",
+      "Calories":200
+   },
+   {
+      "Food type":"Lamb chops with fat",
+      "Wight":"85g",
+      "Calories":307
+   },
+   {
+      "Food type":"Beef cooked breast",
+      "Wight":"85g",
+      "Calories":189
+   },
+   {
+      "Food type":"Beef shoulder without fat",
+      "Wight":"85g",
+      "Calories":183
+   },
+   {
+      "Food type":"Cooked minced beef",
+      "Wight":"85g",
+      "Calories":245
+   },
+   {
+      "Food type":"Shawarma \"Pure Meat\"",
+      "Wight":"85g",
+      "Calories":317
+   },
+   {
+      "Food type":"Beef steak without fat",
+      "Wight":"85g",
+      "Calories":174
+   },
+   {
+      "Food type":"tack",
+      "Wight":"85g",
+      "Calories":133
+   },
+   {
+      "Food type":"kebab",
+      "Wight":"85g",
+      "Calories":226
+   },
+   {
+      "Food type":"Stuffed Kibbeh",
+      "Wight":"85g",
+      "Calories":281
+   },
+   {
+      "Food type":"feathers without fat",
+      "Wight":"85g",
+      "Calories":182
+   },
+   {
+      "Food type":"cooked veal heart",
+      "Wight":"85g",
+      "Calories":148
+   },
+   {
+      "Food type":"cooked veal kidney",
+      "Wight":"85g",
+      "Calories":122
+   },
+   {
+      "Food type":"cooked veal tongue",
+      "Wight":"85g",
+      "Calories":241
+   },
+   {
+      "Food type":"Grilled chicken thigh without skin",
+      "Wight":"g 85",
+      "Calories":167
+   },
+   {
+      "Food type":"Grilled chicken thigh with skin",
+      "Wight":"g 85",
+      "Calories":223
+   },
+   {
+      "Food type":"Grilled chicken breast without skin",
+      "Wight":"half breast",
+      "Calories":142
+   },
+   {
+      "Food type":"Grilled chicken breast with skin",
+      "Wight":"half breast",
+      "Calories":193
+   },
+   {
+      "Food type":"Fried chicken breast without skin",
+      "Wight":"half breast",
+      "Calories":161
+   },
+   {
+      "Food type":"Grilled chicken wings with skin",
+      "Wight":"Suite 35.5g 1",
+      "Calories":99
+   },
+   {
+      "Food type":"Fried boneless chicken pieces",
+      "Wight":"6 . 104g cut",
+      "Calories":290
+   },
+   {
+      "Food type":"Fried chicken gizzards",
+      "Wight":"g 85",
+      "Calories":238
+   },
+   {
+      "Food type":"Cooked chicken liver",
+      "Wight":"g 85",
+      "Calories":135
+   },
+   {
+      "Food type":"Roasted duck meat without skin",
+      "Wight":"g 85",
+      "Calories":173
+   },
+   {
+      "Food type":"Dark roasted turky meat without skin",
+      "Wight":"g 85",
+      "Calories":161
+   },
+   {
+      "Food type":"Roasted dark turky meat with skin",
+      "Wight":"g 85",
+      "Calories":190
+   },
+   {
+      "Food type":"Light roasted turky meat without skin",
+      "Wight":"g 85",
+      "Calories":135
+   },
+   {
+      "Food type":"Roasted light turky meat with skin",
+      "Wight":"g 85",
+      "Calories":169
+   },
+   {
+      "Food type":"Canned sardines in oil",
+      "Wight":"gm 28",
+      "Calories":58
+   },
+   {
+      "Food type":"canned anchovies in oil",
+      "Wight":"gm 21",
+      "Calories":42
+   },
+   {
+      "Food type":"Canned tuna in water",
+      "Wight":"g 85",
+      "Calories":104
+   },
+   {
+      "Food type":"Tuna fish canned in oil",
+      "Wight":"g 85",
+      "Calories":169
+   },
+   {
+      "Food type":"smoked salmon",
+      "Wight":"g 85",
+      "Calories":99
+   },
+   {
+      "Food type":"Grilled Fish",
+      "Wight":"g 85",
+      "Calories":136
+   },
+   {
+      "Food type":"Breaded fish fingers",
+      "Wight":"3 fingers 85 g",
+      "Calories":228
+   },
+   {
+      "Food type":"Breaded fried shrimp",
+      "Wight":"g 85",
+      "Calories":206
+   },
+   {
+      "Food type":"Shattan - canned crab",
+      "Wight":"g 85",
+      "Calories":84
+   },
+   {
+      "Food type":"cooked shrimp",
+      "Wight":"g 85",
+      "Calories":83
+   },
+   {
+      "Food type":"oyster ne",
+      "Wight":"gm 28",
+      "Calories":23
+   },
+   {
+      "Food type":"oyster",
+      "Wight":"gm 28",
+      "Calories":46
+   },
+   {
+      "Food type":"Breaded fried oyster",
+      "Wight":"g 85",
+      "Calories":84
+   },
+   {
+      "Food type":"Black or red caviar",
+      "Wight":"Tablespoon",
+      "Calories":40
+   }
+]

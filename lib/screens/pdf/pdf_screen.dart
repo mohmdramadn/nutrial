@@ -26,7 +26,7 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PdfViewModel>().createTableRowsInit();
+      context.read<PdfViewModel>().getCaloriesAsync();
     });
     super.initState();
   }
@@ -50,12 +50,12 @@ class _BodyState extends State<_Body> {
               Image.asset('assets/images/protiens.png', fit: BoxFit.cover),
               isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : const _ProteinsTable(),
+                  : const _CaloriesTables(isProtein: true),
               SizedBox(height: 50.h),
               Image.asset('assets/images/fats.png', fit: BoxFit.cover),
               isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : const _ProteinsTable(),
+                  : const _CaloriesTables(isProtein: false),
             ],
           ),
         ),
@@ -64,13 +64,17 @@ class _BodyState extends State<_Body> {
   }
 }
 
-class _ProteinsTable extends StatelessWidget {
-  const _ProteinsTable({Key? key}) : super(key: key);
+class _CaloriesTables extends StatelessWidget {
+  const _CaloriesTables({Key? key,required this.isProtein}) : super(key: key);
+
+  final bool isProtein;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var itemRows = context.select((PdfViewModel vm) => vm.itemsList);
+    var itemRows = isProtein
+        ? context.select((PdfViewModel vm) => vm.proteinCalories)
+        : context.select((PdfViewModel vm) => vm.carbsCalories);
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w),
@@ -100,7 +104,7 @@ class _ProteinsTable extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 12.0.h),
                     child: Text(
-                      item.itemName!,
+                      item.foodType,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           color: Colors.white,
@@ -111,7 +115,7 @@ class _ProteinsTable extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 12.0.h),
                     child: Text(
-                      item.itemQuantity.toString(),
+                      item.wight,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -122,7 +126,7 @@ class _ProteinsTable extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 12.0.h),
                     child: Text(
-                      '${item.itemCalories} cal',
+                      item.calories.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
