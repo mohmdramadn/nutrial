@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Profile Menu`
+  /// `ProfileMenu`
   String get profileMenu {
     return Intl.message(
-      'Profile Menu',
+      'ProfileMenu',
       name: 'profileMenu',
       desc: '',
       args: [],
@@ -825,6 +825,16 @@ class S {
     return Intl.message(
       'Choose Item',
       name: 'chooseItem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share App`
+  String get shareApp {
+    return Intl.message(
+      'Share App',
+      name: 'shareApp',
       desc: '',
       args: [],
     );

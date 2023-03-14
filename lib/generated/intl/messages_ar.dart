@@ -43,9 +43,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("حساب السعرات الحرارية"),
         "cardio": MessageLookupByLibrary.simpleMessage("الكارديو"),
-        "changeInfo": MessageLookupByLibrary.simpleMessage("تغير المعلومات"),
+        "changeInfo":
+            MessageLookupByLibrary.simpleMessage("Change Information"),
         "changePassword":
-            MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
+            MessageLookupByLibrary.simpleMessage("تغير كلمة المرور"),
         "checkInputs": MessageLookupByLibrary.simpleMessage(
             "تحقق من المدخلات مره اخره اولأ"),
         "chooseItem": MessageLookupByLibrary.simpleMessage("اختار صنف"),
@@ -102,13 +103,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "percentage": MessageLookupByLibrary.simpleMessage("النسب"),
         "popUpNotification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("القائمة الرئيسية"),
+        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("اعد الكلمة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("ابحث عن تمرين"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "و اخيرا ادخل كلمة المرور الخاصة بك"),
-        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+        "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "shareApp": MessageLookupByLibrary.simpleMessage("شارك التطبيق"),
         "signup": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
@@ -118,7 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "total": MessageLookupByLibrary.simpleMessage("الإجمالي"),
         "totalWeight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "updateProfile":
-            MessageLookupByLibrary.simpleMessage("تحديث البيانات الشخصية"),
+            MessageLookupByLibrary.simpleMessage("تحديث الملف الشخصي"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "water": MessageLookupByLibrary.simpleMessage("المياه"),
         "waterPercentage": MessageLookupByLibrary.simpleMessage("نسبة المياه"),

@@ -104,13 +104,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "popUpNotification":
             MessageLookupByLibrary.simpleMessage("Pop-up Notifications"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
+        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shareApp": MessageLookupByLibrary.simpleMessage("Share App"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
