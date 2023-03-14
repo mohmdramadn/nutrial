@@ -1,19 +1,19 @@
 class UserProfileModel {
+  String? uid;
   String? fullName;
   String? username;
   String? password;
   String? age;
-  String? height;
-  String? sex;
+  String? gender;
   String? email;
   String? fatsPercentage;
   String? waterPercentage;
   String? musclesPercentage;
 
   UserProfileModel({
+    this.uid,
     this.fullName,
-    this.height,
-    this.sex,
+    this.gender,
     this.email,
     this.age,
     this.fatsPercentage,

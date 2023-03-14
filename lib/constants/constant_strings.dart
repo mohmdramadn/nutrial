@@ -30,3 +30,7 @@ class Kilograms{
   static const String ninety = '90\nkg';
 
 }
+
+class PreferenceStrings{
+  static const String userProfile = 'user_profile';
+}

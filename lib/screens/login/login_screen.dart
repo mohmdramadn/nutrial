@@ -4,6 +4,8 @@ import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/login/login_view_model.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,7 +14,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginViewModel>(
-        create: (_) => LoginViewModel(), child: const _Body());
+        create: (_) => LoginViewModel(
+            firebaseService: context.read<FirebaseService>(),
+            messageService: context.read<MessageService>(),
+            localization: context.read<S>()),
+        child: const _Body());
   }
 }
 
