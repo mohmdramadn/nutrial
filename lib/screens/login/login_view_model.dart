@@ -27,12 +27,12 @@ class LoginViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> loginAsync()async{
+  Future<void> loginAsync() async {
     setLoadingState(true);
 
     var loginResponse = await firebaseService.loginAsync(
         nameController.text, passwordController.text);
-    if(loginResponse.isError){
+    if (loginResponse.isError) {
       setLoadingState(false);
       messageService.showErrorSnackBar(
           '', loginResponse.asError!.error.toString());
@@ -43,6 +43,7 @@ class LoginViewModel extends ChangeNotifier{
     notifyListeners();
     Get.offAllNamed(homeRoute);
   }
+
   Future<void> loginWithAppleAsync()async{}
   Future<void> loginWithFacebookAsync()async{}
   Future<void> loginWithSnapchatAsync()async{}

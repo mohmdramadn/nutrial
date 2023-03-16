@@ -22,4 +22,31 @@ class UserProfileModel {
     this.username,
     this.password,
   });
+
+  factory UserProfileModel.fromFirestore(Map<String, dynamic> data) {
+    return UserProfileModel(
+      uid: data["uid"] ?? "",
+      fullName: data["Full name"] ?? "",
+      email: data["Email"] ?? "",
+      age: data["Age"] ?? "",
+      gender: data["Gender"] ?? "",
+      musclesPercentage: data["Muscles Percentage"] ?? "",
+      waterPercentage: data["Water Percentage"] ?? "",
+      username: data["username"] ?? "",
+      fatsPercentage: data["Fats Percentage"] ?? "",
+    );
+  }
 }
+
+/*
+Age
+Email
+Fats Percentage
+Full name
+Gender
+Muscles Percentage
+Water Percentage
+docId
+uid
+username
+* */

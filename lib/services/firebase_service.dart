@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,6 +37,19 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
+  Future<Result<bool>> logoutAsync() async {
+    try {
+      await firebaseAuth.signOut();
+      return Result.value(true);
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+      return Result.error(false);
+    } catch (e) {
+      log(e.toString());
+      return Result.error(false);
+    }
+  }
+
   Future<Result<bool>> addNewUserNameAsync({String? displayName}) async {
     try {
       await user?.updateDisplayName(displayName);
@@ -66,8 +81,30 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
-  Future<void> getCurrentUserInfo() async {
-    user = firebaseAuth.currentUser;
+  Future<Result<UserProfileModel>> getUserProfile() async {
+    try {
+      var profile = await database
+          .collection('users_profile')
+          .where('uid', isEqualTo: user?.uid)
+          .get();
+      UserProfileModel userProfile =
+          UserProfileModel.fromFirestore(profile.docs.first.data());
+
+      return Result.value(userProfile);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  User? getCurrentUserInfo() {
+    return user = firebaseAuth.currentUser;
+  }
+
+  bool checkIfLoggedIn() {
+    if (firebaseAuth.currentUser != null) {
+      return true;
+    }
+    return false;
   }
 
   Future<void> updateUserDisplayName(String fullName) async {
