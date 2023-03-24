@@ -97,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "newUser": MessageLookupByLibrary.simpleMessage("New User"),
         "nextSession": MessageLookupByLibrary.simpleMessage("Next Session"),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
         "oldPassword": MessageLookupByLibrary.simpleMessage("Old Password"),
         "passNotMatching":
             MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),
