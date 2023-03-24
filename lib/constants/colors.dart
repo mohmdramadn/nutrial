@@ -12,6 +12,7 @@ class AppColors{
   static const Color primaryLightColor = Color(0xFF6D7D6D);
   static const Color primaryLightColor2 = Color(0xFFB8CEBB);
   static const Color primaryLightColor3 = Color(0xFF4C946C);
+  static const Color primaryLightColor4 = Color(0xFFC0DFC3);
   static const Color textFieldColor = Color(0xFFB3C9B6);
   static const Color errorColor = Color(0xFFCD1D1D);
   static const Color redColorLight = Color(0xFFFEC9B9);

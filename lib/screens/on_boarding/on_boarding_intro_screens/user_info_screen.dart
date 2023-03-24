@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
-import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
@@ -33,19 +33,19 @@ class _Body extends StatelessWidget {
         SizedBox(height: size.height * 0.1),
         Text(
           S.of(context).enterPersonalDetails,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
+            fontSize: 18.sp,
+            height: 1.7.h,
             fontStyle: FontStyle.italic,
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 30),
+         SizedBox(height: 30.h),
         _InfoTextField(controller: nameController, title: S.of(context).name),
-        const SizedBox(height: 15),
+         SizedBox(height: 15.h),
         _InfoTextField(controller: idController, title: S.of(context).id),
-        const SizedBox(height: 15),
+         SizedBox(height: 15.h),
         _InfoTextField(controller: emailController, title: S.of(context).email),
       ],
     );
@@ -83,85 +83,34 @@ class _InfoTextFieldState extends State<_InfoTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      padding: EdgeInsets.symmetric(horizontal: 40.0.w),
       child: InkWell(
         onTap: () => myFocusNode.requestFocus(),
-        child: Container(
-          height: size.height * 0.05,
-          width: size.width * 0.7,
-          decoration: BoxDecoration(
-            color: AppColors.textFieldColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: InkWell(
-            onTap: () => myFocusNode.requestFocus(),
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 60,
-                  right: 0,
-                  bottom: 14,
-                  child: SizedBox(
-                    width: size.width * 0.2,
-                    child: TextFormField(
-                      focusNode: myFocusNode,
-                      controller: widget.controller,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      textAlign: TextAlign.left,
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(19)
-                      ],
-                    ),
-                  ),
+        child: TextFormField(
+          focusNode: myFocusNode,
+          controller: widget.controller,
+          style: TextStyle(color: Colors.white,fontSize: 12.sp),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 12.w),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(32.0),
+                borderSide: const BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
                 ),
-                Positioned(
-                  top: 0,
-                  left: 10,
-                  right: 0,
-                  bottom: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: SizedBox(
-                      height: size.height * 0.1,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * 0.12,
-                            child: Text(
-                              widget.title,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            ConstStrings.dots,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              filled: true,
+              hintStyle: TextStyle(color: Colors.grey[500]),
+              hintText: widget.title,
+              fillColor: AppColors.textFieldColor.withOpacity(0.4),
           ),
+          textAlign: TextAlign.left,
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.text,
+          inputFormatters: <TextInputFormatter>[
+            LengthLimitingTextInputFormatter(19)
+          ],
         ),
       ),
     );
