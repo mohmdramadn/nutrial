@@ -77,5 +77,6 @@
   "min": "Minutes",
   "weight": "Weight",
   "chooseItem": "Choose Item",
-  "shareApp": "Share App"
+  "shareApp": "Share App",
+  "noInternetConnection": "No internet connection"
 }

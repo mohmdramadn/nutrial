@@ -7,6 +7,7 @@ import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/profile/profile_components/profile_details_items.dart';
 import 'package:nutrial/screens/profile/profile_components/profile_menu_items.dart';
 import 'package:nutrial/screens/profile/profile_view_model.dart';
+import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,10 @@ class ProfileScreen extends StatelessWidget {
     return ChangeNotifierProvider<ProfileViewModel>(
         create: (_) =>
             ProfileViewModel(
-            firebaseService: context.read<FirebaseService>(),
-            messageService: context.read<MessageService>()),
+              firebaseService: context.read<FirebaseService>(),
+              messageService: context.read<MessageService>(),
+              connectionService: context.read<ConnectionService>(),
+            ),
         child: const _Body());
   }
 }

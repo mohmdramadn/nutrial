@@ -77,5 +77,6 @@
   "min": "الدقائق",
   "weight": "الوزن",
   "chooseItem": "اختار صنف",
-  "shareApp": "شارك التطبيق"
+  "shareApp": "شارك التطبيق",
+  "noInternetConnection": "لا يوجد اتصال بالانترنت"
 }

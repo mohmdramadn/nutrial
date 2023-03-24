@@ -12,6 +12,7 @@ import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/second_ste
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/steps_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/third_intro_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/user_info_screen.dart';
+import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +24,11 @@ class OnBoardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<OnBoardViewModel>(
         create: (_) => OnBoardViewModel(
-            firebaseService: context.read<FirebaseService>(),
-            messageService: context.read<MessageService>(),
-            localization: context.read<S>(),
-        ),
+              firebaseService: context.read<FirebaseService>(),
+              messageService: context.read<MessageService>(),
+              localization: context.read<S>(),
+              connectionService: context.read<ConnectionService>(),
+            ),
         child: const _Body());
   }
 }

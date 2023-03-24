@@ -5,16 +5,19 @@ import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
 import 'package:nutrial/routes/routes_names.dart';
+import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final FirebaseService firebaseService;
   final MessageService messageService;
+  final ConnectionService connectionService;
 
   ProfileViewModel({
     required this.firebaseService,
     required this.messageService,
+    required this.connectionService,
   });
 
   UserProfileModel? _user;
@@ -22,6 +25,12 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> initGetProfileAsync() async {
     setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
     var response = await firebaseService.getUserProfile();
     if (response.isError) {
       messageService.showErrorSnackBar('', response.asError!.error.toString());

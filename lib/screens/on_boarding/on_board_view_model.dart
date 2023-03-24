@@ -5,17 +5,20 @@ import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
 import 'package:nutrial/routes/routes_names.dart';
+import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
 
 class OnBoardViewModel extends ChangeNotifier{
   final FirebaseService firebaseService;
   final MessageService messageService;
+  final ConnectionService connectionService;
   final S localization;
 
   OnBoardViewModel({
     required this.firebaseService,
     required this.messageService,
+    required this.connectionService,
     required this.localization,
   });
 
@@ -64,6 +67,11 @@ class OnBoardViewModel extends ChangeNotifier{
 
   Future<void> onDoneProfileDataEntryAction()async{
     setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if (!isConnected) {
+      setLoadingState(false);
+      notifyListeners();
+    }
     if(!_checkPasswordsMatching) {
       setLoadingState(false);
       messageService.showErrorSnackBar('', localization.passNotMatching);
@@ -85,6 +93,12 @@ class OnBoardViewModel extends ChangeNotifier{
   }
 
   Future<void> _createProfileAsync() async {
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
     var response =
         await firebaseService.createProfileAsync(model: userProfileModel);
 
