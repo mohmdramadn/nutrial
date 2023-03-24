@@ -28,5 +28,13 @@ class Kilograms{
   static const String seventy = '70\nkg';
   static const String eighty = '80\nkg';
   static const String ninety = '90\nkg';
+}
 
+class Language{
+  static const String english = 'English';
+  static const String arabic = 'عربي';
+}
+
+class PreferenceStrings{
+  static const String userProfile = 'user_profile';
 }

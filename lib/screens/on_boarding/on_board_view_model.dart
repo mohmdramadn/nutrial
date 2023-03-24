@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
+import 'package:nutrial/routes/routes_names.dart';
+import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
 
 class OnBoardViewModel extends ChangeNotifier{
   final FirebaseService firebaseService;
   final MessageService messageService;
+  final ConnectionService connectionService;
   final S localization;
 
   OnBoardViewModel({
     required this.firebaseService,
     required this.messageService,
+    required this.connectionService,
     required this.localization,
   });
 
@@ -61,6 +67,11 @@ class OnBoardViewModel extends ChangeNotifier{
 
   Future<void> onDoneProfileDataEntryAction()async{
     setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if (!isConnected) {
+      setLoadingState(false);
+      notifyListeners();
+    }
     if(!_checkPasswordsMatching) {
       setLoadingState(false);
       messageService.showErrorSnackBar('', localization.passNotMatching);
@@ -78,46 +89,33 @@ class OnBoardViewModel extends ChangeNotifier{
       return;
     }
 
-    var user = signUpResponse.asValue?.value;
-    Preference.instance.saveData('user', user);
-    //TODO un comment when implementing firestore
-    //await _createProfileAsync();
-    setLoadingState(false);
-    //TODO change to offNamed
-    //Get.toNamed(profileRoute);
+    await _createProfileAsync();
   }
 
-  Future<void> _onAddNewProfileSelected()async{
+  Future<void> _createProfileAsync() async {
     setLoadingState(true);
-
-    var signUpResponse = await firebaseService.signupNewUserAsync(
-        emailController.text, passwordController.text);
-    if(signUpResponse.isError){
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
       setLoadingState(false);
+      notifyListeners();
+    }
+    var response =
+        await firebaseService.createProfileAsync(model: userProfileModel);
+
+    if (response.isError) {
       messageService.showErrorSnackBar(
-          '', signUpResponse.asError!.error.toString());
+          S.of(Get.context!).error, S.of(Get.context!).error);
+      setLoadingState(false);
+      notifyListeners();
       return;
     }
+    userProfileModel.uid = response.asValue!.value;
+    Preference.instance
+        .saveData(PreferenceStrings.userProfile, userProfileModel);
 
-    var user = signUpResponse.asValue?.value;
-    Preference.instance.saveData('user', user);
-    await _createProfileAsync();
     setLoadingState(false);
-
-    //TODO change to offNamed
-    //Get.toNamed(profileRoute);
-  }
-
-  Future<void> _createProfileAsync()async{
-    var response = await firebaseService.createProfileAsync(
-      gender: _gender == 1 && _gender != -1
-          ? localization.male
-          : localization.female,
-      age: int.tryParse(ageController.text)!,
-      musclesPercentage: musclesController.text,
-      waterPercentage: waterController.text,
-      fatsPercentage: fatsController.text,
-    );
+    notifyListeners();
+    Get.offAllNamed(homeRoute);
   }
 
   void _createProfileModel(){
@@ -129,8 +127,8 @@ class OnBoardViewModel extends ChangeNotifier{
     userProfileModel.waterPercentage = waterController.text;
     userProfileModel.fatsPercentage = fatsController.text;
     userProfileModel.age = ageController.text;
-    userProfileModel.sex =
-    _gender == 1 && _gender != -1 ? localization.male : localization.female;
+    userProfileModel.gender =
+    _gender == 1 ? localization.male : localization.female;
   }
 
 }

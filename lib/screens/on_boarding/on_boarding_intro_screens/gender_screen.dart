@@ -44,7 +44,7 @@ class _Male extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 50),
-        selectedGender == 0
+        selectedGender == 1
             ? const _SelectedContainer()
             : const _UnselectedContainer(isMale: true),
       ],
@@ -73,7 +73,7 @@ class _Female extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 50),
-        selectedGender == 1
+        selectedGender == 0
             ? const _SelectedContainer()
             : const _UnselectedContainer(isMale: false),
       ],
@@ -111,10 +111,10 @@ class _UnselectedContainer extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (isMale) {
-          context.read<OnBoardViewModel>().setGender(0);
+          context.read<OnBoardViewModel>().setGender(1);
           return;
         }
-        context.read<OnBoardViewModel>().setGender(1);
+        context.read<OnBoardViewModel>().setGender(0);
       },
       child: Container(
         height: 80,

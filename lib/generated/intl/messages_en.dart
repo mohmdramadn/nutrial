@@ -97,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "newUser": MessageLookupByLibrary.simpleMessage("New User"),
         "nextSession": MessageLookupByLibrary.simpleMessage("Next Session"),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
         "oldPassword": MessageLookupByLibrary.simpleMessage("Old Password"),
         "passNotMatching":
             MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),
@@ -104,13 +106,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "popUpNotification":
             MessageLookupByLibrary.simpleMessage("Pop-up Notifications"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
+        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shareApp": MessageLookupByLibrary.simpleMessage("Share App"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),

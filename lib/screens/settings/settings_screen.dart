@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/settings/settings_view_model.dart';
+import 'package:nutrial/services/app_language.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'dart:math' as math;
 
 class SettingsScreen extends StatelessWidget {
@@ -13,7 +15,10 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SettingsViewModel>(
-        create: (_) => SettingsViewModel(), child: const _Body());
+        create: (_) => SettingsViewModel(
+              language: context.read<AppLanguage>(),
+            ),
+        child: const _Body());
   }
 }
 
@@ -24,7 +29,9 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var vm = context.watch<SettingsViewModel>();
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -32,11 +39,26 @@ class _Body extends StatelessWidget {
           children: [
             const _HeaderLogo(),
             SizedBox(height: 35.h),
-            const _MainLogo(),
-            SizedBox(height: size.height * 0.05),
-            const _Settings(),
-            SizedBox(height: 40.0.h),
-            const _InviteFriend(),
+            Stack(
+              children: [
+                Column(
+                  children: [
+                    const _MainLogo(),
+                    SizedBox(height: size.height * 0.05),
+                    const _Settings(),
+                    SizedBox(height: 40.0.h),
+                    const _InviteFriend(),
+                  ],
+                ),
+                Visibility(
+                  visible: vm.isLoading,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                        color: AppColors.primaryDarkColor),
+                  ),
+                )
+              ],
+            ),
             SizedBox(height: size.height * 0.02),
           ],
         ),
@@ -133,16 +155,7 @@ class _Settings extends StatelessWidget {
           padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
           child: Column(
             children: [
-              _Switch(
-                title: S.of(context).appLanguage,
-                firstValue: 'EN',
-                secondValue: 'عربي',
-              ),
-              _Switch(
-                title: S.of(context).popUpNotification,
-                firstValue: '',
-                secondValue: '',
-              ),
+              const _Switch(),
               SizedBox(height: 16.0.h)
             ],
           ),
@@ -224,9 +237,10 @@ class _InviteFriend extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              'Share App',
-                              style: TextStyle(color: AppColors.floatingButton),
+                            Text(
+                              S.of(context).shareApp,
+                              style: const TextStyle(
+                                  color: AppColors.floatingButton),
                             ),
                             SizedBox(width: 5.w),
                             Transform(
@@ -254,17 +268,12 @@ class _InviteFriend extends StatelessWidget {
 class _Switch extends StatelessWidget {
   const _Switch({
     Key? key,
-    required this.title,
-    required this.firstValue,
-    required this.secondValue,
   }) : super(key: key);
-
-  final String title;
-  final String? firstValue;
-  final String? secondValue;
 
   @override
   Widget build(BuildContext context) {
+    var isEnglish = context.watch<SettingsViewModel>().isEnglish;
+
     return Padding(
       padding: EdgeInsets.only(top: 16.0.h, left: 8.0.w, right: 8.0.w),
       child: Row(
@@ -273,29 +282,32 @@ class _Switch extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
             child: Text(
-              title,
+              S.of(context).appLanguage,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,
               ),
             ),
           ),
-          ToggleSwitch(
-            minWidth: 35.0,
-            cornerRadius: 50.0,
-            activeBgColors: const [
-              [AppColors.floatingButton],
-              [AppColors.floatingButton]
-            ],
-            activeFgColor: Colors.white,
-            inactiveBgColor: Colors.white,
-            inactiveFgColor: Colors.white,
-            initialLabelIndex: 0,
-            totalSwitches: 2,
-            labels: [firstValue!, secondValue!],
-            radiusStyle: true,
-            onToggle: (index) {},
-            minHeight: 25.h,
+          FlutterSwitch(
+            width: 100.w,
+            height: 40.h,
+            valueFontSize: 16.0.sp,
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+            inactiveText: Language.english,
+            activeText: Language.arabic,
+            inactiveTextColor: AppColors.floatingButton,
+            activeTextColor: AppColors.floatingButton,
+            toggleColor: AppColors.floatingButton,
+            toggleSize: 25.0.sp,
+            value: isEnglish,
+            borderRadius: 30.0,
+            padding: 8.0,
+            showOnOff: true,
+            onToggle: (val) => context
+                .read<SettingsViewModel>()
+                .onLanguageChangedActionAsync(),
           ),
         ],
       ),

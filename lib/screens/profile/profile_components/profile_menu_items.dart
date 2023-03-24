@@ -9,10 +9,12 @@ class ProfileMenu extends StatelessWidget {
     Key? key,
     required this.isLogin,
     required this.nextSession,
+    required this.logout,
   }) : super(key: key);
 
   final bool isLogin;
   final String nextSession;
+  final Function() logout;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class ProfileMenu extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).size.height * 0.013),
         isLogin
             ? GestureDetector(
-                onTap: () => Get.toNamed(loginRoute),
+                onTap: logout,
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.height * 0.06,
