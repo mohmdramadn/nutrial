@@ -1,7 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/generated/l10n.dart';
+import 'package:nutrial/services/connection_service.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 
 class CardioExerciseViewModel extends ChangeNotifier{
+  final ConnectionService connectionService;
+  final MessageService messageService;
+  final FirebaseService firebaseService;
+  final S localization;
+
+  CardioExerciseViewModel({
+    required this.connectionService,
+    required this.messageService,
+    required this.firebaseService,
+    required this.localization,
+  });
+
   TextEditingController minutesController = TextEditingController();
 
   bool _isLoading = false;
@@ -15,10 +31,6 @@ class CardioExerciseViewModel extends ChangeNotifier{
   bool get isSuccess => _isSuccess;
   void setSuccessState(value){
     _isSuccess = value;
-    Future.delayed(const Duration(seconds: 3),(){
-      _isSuccess = !value;
-      notifyListeners();
-    });
     notifyListeners();
   }
 
@@ -40,8 +52,12 @@ class CardioExerciseViewModel extends ChangeNotifier{
   String? _totalCalories;
   String? get totalCalories => _totalCalories;
 
+  String? _minutes;
+  String? get minutes => _minutes;
+
   void onMinutesChangedAction(String minutes) {
     if (minutesController.text == '' || minutes == '') return;
+    _minutes = minutes;
     var minutesInt = int.tryParse(minutes.replaceAll(RegExp(r'[^0-9]'), ''));
     var weight =
         int.tryParse(_selectedWeight!.replaceAll(RegExp(r'[^0-9]'), ''));
@@ -51,6 +67,32 @@ class CardioExerciseViewModel extends ChangeNotifier{
     var calories = int.tryParse(caloriesValue);
     _totalCalories =
         ((minutesInt! * calories!) / 60).round().toString();
+    notifyListeners();
+  }
+
+  Future<void> saveSessionActivityActionAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+    var response = await firebaseService.saveSessionsAsync(
+      activityName: 'test',
+      minutes: _minutes!,
+      weight: _selectedWeight!,
+      calories: _totalCalories!,
+    );
+
+    if (response.isError) {
+      messageService.showErrorSnackBar(
+          localization.error, localization.error);
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    setLoadingState(false);
     notifyListeners();
   }
 }

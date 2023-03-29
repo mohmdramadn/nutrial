@@ -6,6 +6,9 @@ import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/cardio_exercise/cardio_exercise_view_model.dart';
+import 'package:nutrial/services/connection_service.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
 class CardioExerciseScreen extends StatelessWidget {
@@ -14,7 +17,13 @@ class CardioExerciseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CardioExerciseViewModel>(
-        create: (_) => CardioExerciseViewModel(), child: const _Body());
+        create: (_) => CardioExerciseViewModel(
+            connectionService: context.read<ConnectionService>(),
+            messageService: context.read<MessageService>(),
+            firebaseService: context.read<FirebaseService>(),
+            localization: S.of(context),
+        ),
+        child: const _Body());
   }
 }
 
@@ -194,10 +203,10 @@ class _Calories extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        _CircularBox(title: Calories.twoHundredAndThirtySix),
-        _CircularBox(title: Calories.fiveHundredAndNinetyEight),
-        _CircularBox(title: Calories.sixHundredAndNinetyFive),
-        _CircularBox(title: Calories.sevenHundredAndNinetyOne),
+        _CircularBox(title: Calories.twoHundredAndThirtySix,isWeight: false),
+        _CircularBox(title: Calories.fiveHundredAndNinetyEight,isWeight: false),
+        _CircularBox(title: Calories.sixHundredAndNinetyFive,isWeight: false),
+        _CircularBox(title: Calories.sevenHundredAndNinetyOne,isWeight: false),
       ],
     );
   }
@@ -213,10 +222,10 @@ class _KiloGrams extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: const [
-        _CircularBox(title: Kilograms.sixty),
-        _CircularBox(title: Kilograms.seventy),
-        _CircularBox(title: Kilograms.eighty),
-        _CircularBox(title: Kilograms.ninety),
+        _CircularBox(title: Kilograms.sixty,isWeight: true),
+        _CircularBox(title: Kilograms.seventy,isWeight: true),
+        _CircularBox(title: Kilograms.eighty,isWeight: true),
+        _CircularBox(title: Kilograms.ninety,isWeight: true),
       ],
     );
   }
@@ -226,16 +235,20 @@ class _CircularBox extends StatelessWidget {
   const _CircularBox({
     Key? key,
     required this.title,
+    required this.isWeight,
   }) : super(key: key);
   final String title;
+  final bool isWeight;
 
   @override
   Widget build(BuildContext context) {
     var selectedWeight =
         context.select((CardioExerciseViewModel vm) => vm.selectedWeight);
     return InkWell(
-      onTap: () =>
-          context.read<CardioExerciseViewModel>().setSelectedWeight(title),
+      onTap: isWeight
+          ? () =>
+              context.read<CardioExerciseViewModel>().setSelectedWeight(title)
+          : () {},
       child: Container(
         width: 60.w,
         height: 60.h,
@@ -277,7 +290,7 @@ class _SaveButtonState extends State<_SaveButton> {
 
     return ElevatedButton(
       onPressed: () =>
-          context.read<CardioExerciseViewModel>().setSuccessState(true),
+          context.read<CardioExerciseViewModel>().saveSessionActivityActionAsync(),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: AppColors.saveButtonColor,
@@ -327,11 +340,11 @@ class _BodyWeight extends StatelessWidget {
           ),
         ),
         Container(
-          width: 90,
-          height: 80,
+          width: 80.w,
+          height: 70.h,
           decoration:
               const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: _CircularBox(title: selectedWeight ?? ''),
+          child: _CircularBox(title: selectedWeight ?? '',isWeight: true),
         )
       ],
     );
@@ -358,10 +371,10 @@ class _Minutes extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 80,
+          width: 75.w,
           child: Center(
             child: TextField(
-              style: const TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 25.sp),
               textAlign: TextAlign.center,
               cursorColor: AppColors.floatingButton,
               inputFormatters: <TextInputFormatter>[
@@ -376,7 +389,7 @@ class _Minutes extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 25),
+                contentPadding: EdgeInsets.symmetric(vertical: 22.h),
               ),
               onChanged: (min) => context
                   .read<CardioExerciseViewModel>()

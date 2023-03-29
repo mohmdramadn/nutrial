@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:async/async.dart';
+import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/models/profile_model.dart';
 
 class FirebaseService extends ChangeNotifier {
@@ -81,6 +82,31 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
+  Future<Result<bool>> saveSessionsAsync({
+    required String activityName,
+    required String minutes,
+    required String weight,
+    required String calories,
+  }) async {
+    final activityData = <String, dynamic>{
+      'minutes': minutes,
+      'weight': weight,
+      'calories': calories,
+    };
+    try {
+      await database
+          .collection('sessions')
+          .doc(user?.uid)
+          .collection(DateTime.now().dateForFirebase())
+          .doc(activityName)
+          .set(activityData);
+
+      return Result.value(true);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
   Future<Result<UserProfileModel>> getUserProfile() async {
     try {
       var profile = await database
@@ -91,6 +117,32 @@ class FirebaseService extends ChangeNotifier {
           UserProfileModel.fromFirestore(profile.docs.first.data());
 
       return Result.value(userProfile);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<Map<DateTime, List<QuerySnapshot>>>> getUserSessions() async {
+    Map<DateTime, List<QuerySnapshot>>? map = {};
+    try {
+      var queryDate = DateTime.now();
+      List<QuerySnapshot> snapshots = [];
+      for (int i = 0; i <= 6; i++) {
+        var sessions = database
+            .collection('sessions')
+            .doc(user?.uid)
+            .collection(queryDate.dateForFirebase());
+
+        final QuerySnapshot querySnapshot = await sessions.get();
+
+        if(querySnapshot.docs.isNotEmpty) {
+          snapshots.add(querySnapshot);
+          map[queryDate] = snapshots;
+        }
+
+        queryDate = queryDate.subtract(const Duration(days: 1));
+      }
+      return Result.value(map);
     } catch (e) {
       return Result.error(e);
     }
