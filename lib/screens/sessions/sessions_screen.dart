@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/logo.dart';
@@ -67,7 +66,7 @@ class _BodyState extends State<_Body> {
                       child: ListView.separated(
                         itemCount: vm.sessions!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return _SessionItem(session: vm.sessions![index]);
+                          return _SessionItem(date: vm.sessionsTitle[index]);
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(height: 20.h);
@@ -85,10 +84,10 @@ class _BodyState extends State<_Body> {
 class _SessionItem extends StatelessWidget {
   const _SessionItem({
     Key? key,
-    required this.session,
+    required this.date,
   }) : super(key: key);
 
-  final QuerySnapshot session;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +110,7 @@ class _SessionItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Sunday. 22/05/2021 12:20 PM',
+                      date,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: Colors.white,

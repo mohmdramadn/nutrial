@@ -10,12 +10,14 @@ class CardioExerciseViewModel extends ChangeNotifier{
   final MessageService messageService;
   final FirebaseService firebaseService;
   final S localization;
+  final String activity;
 
   CardioExerciseViewModel({
     required this.connectionService,
     required this.messageService,
     required this.firebaseService,
     required this.localization,
+    required this.activity,
   });
 
   TextEditingController minutesController = TextEditingController();
@@ -78,8 +80,8 @@ class CardioExerciseViewModel extends ChangeNotifier{
       notifyListeners();
     }
     var response = await firebaseService.saveSessionsAsync(
-      activityName: 'test',
-      minutes: _minutes!,
+      activityName: activity,
+      minutes: _minutes ?? '',
       weight: _selectedWeight!,
       calories: _totalCalories!,
     );
