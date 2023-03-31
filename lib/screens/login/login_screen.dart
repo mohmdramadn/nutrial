@@ -168,6 +168,8 @@ class _Password extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller =
         context.select((LoginViewModel vm) => vm.passwordController);
+    var showPassword =
+        context.select((LoginViewModel vm) => vm.showPassword);
     var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -192,8 +194,19 @@ class _Password extends StatelessWidget {
           width: 200.w,
           child: TextFormField(
             controller: controller,
+            obscureText: showPassword ? true : false,
             cursorColor: AppColors.primaryDarkColor,
             decoration: InputDecoration(
+              suffixIcon: InkWell(
+                onTap: () => context.read<LoginViewModel>().setShowPassState(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(

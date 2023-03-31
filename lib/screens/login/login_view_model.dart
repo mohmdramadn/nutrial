@@ -32,6 +32,13 @@ class LoginViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool _showPassword = true;
+  bool get showPassword => _showPassword;
+  void setShowPassState(){
+    _showPassword = !_showPassword;
+    notifyListeners();
+  }
+
   Future<void> loginAsync() async {
     setLoadingState(true);
     var isConnected = await connectionService.checkConnection();
