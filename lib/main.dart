@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -44,10 +43,7 @@ void main() {
     runApp(
       ChangeNotifierProvider<AppLanguage>.value(
         value: appLanguage,
-        child: DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => MyApp(appLanguage: appLanguage),
-        ),
+        child: MyApp(appLanguage: appLanguage),
       ),
     );
   }, (error, stack) => log('$error'));

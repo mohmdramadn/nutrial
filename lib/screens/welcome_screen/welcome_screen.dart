@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/login/login_screen.dart';
 
@@ -108,9 +110,9 @@ class _NewUser extends StatelessWidget {
             ),
           ),
         ),
-        child: const Text(
-          'New user',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+        child: Text(
+          S.of(context).newUser,
+          style: TextStyle(color: Colors.white, fontSize: 16.sp),
         ),
       ),
     );
@@ -143,9 +145,9 @@ class _AlreadyHaveAccount extends StatelessWidget {
             ),
           ),
         ),
-        child: const Text(
-          'I already have an account',
-          style: TextStyle(color: Colors.white, fontSize: 16),
+        child: Text(
+          S.of(context).alreadyHaveAccount,
+          style: TextStyle(color: Colors.white, fontSize: 16.sp),
         ),
       ),
     );
