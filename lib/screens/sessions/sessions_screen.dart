@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/logo.dart';
 import 'package:nutrial/constants/colors.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/sessions/sessions_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +120,7 @@ class _Title extends StatelessWidget {
       alignment: Alignment.center,
       child: Center(
         child: Text(
-          'Sessions',
+          S.of(context).mySessions,
           style: TextStyle(
             fontSize: 18.sp,
             color: Colors.white,
