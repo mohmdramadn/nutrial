@@ -1,7 +1,7 @@
 {
   "username": "اسم المستخدم",
   "socialLogin": "Or continue with",
-  "profileMenu": "ProfileMenu",
+  "profileMenu": "قايمة الملف الشخصي",
   "myAccount": "My Account",
   "changeInfo": "Change Information",
   "password": "كلمة المرور",
@@ -51,7 +51,7 @@
   "checkInputs": "تحقق من المدخلات مره اخره اولأ",
   "done": "تم بنجاح",
   "changePassword": "تغير كلمة المرور",
-  "mySessions": "السيشن",
+  "mySessions": "الجلسات",
   "myOtherSessions": "السيشن الاخري",
   "newUser": "مستخدم جديد",
   "alreadyHaveAccount": "بالفعل املك حساب",
@@ -78,5 +78,7 @@
   "weight": "الوزن",
   "chooseItem": "اختار صنف",
   "shareApp": "شارك التطبيق",
-  "noInternetConnection": "لا يوجد اتصال بالانترنت"
+  "noInternetConnection": "لا يوجد اتصال بالانترنت",
+  "newUser": "مستخدم جديد",
+  "alreadyHaveAccount": "لدي حساب بالفعل"
 }

@@ -106,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "popUpNotification":
             MessageLookupByLibrary.simpleMessage("Pop-up Notifications"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
+        "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),

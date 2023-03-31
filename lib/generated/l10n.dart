@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `ProfileMenu`
+  /// `Profile Menu`
   String get profileMenu {
     return Intl.message(
-      'ProfileMenu',
+      'Profile Menu',
       name: 'profileMenu',
       desc: '',
       args: [],
