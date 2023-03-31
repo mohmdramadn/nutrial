@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,11 +35,45 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CaloriesViewModel>().createTableRowsInit();
     });
+
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
     super.initState();
   }
 
@@ -53,123 +89,127 @@ class _BodyState extends State<_Body> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const _Header(),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 30.h),
-                  const _WaterHeader(),
-                  if (vm.waterBottlesCount != 0) const _WaterBottles(),
-                  SizedBox(height: 50.h),
-                  _Category(
-                    imgName: 'protiens',
-                    isHasNumbers: true,
-                    caloriesRate:
-                        vm.proteinGoalCalories.roundToDouble().toString(),
-                    consumedCalories: vm.totalProteinCalories.toString(),
-                    controller: vm.proteinGoalController,
-                    initGoalValue: vm.proteinGoalCalories.toString(),
-                    isEditGoal: vm.isEditProteinGoal,
-                    onTap: () => context
-                        .read<CaloriesViewModel>()
-                        .setEditProteinGoalState(),
-                    onSubmitted: (value) => context
-                        .read<CaloriesViewModel>()
-                        .setProteinGoalValue(value),
-                  ),
-                  LinearProgressIndicatorApp(
-                    consumedCaloriesPercentage: vm.proteinProgressRatio,
-                    color: vm.isMetProteinGoal
-                        ? const AlwaysStoppedAnimation<Color>(
-                            AppColors.floatingButton)
-                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
-                  ),
-                  const _HeaderCategory(isProtein: true),
-                  if (vm.showNewProteinItem)
-                    NewItemsRow(
-                      itemName: S.of(context).chooseItem,
-                      showMenu: showProteinMenu,
-                      onMenuTapped: () => context
+          controller: scrollController,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const _Header(),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 30.h),
+                    const _WaterHeader(),
+                    if (vm.waterBottlesCount != 0) const _WaterBottles(),
+                    SizedBox(height: 50.h),
+                    _Category(
+                      imgName: 'protiens',
+                      isHasNumbers: true,
+                      caloriesRate:
+                          vm.proteinGoalCalories.roundToDouble().toString(),
+                      consumedCalories: vm.totalProteinCalories.toString(),
+                      controller: vm.proteinGoalController,
+                      initGoalValue: vm.proteinGoalCalories.toString(),
+                      isEditGoal: vm.isEditProteinGoal,
+                      onTap: () => context
                           .read<CaloriesViewModel>()
-                          .setProteinMenuState(),
-                      controller: vm.proteinQtyController,
-                    ),
-                  if (vm.showSelectedIProteinItem)
-                    SelectedItemRow(
-                      itemName: vm.selectedProteinItem!.itemName!,
-                      calories: vm.calculatedProteinCalories,
-                      controller: vm.proteinQtyController,
-                      onChanged: (value) => context
-                          .read<CaloriesViewModel>()
-                          .onProteinQuantityAddedAction(),
+                          .setEditProteinGoalState(),
                       onSubmitted: (value) => context
                           .read<CaloriesViewModel>()
-                          .onSubmitProteinButtonAction(),
+                          .setProteinGoalValue(value),
                     ),
-                  if (vm.proteinsSelectedItems.length != 0)
-                    _SavedItems(
-                      itemsList: vm.proteinsSelectedItems,
-                      isProtein: true,
+                    LinearProgressIndicatorApp(
+                      consumedCaloriesPercentage: vm.proteinProgressRatio,
+                      color: vm.isMetProteinGoal
+                          ? const AlwaysStoppedAnimation<Color>(
+                              AppColors.floatingButton)
+                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                     ),
-                  if (showProteinMenu) const _Items(isProtein: true),
-                  SizedBox(height: 50.h),
-                  _Category(
-                    imgName: 'fats',
-                    isHasNumbers: true,
-                    caloriesRate:
-                        vm.carbsGoalCalories.roundToDouble().toString(),
-                    consumedCalories: vm.totalCarbsCalories.toString(),
-                    controller: vm.carbsGoalController,
-                    initGoalValue: vm.carbsGoalCalories.toString(),
-                    isEditGoal: vm.isEditCarbsGoal,
-                    onTap: () => context
-                        .read<CaloriesViewModel>()
-                        .setEditCarbsGoalState(),
-                    onSubmitted: (value) => context
-                        .read<CaloriesViewModel>()
-                        .setCarbsGoalValue(value),
-                  ),
-                  LinearProgressIndicatorApp(
-                    consumedCaloriesPercentage: vm.carbsProgressRatio,
-                    color: vm.isMetCarbsGoal
-                        ? const AlwaysStoppedAnimation<Color>(
-                            AppColors.floatingButton)
-                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
-                  ),
-                  const _HeaderCategory(isProtein: false),
-                  if (vm.showNewCarbsItem)
-                    NewItemsRow(
-                      itemName: 'Choose Item',
-                      showMenu: showCarbsMenu,
-                      onMenuTapped: () =>
-                          context.read<CaloriesViewModel>().setCarbsMenuState(),
-                      controller: vm.carbsQtyController,
-                    ),
-                  if (vm.showSelectedCarbsItem)
-                    SelectedItemRow(
-                      itemName: vm.selectedCarbsItem!.itemName!,
-                      calories: vm.calculatedCarbsCalories,
-                      controller: vm.carbsQtyController,
-                      onChanged: (value) => context
+                    const _HeaderCategory(isProtein: true),
+                    if (vm.showNewProteinItem)
+                      NewItemsRow(
+                        itemName: S.of(context).chooseItem,
+                        showMenu: showProteinMenu,
+                        onMenuTapped: () => context
+                            .read<CaloriesViewModel>()
+                            .setProteinMenuState(),
+                        controller: vm.proteinQtyController,
+                      ),
+                    if (vm.showSelectedIProteinItem)
+                      SelectedItemRow(
+                        itemName: vm.selectedProteinItem!.itemName!,
+                        calories: vm.calculatedProteinCalories,
+                        controller: vm.proteinQtyController,
+                        onChanged: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onProteinQuantityAddedAction(),
+                        onSubmitted: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onSubmitProteinButtonAction(),
+                      ),
+                    if (vm.proteinsSelectedItems.length != 0)
+                      _SavedItems(
+                        itemsList: vm.proteinsSelectedItems,
+                        isProtein: true,
+                      ),
+                    if (showProteinMenu) const _Items(isProtein: true),
+                    SizedBox(height: 50.h),
+                    _Category(
+                      imgName: 'fats',
+                      isHasNumbers: true,
+                      caloriesRate:
+                          vm.carbsGoalCalories.roundToDouble().toString(),
+                      consumedCalories: vm.totalCarbsCalories.toString(),
+                      controller: vm.carbsGoalController,
+                      initGoalValue: vm.carbsGoalCalories.toString(),
+                      isEditGoal: vm.isEditCarbsGoal,
+                      onTap: () => context
                           .read<CaloriesViewModel>()
-                          .onCarbsQuantityAddedAction(),
+                          .setEditCarbsGoalState(),
                       onSubmitted: (value) => context
                           .read<CaloriesViewModel>()
-                          .onSubmitCarbsButtonAction(),
+                          .setCarbsGoalValue(value),
                     ),
-                  if (vm.carbsSelectedItems.length != 0)
-                    _SavedItems(
-                      itemsList: vm.carbsSelectedItems,
-                      isProtein: false,
+                    LinearProgressIndicatorApp(
+                      consumedCaloriesPercentage: vm.carbsProgressRatio,
+                      color: vm.isMetCarbsGoal
+                          ? const AlwaysStoppedAnimation<Color>(
+                              AppColors.floatingButton)
+                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                     ),
-                  if (showCarbsMenu) const _Items(isProtein: false),
-                  const _SaveButton(),
-                ],
-              ),
-            ],
+                    const _HeaderCategory(isProtein: false),
+                    if (vm.showNewCarbsItem)
+                      NewItemsRow(
+                        itemName: 'Choose Item',
+                        showMenu: showCarbsMenu,
+                        onMenuTapped: () =>
+                            context.read<CaloriesViewModel>().setCarbsMenuState(),
+                        controller: vm.carbsQtyController,
+                      ),
+                    if (vm.showSelectedCarbsItem)
+                      SelectedItemRow(
+                        itemName: vm.selectedCarbsItem!.itemName!,
+                        calories: vm.calculatedCarbsCalories,
+                        controller: vm.carbsQtyController,
+                        onChanged: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onCarbsQuantityAddedAction(),
+                        onSubmitted: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onSubmitCarbsButtonAction(),
+                      ),
+                    if (vm.carbsSelectedItems.length != 0)
+                      _SavedItems(
+                        itemsList: vm.carbsSelectedItems,
+                        isProtein: false,
+                      ),
+                    if (showCarbsMenu) const _Items(isProtein: false),
+                    const _SaveButton(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -618,7 +658,7 @@ class _HeaderCategory extends StatelessWidget {
           const _Title(width: 0.5, title: 'Items'),
           const VerticalDivider(thickness: 1, color: Colors.white),
           const _Title(title: 'Cal.'),
-          _AddButton(isProtein: isProtein),
+          Expanded(child: _AddButton(isProtein: isProtein)),
         ],
       ),
     );
