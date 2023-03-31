@@ -6,7 +6,9 @@ import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/profile/profile_components/profile_details_items.dart';
 import 'package:nutrial/screens/profile/profile_components/profile_menu_items.dart';
+import 'package:nutrial/screens/profile/profile_components/profile_percentage_items.dart';
 import 'package:nutrial/screens/profile/profile_view_model.dart';
+import 'package:nutrial/services/app_language.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -23,6 +25,7 @@ class ProfileScreen extends StatelessWidget {
               firebaseService: context.read<FirebaseService>(),
               messageService: context.read<MessageService>(),
               connectionService: context.read<ConnectionService>(),
+              language: context.read<AppLanguage>(),
             ),
         child: const _Body());
   }
@@ -42,6 +45,7 @@ class _BodyState extends State<_Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProfileViewModel>().initGetProfileAsync();
+      // context.read<ProfileViewModel>().isArabicLang();
     });
     super.initState();
   }
@@ -87,6 +91,7 @@ class _ProfileDetails extends StatelessWidget {
     var userData = context.select((ProfileViewModel vm) => vm.user);
     var showMenu = context.select((ProfileViewModel vm) => vm.showProfileMenu);
     var isLoggedIn = context.watch<ProfileViewModel>().isLoggedIn;
+    var isArabic = context.watch<ProfileViewModel>().isArabic;
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.865,
@@ -110,18 +115,21 @@ class _ProfileDetails extends StatelessWidget {
               title: S.of(context).id,
               value: userData?.username ?? '',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
             ProfileDetailsItem(
               title: S.of(context).name,
               value: userData?.fullName ?? '',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
             ProfileDetailsItem(
               title: S.of(context).ageTitle,
               value: userData?.age ?? '',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
@@ -130,6 +138,7 @@ class _ProfileDetails extends StatelessWidget {
               title: S.of(context).height,
               value: '173 cm',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
@@ -138,28 +147,37 @@ class _ProfileDetails extends StatelessWidget {
               title: S.of(context).nextSession,
               value: '15/04/2022',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             const _LastBodyCompTitle(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            ProfileDetailsItem(
+            ProfilePercentageItem(
               title: S.of(context).totalWeight,
               value: '72.4 k.g',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-            ProfileDetailsItem(
+            ProfilePercentageItem(
               title: S.of(context).fatsPercentage,
               value: '${userData?.fatsPercentage ?? ''} %',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-            const _MusclePercentage(),
+            ProfilePercentageItem(
+              title: S.of(context).musclesPercentage,
+              value: '${userData?.musclesPercentage ?? ''} %',
+              onTap: () {},
+              isArabic: isArabic,
+            ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-            ProfileDetailsItem(
+            ProfilePercentageItem(
               title: S.of(context).waterPercentage,
               value: '${userData?.waterPercentage ?? ''} %',
               onTap: () {},
+              isArabic: isArabic,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.025),
             const _UpdateProfileButton(),
@@ -242,24 +260,25 @@ class _LastBodyCompTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isArabic = context.watch<ProfileViewModel>().isArabic;
+
     return Padding(
-      padding: EdgeInsets.only(left: 50.0.w),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          height: 25.h,
-          decoration: const BoxDecoration(
-            border:
-                Border(bottom: BorderSide(color: AppColors.orangeTextColor)),
-          ),
-          child: Text(
-            S.of(context).lastBodyComp,
-            style: TextStyle(
-                color: AppColors.orangeTextColor,
-                fontSize: 15.sp,
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.w700),
-          ),
+      padding: isArabic
+          ? EdgeInsets.only(left: 180.0.w)
+          : EdgeInsets.only(right: 120.0.w),
+      child: Container(
+        height: 25.h,
+        decoration: const BoxDecoration(
+          border:
+              Border(bottom: BorderSide(color: AppColors.orangeTextColor)),
+        ),
+        child: Text(
+          S.of(context).lastBodyComp,
+          style: TextStyle(
+              color: AppColors.orangeTextColor,
+              fontSize: 15.sp,
+              letterSpacing: 0.5,
+              fontWeight: FontWeight.w700),
         ),
       ),
     );
