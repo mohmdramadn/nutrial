@@ -13,7 +13,7 @@ class SecondStepsIntroScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: size.height * 0.11),
+        SizedBox(height: size.height * 0.08),
         Text(
           S.of(context).boardTwoTitle,
           style: const TextStyle(

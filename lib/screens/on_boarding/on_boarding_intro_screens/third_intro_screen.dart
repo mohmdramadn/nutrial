@@ -11,7 +11,7 @@ class ThirdIntroScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: size.height * 0.11),
+        SizedBox(height: size.height * 0.05),
         Text(
           S.of(context).boardThreeTitle,
           style: const TextStyle(

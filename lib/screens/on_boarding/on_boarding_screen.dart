@@ -84,10 +84,11 @@ class _BodyState extends State<_Body> {
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: 70.h),
                   _Logo(size: size),
+                  SizedBox(height: 30.h),
                   _Dots(size: size, pages: pages, currentBoard: currentBoard),
                   Flexible(
                     child: _PageView(pages: pages, controller: controller),
@@ -144,10 +145,9 @@ class _Dots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0.h),
+      padding: EdgeInsets.symmetric(vertical: 8.0.h,horizontal: 105.w),
       child: SizedBox(
         height: 15.h,
-        width: size.width * 0.50,
         child: ListView.separated(
           itemCount: pages.length,
           scrollDirection: Axis.horizontal,
@@ -164,7 +164,7 @@ class _Dots extends StatelessWidget {
                 ));
           },
           separatorBuilder: (_, context) {
-            return const SizedBox(width: 9.0);
+            return SizedBox(width: 5.0.w);
           },
         ),
       ),

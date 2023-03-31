@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,10 +17,53 @@ class UserInfoScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +72,39 @@ class _Body extends StatelessWidget {
     var idController = context.select((OnBoardViewModel vm) => vm.idController);
     var emailController =
         context.select((OnBoardViewModel vm) => vm.emailController);
-    Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        SizedBox(height: size.height * 0.1),
-        Text(
-          S.of(context).enterPersonalDetails,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            height: 1.7.h,
-            fontStyle: FontStyle.italic,
+
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Column(
+        children: [
+          SizedBox(height: 65.h),
+          Text(
+            S.of(context).enterPersonalDetails,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.sp,
+              height: 1.7.h,
+              fontStyle: FontStyle.italic,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-         SizedBox(height: 30.h),
-        _InfoTextField(controller: nameController, title: S.of(context).name),
-         SizedBox(height: 15.h),
-        _InfoTextField(controller: idController, title: S.of(context).id),
-         SizedBox(height: 15.h),
-        _InfoTextField(controller: emailController, title: S.of(context).email),
-      ],
+          SizedBox(height: 60.h),
+         Padding(
+           padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+           child: Column(
+             children: [
+               _InfoTextField(
+                   controller: nameController, title: S.of(context).name),
+               SizedBox(height: 15.h),
+               _InfoTextField(controller: idController, title: S.of(context).id),
+               SizedBox(height: 15.h),
+               _InfoTextField(
+                   controller: emailController, title: S.of(context).email),
+             ],
+           ),
+         ),
+        ],
+      ),
     );
   }
 }
@@ -84,29 +141,32 @@ class _InfoTextFieldState extends State<_InfoTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 60.0.w),
       child: InkWell(
         onTap: () => myFocusNode.requestFocus(),
         child: TextFormField(
           focusNode: myFocusNode,
           controller: widget.controller,
-          style: TextStyle(color: Colors.white,fontSize: 12.sp),
+          style: TextStyle(color: Colors.white, fontSize: 14.sp),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 12.w),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.0),
-                borderSide: const BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12.w),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0),
+              borderSide: const BorderSide(
+                width: 0,
+                style: BorderStyle.none,
               ),
-              filled: true,
-              hintStyle: TextStyle(color: Colors.grey[500]),
-              hintText: widget.title,
-              fillColor: AppColors.textFieldColor.withOpacity(0.4),
+            ),
+            filled: true,
+            fillColor: AppColors.textFieldColor.withOpacity(0.4),
+            labelStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 14.sp,
+            ),
+            label: Text(widget.title),
           ),
           textAlign: TextAlign.left,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           keyboardType: TextInputType.text,
           inputFormatters: <TextInputFormatter>[
             LengthLimitingTextInputFormatter(19)
