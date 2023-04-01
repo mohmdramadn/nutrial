@@ -79,6 +79,9 @@ class CaloriesViewModel extends ChangeNotifier{
 
   List<ItemModel> _carbsSelectedItems = [];
   List<ItemModel> get carbsSelectedItems => _carbsSelectedItems;
+  //TODO add actual activities
+  List<String> _cardioItems = ['test','test2'];
+  List<String> get cardioItems => _cardioItems;
 
   ItemModel? _selectedProteinItem;
   ItemModel? get selectedProteinItem => _selectedProteinItem;

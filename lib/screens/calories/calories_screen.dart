@@ -86,7 +86,7 @@ class _BodyState extends State<_Body> {
     var vm = context.watch<CaloriesViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor.withOpacity(0.9),
       body: SafeArea(
         child: SingleChildScrollView(
           controller: scrollController,
@@ -181,10 +181,11 @@ class _BodyState extends State<_Body> {
                     const _HeaderCategory(isProtein: false),
                     if (vm.showNewCarbsItem)
                       NewItemsRow(
-                        itemName: 'Choose Item',
+                        itemName: S.of(context).chooseItem,
                         showMenu: showCarbsMenu,
-                        onMenuTapped: () =>
-                            context.read<CaloriesViewModel>().setCarbsMenuState(),
+                        onMenuTapped: () => context
+                            .read<CaloriesViewModel>()
+                            .setCarbsMenuState(),
                         controller: vm.carbsQtyController,
                       ),
                     if (vm.showSelectedCarbsItem)
@@ -205,12 +206,93 @@ class _BodyState extends State<_Body> {
                         isProtein: false,
                       ),
                     if (showCarbsMenu) const _Items(isProtein: false),
+                    const _CardioHeader(),
+                    const _CardioActivityList(),
                     const _SaveButton(),
                   ],
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CardioActivityList extends StatelessWidget {
+  const _CardioActivityList({
+    Key? key,
+  }) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return Flexible(
+      child: Column(
+        children: [
+          for (int i = 0; i <= vm.cardioItems.length - 1; i++)
+            Column(
+              children: [
+                const _CardioActivity(),
+                SizedBox(height: 10.h),
+              ],
+            )
+        ],
+      ),
+    );
+  }
+}
+
+class _CardioActivity extends StatelessWidget {
+  const _CardioActivity({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.transparent),
+            color: Colors.black.withOpacity(0.23)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: 8.0.h, horizontal: 16.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              //TODO add actual activites
+              Text(
+                'Cycling, mountain bike, bmx',
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                '300 CAL',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CardioHeader extends StatelessWidget {
+  const _CardioHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+        child: const _Category(
+          imgName: 'cardio',
+          isHasNumbers: false,
         ),
       ),
     );
@@ -271,7 +353,7 @@ class _WaterHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -468,7 +550,7 @@ class _Date extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  isTodaySelected ? 'Today' : todayDate!,
+                  isTodaySelected ? S.of(context).today : todayDate!,
                   style:
                       const TextStyle(color: Colors.white, letterSpacing: 1.5),
                 ),
