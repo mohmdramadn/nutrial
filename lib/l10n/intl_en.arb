@@ -1,7 +1,7 @@
 {
   "username": "User Name",
   "socialLogin": "Or continue with",
-  "profileMenu": "ProfileMenu",
+  "profileMenu": "Profile Menu",
   "myAccount": "My Account",
   "changeInfo": "Change Information",
   "password": "Password",
@@ -42,7 +42,7 @@
   "settings": "Settings",
   "appLanguage": "App language",
   "yesterday": "YESTERDAY",
-  "today": "TODAY",
+  "today": "Today",
   "save": "SAVE",
   "loginNow": "Login now",
   "allFieldsRequired": "Please all fields required",

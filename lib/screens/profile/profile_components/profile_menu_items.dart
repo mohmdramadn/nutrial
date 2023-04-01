@@ -21,14 +21,6 @@ class ProfileMenu extends StatelessWidget {
     return Column(
       children: [
         _MenuItem(
-          title: S.of(context).myAccount,
-          //TODO add screens
-          screenToNavigate: null,
-          color: AppColors.primaryDarkColor,
-          isLoggedIn: isLogin,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.013),
-        _MenuItem(
           title: S.of(context).mySessions,
           isLoggedIn: isLogin,
           screenToNavigate: sessionsRoute,
@@ -44,13 +36,6 @@ class ProfileMenu extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).size.height * 0.013),
         _MenuItem(
           title: S.of(context).caloriesCalculator,
-          isLoggedIn: isLogin,
-          screenToNavigate: null,
-          color: AppColors.primaryLightColor,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.013),
-        _MenuItem(
-          title: S.of(context).myOtherCalories,
           isLoggedIn: isLogin,
           screenToNavigate: null,
           color: AppColors.primaryLightColor,

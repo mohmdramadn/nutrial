@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `ProfileMenu`
+  /// `Profile Menu`
   String get profileMenu {
     return Intl.message(
-      'ProfileMenu',
+      'Profile Menu',
       name: 'profileMenu',
       desc: '',
       args: [],
@@ -480,10 +480,10 @@ class S {
     );
   }
 
-  /// `TODAY`
+  /// `Today`
   String get today {
     return Intl.message(
-      'TODAY',
+      'Today',
       name: 'today',
       desc: '',
       args: [],

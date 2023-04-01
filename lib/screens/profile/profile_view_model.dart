@@ -5,6 +5,7 @@ import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
 import 'package:nutrial/routes/routes_names.dart';
+import 'package:nutrial/services/app_language.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -13,11 +14,13 @@ class ProfileViewModel extends ChangeNotifier {
   final FirebaseService firebaseService;
   final MessageService messageService;
   final ConnectionService connectionService;
+  final AppLanguage language;
 
   ProfileViewModel({
     required this.firebaseService,
     required this.messageService,
     required this.connectionService,
+    required this.language,
   });
 
   UserProfileModel? _user;
@@ -69,4 +72,6 @@ class ProfileViewModel extends ChangeNotifier {
         .saveData(PreferenceStrings.userProfile, _user);
     Get.offAndToNamed(loginRoute);
   }
+
+  bool get isArabic => Get.locale == const Locale('ar');
 }

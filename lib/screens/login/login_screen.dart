@@ -36,32 +36,41 @@ class _Body extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/images/background.png',
-            fit: BoxFit.cover,
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Spacer(),
-              _HeaderLogo(size: size),
-              const Spacer(),
-              const _UserName(),
-              SizedBox(height: 10.h),
-              const _Password(),
-              SizedBox(height: 10.h),
-              const _LoginButton(),
-              SizedBox(height: 10.h),
-              const _SocialMediaDivider(),
-              const Spacer(),
-              const _SocialMedia(),
-              const Spacer(),
-              const _PoweredByLogo(),
-            ],
-          ),
-        ],
+      body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+            image: const DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover),
+            color: Colors.grey[800]),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _HeaderLogo(size: size),
+                SizedBox(height: 5.h),
+                const _UserName(),
+                SizedBox(height: 10.h),
+                const _Password(),
+                SizedBox(height: 10.h),
+                const _LoginButton(),
+                SizedBox(height: 10.h),
+                const _SocialMediaDivider(),
+                SizedBox(height: 20.h),
+                const _SocialMedia(),
+                SizedBox(height: 30.h),
+              ],
+            ),
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: _PoweredByLogo(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,13 +85,13 @@ class _SocialMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        _SocialMediaButton(logo: 'apple_logo', size: 45),
-        SizedBox(width: 10),
-        _SocialMediaButton(
+      children: [
+        const _SocialMediaButton(logo: 'apple_logo', size: 45),
+        SizedBox(width: 10.w),
+        const _SocialMediaButton(
             logo: 'google_logo', iconColor: Colors.yellow, size: 40),
-        SizedBox(width: 10),
-        _SocialMediaButton(logo: 'facebook_logo'),
+        SizedBox(width: 10.w),
+        const _SocialMediaButton(logo: 'facebook_logo'),
       ],
     );
   }
@@ -97,18 +106,18 @@ class _SocialMediaDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         SizedBox(
-          height: 10,
-          width: 120,
-          child: Divider(
+          height: 10.h,
+          width: 120.w,
+          child: const Divider(
               color: Colors.white, thickness: 1, indent: 20, endIndent: 20),
         ),
-        Text(
+        const Text(
           ConstStrings.orComWith,
           style: TextStyle(color: Colors.white),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
           width: 120,
           child: Divider(
@@ -138,8 +147,8 @@ class _SocialMediaButton extends StatelessWidget {
         //TODO integrate with social media
       },
       child: SizedBox(
-        height: size ?? 60,
-        width: size ?? 60,
+        height: size?.h ?? 60.h,
+        width: size?.w ?? 60.w,
         child: Image.asset(
           'assets/images/$logo.png',
           fit: BoxFit.contain,
@@ -159,6 +168,8 @@ class _Password extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller =
         context.select((LoginViewModel vm) => vm.passwordController);
+    var showPassword =
+        context.select((LoginViewModel vm) => vm.showPassword);
     var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -178,19 +189,30 @@ class _Password extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10.w),
         SizedBox(
           width: 200.w,
           child: TextFormField(
             controller: controller,
+            obscureText: showPassword ? true : false,
             cursorColor: AppColors.primaryDarkColor,
             decoration: InputDecoration(
+              suffixIcon: InkWell(
+                onTap: () => context.read<LoginViewModel>().setShowPassState(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(19.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
-              contentPadding: const EdgeInsets.only(left: 12.0, right: 12.0),
+              contentPadding: EdgeInsets.only(left: 12.0.w, right: 12.0.w),
             ),
           ),
         ),
@@ -207,15 +229,15 @@ class _UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = context.select((LoginViewModel vm) => vm.nameController);
-    var size = MediaQuery.of(context).size;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: size.width * 0.24,
-          height: size.height * 0.05,
+          width: 90.w,
+          height: 35.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(19)),
+              color: Colors.white, borderRadius: BorderRadius.circular(25)),
           child: Center(
               child: Text(
             S.of(context).username,
@@ -229,13 +251,14 @@ class _UserName extends StatelessWidget {
         SizedBox(
           width: 200.w,
           child: TextFormField(
+            textInputAction: TextInputAction.next,
             controller: controller,
             cursorColor: AppColors.primaryDarkColor,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(19.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               contentPadding: const EdgeInsets.only(left: 12.0, right: 12.0),
             ),
@@ -257,8 +280,8 @@ class _HeaderLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size.width * 0.8,
-      height: size.height * 0.4,
+      width: size.width,
+      height: 200.h,
       child: Image.asset('assets/images/logo.png', scale: 1.5),
     );
   }
@@ -318,12 +341,8 @@ class _PoweredByLogo extends StatelessWidget {
 }
 
 class _LoginButton extends StatefulWidget {
-  //TODO add when adding firebase
-  // final CollectionReference users;
-
   const _LoginButton({
     Key? key,
-    // required this.users,
   }) : super(key: key);
 
   @override
@@ -334,27 +353,28 @@ class _LoginButtonState extends State<_LoginButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 300.w,
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            padding:
-                MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(AppColors.primaryColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: const BorderSide(color: AppColors.primaryColor),
-              ),
+      width: 300.w,
+      child: ElevatedButton(
+        onPressed: ()=> context.read<LoginViewModel>().loginAsync(),
+        style: ButtonStyle(
+          padding:
+              MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(AppColors.primaryLightColor4),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+              side: const BorderSide(color: AppColors.primaryLightColor4),
             ),
           ),
-          child: Text(
-            S.of(context).login,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
-          ),
-        ));
+        ),
+        child: Text(
+          S.of(context).login,
+          style: const TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
+    );
   }
 
   void showInSnackBarError(String value) {

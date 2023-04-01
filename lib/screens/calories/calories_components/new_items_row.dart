@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NewItemsRow extends StatelessWidget {
@@ -19,7 +18,7 @@ class NewItemsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18.w),
+      padding: EdgeInsets.symmetric(horizontal: 18.w,vertical: 5.h),
       child: Row(
         children: [
           _Quantity(controller: controller),
@@ -46,34 +45,18 @@ class _Quantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 5.w, top: 5.h, bottom: 5.h),
-      child: SizedBox(
-        width: 50.w,
+      padding: EdgeInsets.only(right: 5.0.w),
+      child: Container(
         height: 50.h,
-        child: TextFormField(
-          enabled: false,
-          style: const TextStyle(color: Colors.white),
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(3)
-          ],
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(0),
-            filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
-            hintText: '0',
-            hintStyle: TextStyle(
-              color: Colors.white.withOpacity(0.4),
-            ),
+        width: 50.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.black.withOpacity(0.3),
+        ),
+        child: const Center(
+          child: Text(
+            '0',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),

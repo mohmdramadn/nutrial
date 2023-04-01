@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
@@ -14,30 +17,79 @@ class AgeScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        SizedBox(height: size.height * 0.11),
-        Text(
-          S.of(context).ageTitle,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
-            fontStyle: FontStyle.italic,
-          ),
-          textAlign: TextAlign.center,
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 90.h),
+            Text(
+              S.of(context).ageTitle,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.sp,
+                height: 1.7.h,
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 30.h),
+            const _AgeTextField()
+          ],
         ),
-        const SizedBox(height: 30),
-        const _AgeTextField()
-      ],
+      ),
     );
   }
 }
@@ -58,7 +110,7 @@ class _AgeTextField extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderRadius: BorderRadius.all(Radius.circular(19)),
             borderSide: BorderSide.none,
           ),
           filled: true,

@@ -106,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
         "popUpNotification":
             MessageLookupByLibrary.simpleMessage("Pop-up Notifications"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
+        "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),
@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "socialLogin": MessageLookupByLibrary.simpleMessage("Or continue with"),
         "textCardioExercise": MessageLookupByLibrary.simpleMessage(
             "Calories burned/ hour based on body weight"),
-        "today": MessageLookupByLibrary.simpleMessage("TODAY"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
         "totalWeight": MessageLookupByLibrary.simpleMessage("Total weight"),
         "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,11 +35,45 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CaloriesViewModel>().createTableRowsInit();
     });
+
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
     super.initState();
   }
 
@@ -50,127 +86,213 @@ class _BodyState extends State<_Body> {
     var vm = context.watch<CaloriesViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor.withOpacity(0.9),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const _Header(),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 30.h),
-                  const _WaterHeader(),
-                  if (vm.waterBottlesCount != 0) const _WaterBottles(),
-                  SizedBox(height: 50.h),
-                  _Category(
-                    imgName: 'protiens',
-                    isHasNumbers: true,
-                    caloriesRate:
-                        vm.proteinGoalCalories.roundToDouble().toString(),
-                    consumedCalories: vm.totalProteinCalories.toString(),
-                    controller: vm.proteinGoalController,
-                    initGoalValue: vm.proteinGoalCalories.toString(),
-                    isEditGoal: vm.isEditProteinGoal,
-                    onTap: () => context
-                        .read<CaloriesViewModel>()
-                        .setEditProteinGoalState(),
-                    onSubmitted: (value) => context
-                        .read<CaloriesViewModel>()
-                        .setProteinGoalValue(value),
-                  ),
-                  LinearProgressIndicatorApp(
-                    consumedCaloriesPercentage: vm.proteinProgressRatio,
-                    color: vm.isMetProteinGoal
-                        ? const AlwaysStoppedAnimation<Color>(
-                            AppColors.floatingButton)
-                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
-                  ),
-                  const _HeaderCategory(isProtein: true),
-                  if (vm.showNewProteinItem)
-                    NewItemsRow(
-                      itemName: S.of(context).chooseItem,
-                      showMenu: showProteinMenu,
-                      onMenuTapped: () => context
+          controller: scrollController,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const _Header(),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 30.h),
+                    const _WaterHeader(),
+                    if (vm.waterBottlesCount != 0) const _WaterBottles(),
+                    SizedBox(height: 50.h),
+                    _Category(
+                      imgName: 'protiens',
+                      isHasNumbers: true,
+                      caloriesRate:
+                          vm.proteinGoalCalories.roundToDouble().toString(),
+                      consumedCalories: vm.totalProteinCalories.toString(),
+                      controller: vm.proteinGoalController,
+                      initGoalValue: vm.proteinGoalCalories.toString(),
+                      isEditGoal: vm.isEditProteinGoal,
+                      onTap: () => context
                           .read<CaloriesViewModel>()
-                          .setProteinMenuState(),
-                      controller: vm.proteinQtyController,
-                    ),
-                  if (vm.showSelectedIProteinItem)
-                    SelectedItemRow(
-                      itemName: vm.selectedProteinItem!.itemName!,
-                      calories: vm.calculatedProteinCalories,
-                      controller: vm.proteinQtyController,
-                      onChanged: (value) => context
-                          .read<CaloriesViewModel>()
-                          .onProteinQuantityAddedAction(),
+                          .setEditProteinGoalState(),
                       onSubmitted: (value) => context
                           .read<CaloriesViewModel>()
-                          .onSubmitProteinButtonAction(),
+                          .setProteinGoalValue(value),
                     ),
-                  if (vm.proteinsSelectedItems.length != 0)
-                    _SavedItems(
-                      itemsList: vm.proteinsSelectedItems,
-                      isProtein: true,
+                    LinearProgressIndicatorApp(
+                      consumedCaloriesPercentage: vm.proteinProgressRatio,
+                      color: vm.isMetProteinGoal
+                          ? const AlwaysStoppedAnimation<Color>(
+                              AppColors.floatingButton)
+                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                     ),
-                  if (showProteinMenu) const _Items(isProtein: true),
-                  SizedBox(height: 50.h),
-                  _Category(
-                    imgName: 'fats',
-                    isHasNumbers: true,
-                    caloriesRate:
-                        vm.carbsGoalCalories.roundToDouble().toString(),
-                    consumedCalories: vm.totalCarbsCalories.toString(),
-                    controller: vm.carbsGoalController,
-                    initGoalValue: vm.carbsGoalCalories.toString(),
-                    isEditGoal: vm.isEditCarbsGoal,
-                    onTap: () => context
-                        .read<CaloriesViewModel>()
-                        .setEditCarbsGoalState(),
-                    onSubmitted: (value) => context
-                        .read<CaloriesViewModel>()
-                        .setCarbsGoalValue(value),
-                  ),
-                  LinearProgressIndicatorApp(
-                    consumedCaloriesPercentage: vm.carbsProgressRatio,
-                    color: vm.isMetCarbsGoal
-                        ? const AlwaysStoppedAnimation<Color>(
-                            AppColors.floatingButton)
-                        : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
-                  ),
-                  const _HeaderCategory(isProtein: false),
-                  if (vm.showNewCarbsItem)
-                    NewItemsRow(
-                      itemName: 'Choose Item',
-                      showMenu: showCarbsMenu,
-                      onMenuTapped: () =>
-                          context.read<CaloriesViewModel>().setCarbsMenuState(),
-                      controller: vm.carbsQtyController,
-                    ),
-                  if (vm.showSelectedCarbsItem)
-                    SelectedItemRow(
-                      itemName: vm.selectedCarbsItem!.itemName!,
-                      calories: vm.calculatedCarbsCalories,
-                      controller: vm.carbsQtyController,
-                      onChanged: (value) => context
+                    const _HeaderCategory(isProtein: true),
+                    if (vm.showNewProteinItem)
+                      NewItemsRow(
+                        itemName: S.of(context).chooseItem,
+                        showMenu: showProteinMenu,
+                        onMenuTapped: () => context
+                            .read<CaloriesViewModel>()
+                            .setProteinMenuState(),
+                        controller: vm.proteinQtyController,
+                      ),
+                    if (vm.showSelectedIProteinItem)
+                      SelectedItemRow(
+                        itemName: vm.selectedProteinItem!.itemName!,
+                        calories: vm.calculatedProteinCalories,
+                        controller: vm.proteinQtyController,
+                        onChanged: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onProteinQuantityAddedAction(),
+                        onSubmitted: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onSubmitProteinButtonAction(),
+                      ),
+                    if (vm.proteinsSelectedItems.length != 0)
+                      _SavedItems(
+                        itemsList: vm.proteinsSelectedItems,
+                        isProtein: true,
+                      ),
+                    if (showProteinMenu) const _Items(isProtein: true),
+                    SizedBox(height: 50.h),
+                    _Category(
+                      imgName: 'fats',
+                      isHasNumbers: true,
+                      caloriesRate:
+                          vm.carbsGoalCalories.roundToDouble().toString(),
+                      consumedCalories: vm.totalCarbsCalories.toString(),
+                      controller: vm.carbsGoalController,
+                      initGoalValue: vm.carbsGoalCalories.toString(),
+                      isEditGoal: vm.isEditCarbsGoal,
+                      onTap: () => context
                           .read<CaloriesViewModel>()
-                          .onCarbsQuantityAddedAction(),
+                          .setEditCarbsGoalState(),
                       onSubmitted: (value) => context
                           .read<CaloriesViewModel>()
-                          .onSubmitCarbsButtonAction(),
+                          .setCarbsGoalValue(value),
                     ),
-                  if (vm.carbsSelectedItems.length != 0)
-                    _SavedItems(
-                      itemsList: vm.carbsSelectedItems,
-                      isProtein: false,
+                    LinearProgressIndicatorApp(
+                      consumedCaloriesPercentage: vm.carbsProgressRatio,
+                      color: vm.isMetCarbsGoal
+                          ? const AlwaysStoppedAnimation<Color>(
+                              AppColors.floatingButton)
+                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
                     ),
-                  if (showCarbsMenu) const _Items(isProtein: false),
-                  const _SaveButton(),
-                ],
+                    const _HeaderCategory(isProtein: false),
+                    if (vm.showNewCarbsItem)
+                      NewItemsRow(
+                        itemName: S.of(context).chooseItem,
+                        showMenu: showCarbsMenu,
+                        onMenuTapped: () => context
+                            .read<CaloriesViewModel>()
+                            .setCarbsMenuState(),
+                        controller: vm.carbsQtyController,
+                      ),
+                    if (vm.showSelectedCarbsItem)
+                      SelectedItemRow(
+                        itemName: vm.selectedCarbsItem!.itemName!,
+                        calories: vm.calculatedCarbsCalories,
+                        controller: vm.carbsQtyController,
+                        onChanged: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onCarbsQuantityAddedAction(),
+                        onSubmitted: (value) => context
+                            .read<CaloriesViewModel>()
+                            .onSubmitCarbsButtonAction(),
+                      ),
+                    if (vm.carbsSelectedItems.length != 0)
+                      _SavedItems(
+                        itemsList: vm.carbsSelectedItems,
+                        isProtein: false,
+                      ),
+                    if (showCarbsMenu) const _Items(isProtein: false),
+                    const _CardioHeader(),
+                    const _CardioActivityList(),
+                    const _SaveButton(),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CardioActivityList extends StatelessWidget {
+  const _CardioActivityList({
+    Key? key,
+  }) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return Flexible(
+      child: Column(
+        children: [
+          for (int i = 0; i <= vm.cardioItems.length - 1; i++)
+            Column(
+              children: [
+                const _CardioActivity(),
+                SizedBox(height: 10.h),
+              ],
+            )
+        ],
+      ),
+    );
+  }
+}
+
+class _CardioActivity extends StatelessWidget {
+  const _CardioActivity({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.transparent),
+            color: Colors.black.withOpacity(0.23)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: 8.0.h, horizontal: 16.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              //TODO add actual activites
+              Text(
+                'Cycling, mountain bike, bmx',
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                '300 CAL',
+                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CardioHeader extends StatelessWidget {
+  const _CardioHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+        child: const _Category(
+          imgName: 'cardio',
+          isHasNumbers: false,
         ),
       ),
     );
@@ -231,7 +353,7 @@ class _WaterHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -428,7 +550,7 @@ class _Date extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  isTodaySelected ? 'Today' : todayDate!,
+                  isTodaySelected ? S.of(context).today : todayDate!,
                   style:
                       const TextStyle(color: Colors.white, letterSpacing: 1.5),
                 ),
@@ -618,7 +740,7 @@ class _HeaderCategory extends StatelessWidget {
           const _Title(width: 0.5, title: 'Items'),
           const VerticalDivider(thickness: 1, color: Colors.white),
           const _Title(title: 'Cal.'),
-          _AddButton(isProtein: isProtein),
+          Expanded(child: _AddButton(isProtein: isProtein)),
         ],
       ),
     );

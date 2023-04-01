@@ -70,33 +70,42 @@ class _BodyState extends State<_Body> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Image.asset(
-            'assets/images/background.png',
-            fit: BoxFit.fill,
+      body: SafeArea(
+        child: Container(
+          width: size.width,
+          height: size.height,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.cover),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              _Logo(size: size),
-              _Dots(size: size, pages: pages, currentBoard: currentBoard),
-              _PageView(pages: pages, controller: controller),
-              Visibility(
-                visible: isLoading,
-                child: const CircularProgressIndicator(
-                  color: AppColors.primaryColor,
-                ),
-              ),
-              _BottomBar(
-                controller: controller,
-                pagesLength: pages.length,
-              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 70.h),
+                  _Logo(size: size),
+                  SizedBox(height: 30.h),
+                  _Dots(size: size, pages: pages, currentBoard: currentBoard),
+                  Flexible(
+                    child: _PageView(pages: pages, controller: controller),
+                  ),
+                  if (isLoading)
+                    const CircularProgressIndicator(
+                      color: AppColors.primaryColor,
+                    ),
+                  _BottomBar(
+                    controller: controller,
+                    pagesLength: pages.length,
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -115,8 +124,8 @@ class _Logo extends StatelessWidget {
     return Image.asset(
       'assets/images/logo.png',
       width: 100.w,
-      height: 50.h,
-      fit: BoxFit.cover,
+      height: 100.h,
+      fit: BoxFit.contain,
     );
   }
 }
@@ -135,27 +144,29 @@ class _Dots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 15,
-      width: size.width * 0.479,
-      child: ListView.separated(
-        itemCount: pages.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, index) {
-          return Container(
-              height: 15,
-              width: 15,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                color: currentBoard == index
-                    ? Colors.white
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(70),
-              ));
-        },
-        separatorBuilder: (_, context) {
-          return const SizedBox(width: 9.0);
-        },
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0.h,horizontal: 105.w),
+      child: SizedBox(
+        height: 15.h,
+        child: ListView.separated(
+          itemCount: pages.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (_, index) {
+            return Container(
+                height: 15.h,
+                width: 15.w,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  color: currentBoard == index
+                      ? Colors.white
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(70),
+                ));
+          },
+          separatorBuilder: (_, context) {
+            return SizedBox(width: 5.0.w);
+          },
+        ),
       ),
     );
   }
@@ -180,7 +191,6 @@ class _PageViewState extends State<_PageView> {
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 0.5,
       width: size.width,
       child: Center(
         child: PageView.builder(
@@ -213,14 +223,14 @@ class _BottomBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset('assets/images/powerBy.png'),
+        Flexible(child: Image.asset('assets/images/powerBy.png')),
         Padding(
-          padding: const EdgeInsets.only(right: 18.0),
+          padding: EdgeInsets.only(right: 18.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _PreviousButton(controller: controller),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               _NextButton(controller: controller, pagesLength: pagesLength),
             ],
           ),

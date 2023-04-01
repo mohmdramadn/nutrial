@@ -26,6 +26,8 @@ class _Body extends StatelessWidget {
       backgroundColor: Colors.white.withOpacity(0.2),
       body: SingleChildScrollView(
         child: Container(
+          width: size.width,
+          height: size.height,
           decoration: BoxDecoration(
             image: const DecorationImage(
               image: AssetImage('assets/images/background.png'),
@@ -35,21 +37,6 @@ class _Body extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(
-                height: 90.h,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 0.0.w,
-                    right: 120.0.w,
-                    top: 30.0.h,
-                  ),
-                  child: Image.asset(
-                    'assets/images/logo_header.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
               Padding(
                 padding:
                     EdgeInsets.only(left: 120.0.w, right: 90.0.w, top: 50.h),
@@ -58,19 +45,13 @@ class _Body extends StatelessWidget {
               SizedBox(height: size.height * 0.05),
               _CategoryCard(
                 size: size,
-                image: 'assets/images/calories_background.png',
+                image: 'assets/images/calories_background.jpeg',
                 title: S.of(context).calories,
               ),
               SizedBox(height: size.height * 0.015),
               _CategoryCard(
                 size: size,
-                image: 'assets/images/water_background.png',
-                title: S.of(context).water,
-              ),
-              SizedBox(height: size.height * 0.015),
-              _CategoryCard(
-                size: size,
-                image: 'assets/images/cardio_background.png',
+                image: 'assets/images/cardio_bg.png',
                 title: S.of(context).cardio,
               ),
               SizedBox(height: 50.h),
@@ -103,12 +84,13 @@ class _CategoryCard extends StatelessWidget {
         height: size.height * 0.20,
         width: size.width * 0.799,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
           image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
         ),
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, bottom: 12),
+            padding: const EdgeInsets.only(left: 25.0, bottom: 20),
             child: Text(
               title.toUpperCase(),
               style: TextStyle(

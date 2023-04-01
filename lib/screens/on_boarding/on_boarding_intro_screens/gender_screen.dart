@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
@@ -9,13 +10,18 @@ class GenderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        _Male(),
-        SizedBox.square(),
-        _Female(),
+    return Column(
+      children: [
+        SizedBox(height: 65.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            _Male(),
+            SizedBox.square(),
+            _Female(),
+          ],
+        ),
       ],
     );
   }
@@ -35,10 +41,10 @@ class _Male extends StatelessWidget {
         SizedBox(height: size.height * 0.11),
         Text(
           S.of(context).male,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
+            fontSize: 14.sp,
+            height: 1.7.h,
             fontStyle: FontStyle.italic,
           ),
           textAlign: TextAlign.center,
@@ -64,10 +70,10 @@ class _Female extends StatelessWidget {
         SizedBox(height: size.height * 0.11),
         Text(
           S.of(context).female,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
+            fontSize: 14.sp,
+            height: 1.7.h,
             fontStyle: FontStyle.italic,
           ),
           textAlign: TextAlign.center,
@@ -89,8 +95,8 @@ class _SelectedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
-      width: 80,
+      height: 65.h,
+      width: 65.w,
       decoration: BoxDecoration(
         color: AppColors.floatingButton,
         borderRadius: BorderRadius.circular(70),
@@ -117,10 +123,10 @@ class _UnselectedContainer extends StatelessWidget {
         context.read<OnBoardViewModel>().setGender(0);
       },
       child: Container(
-        height: 80,
-        width: 80,
+        height: 65.h,
+        width: 65.w,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
+          border: Border.all(color: Colors.white.withOpacity(0.3), width: 2),
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(70),
         ),

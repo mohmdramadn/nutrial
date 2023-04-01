@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
-import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +17,53 @@ class BodyPercentageScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,28 +74,34 @@ class _Body extends StatelessWidget {
     var fatController =
         context.select((OnBoardViewModel vm) => vm.fatsController);
 
-    return Column(
-      children: [
-        const Spacer(),
-        Text(
-          S.of(context).percentage,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
-            fontStyle: FontStyle.italic,
-          ),
-          textAlign: TextAlign.center,
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+        child: Column(
+          children: [
+            Text(
+              S.of(context).percentage,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.sp,
+                height: 1.7.h,
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 53.h),
+            _BodyComponent(
+                controller: musclesController, title: S.of(context).muscles),
+            SizedBox(height: 20.h),
+            _BodyComponent(controller: waterController, title: S.of(context).water),
+            SizedBox(height: 20.h),
+            _BodyComponent(controller: fatController, title: S.of(context).fats),
+            SizedBox(height: 20.h),
+            _BodyComponent(controller: fatController, title: S.of(context).height)
+          ],
         ),
-        const SizedBox(height: 30),
-        _BodyComponent(controller: musclesController, title: S.of(context).muscles),
-        const SizedBox(height: 20),
-        _BodyComponent(controller: waterController, title: S.of(context).water),
-        const SizedBox(height: 20),
-        _BodyComponent(controller: fatController, title: S.of(context).fats)
-
-
-      ],
+      ),
     );
   }
 }
@@ -74,10 +125,10 @@ class _BodyComponent extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.30,
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
-              height: 1.7,
+              fontSize: 14.sp,
+              height: 1.7.h,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -117,56 +168,31 @@ class _PercentageTextFieldState extends State<_PercentageTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: ()=> myFocusNode.requestFocus(),
-      child: Container(
-        width: size.width * 0.26,
-        decoration: BoxDecoration(
-          color: AppColors.textFieldColor.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: SizedBox(
-                width: size.width * 0.11,
-                child: TextFormField(
-                  focusNode: myFocusNode,
-                  controller: widget.controller,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textAlign: TextAlign.left,
-                  textInputAction: TextInputAction.done,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(2)
-                  ],
-                ),
+      onTap: () => myFocusNode.requestFocus(),
+      child: SizedBox(
+        width: 85.w,
+        child: TextFormField(
+          focusNode: myFocusNode,
+          controller: widget.controller,
+          style: const TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            suffixText: '%',
+            suffixStyle: const TextStyle(color: Colors.white),
+            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 8.w),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(19),
+                borderSide: BorderSide.none
               ),
-            ),
-            Positioned(
-              top: 21,
-              left: 45,
-              right: 5,
-              bottom: 0,
-              child: SizedBox(
-                height: size.height * 0.1,
-                child: const Text(
-                  ConstStrings.percentageSign,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-            ),
+              filled: true,
+              fillColor: AppColors.textFieldColor.withOpacity(0.4),
+          ),
+          textAlign: TextAlign.center,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(2)
           ],
         ),
       ),

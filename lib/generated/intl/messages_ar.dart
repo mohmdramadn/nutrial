@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allFieldsRequired": MessageLookupByLibrary.simpleMessage(
             "تاكد من ادخال كل الحقول السابقة"),
         "alreadyHaveAccount":
-            MessageLookupByLibrary.simpleMessage("بالفعل املك حساب"),
+            MessageLookupByLibrary.simpleMessage("لدي حساب بالفعل"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
         "boardOneDesc": MessageLookupByLibrary.simpleMessage(
             "قم بإجراء اختبار معدل الأيض الأساسي الخاص بك لتحديد\nنسبة العضلات\nنسبة الماء\nنسبة الدهون"),
@@ -90,7 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الكالوريز الأخري"),
         "myOtherSessions":
             MessageLookupByLibrary.simpleMessage("السيشن الاخري"),
-        "mySessions": MessageLookupByLibrary.simpleMessage("السيشن"),
+        "mySessions": MessageLookupByLibrary.simpleMessage("الجلسات"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "newPassword":
             MessageLookupByLibrary.simpleMessage("كلمه المرور الجديده"),
@@ -105,7 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "percentage": MessageLookupByLibrary.simpleMessage("النسب"),
         "popUpNotification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
-        "profileMenu": MessageLookupByLibrary.simpleMessage("ProfileMenu"),
+        "profileMenu":
+            MessageLookupByLibrary.simpleMessage("قايمة الملف الشخصي"),
         "reEnter": MessageLookupByLibrary.simpleMessage("اعد الكلمة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("ابحث عن تمرين"),

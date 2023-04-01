@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
 
-class ProfileDetailsItem extends StatelessWidget {
-  const ProfileDetailsItem({
+class ProfilePercentageItem extends StatelessWidget {
+  const ProfilePercentageItem({
     Key? key,
     required this.title,
     required this.value,
@@ -37,7 +37,7 @@ class ProfileDetailsItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: Text(
                     title,
                     style: TextStyle(
@@ -48,7 +48,7 @@ class ProfileDetailsItem extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Padding(
                     padding:EdgeInsets.only(right: 5.0.w,left: 2.w),
                     child: Align(
@@ -63,26 +63,6 @@ class ProfileDetailsItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Expanded(
-                //   child: Row(
-                //     mainAxisSize: MainAxisSize.max,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     crossAxisAlignment: isArabic
-                //         ? CrossAxisAlignment.end
-                //         : CrossAxisAlignment.start,
-                //     children: [
-                //       Expanded(
-                //         child: Text(
-                //           value,
-                //           style: TextStyle(
-                //             fontSize: 14.sp,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),

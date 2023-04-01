@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/constants/colors.dart';
-import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/on_boarding/on_board_view_model.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +17,53 @@ class UserInfoScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late ScrollController scrollController;
+
+  EdgeInsets _viewInsets = EdgeInsets.zero;
+  SingletonFlutterWindow? window;
+  late double initViewInsets;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+
+    window = WidgetsBinding.instance.window;
+    initViewInsets = window?.viewInsets.bottom ?? 0;
+
+    window?.onMetricsChanged = () {
+      if (!mounted) return;
+      setState(() {
+        final window = this.window;
+        if (window != null) {
+          _viewInsets = EdgeInsets.fromWindowPadding(
+            window.viewInsets,
+            window.devicePixelRatio,
+          ).add(EdgeInsets.fromWindowPadding(
+            window.padding,
+            window.devicePixelRatio,
+          )) as EdgeInsets;
+
+          if (initViewInsets == window.viewInsets.bottom) return;
+
+          Future.delayed(const Duration(milliseconds: 90)).then((value) {
+            if (!mounted) return;
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          });
+        }
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +72,39 @@ class _Body extends StatelessWidget {
     var idController = context.select((OnBoardViewModel vm) => vm.idController);
     var emailController =
         context.select((OnBoardViewModel vm) => vm.emailController);
-    Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        SizedBox(height: size.height * 0.1),
-        Text(
-          S.of(context).enterPersonalDetails,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            height: 1.7,
-            fontStyle: FontStyle.italic,
+
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Column(
+        children: [
+          SizedBox(height: 65.h),
+          Text(
+            S.of(context).enterPersonalDetails,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.sp,
+              height: 1.7.h,
+              fontStyle: FontStyle.italic,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 30),
-        _InfoTextField(controller: nameController, title: S.of(context).name),
-        const SizedBox(height: 15),
-        _InfoTextField(controller: idController, title: S.of(context).id),
-        const SizedBox(height: 15),
-        _InfoTextField(controller: emailController, title: S.of(context).email),
-      ],
+          SizedBox(height: 60.h),
+         Padding(
+           padding: EdgeInsets.only(bottom: _viewInsets.bottom),
+           child: Column(
+             children: [
+               _InfoTextField(
+                   controller: nameController, title: S.of(context).name),
+               SizedBox(height: 15.h),
+               _InfoTextField(controller: idController, title: S.of(context).id),
+               SizedBox(height: 15.h),
+               _InfoTextField(
+                   controller: emailController, title: S.of(context).email),
+             ],
+           ),
+         ),
+        ],
+      ),
     );
   }
 }
@@ -83,85 +140,44 @@ class _InfoTextFieldState extends State<_InfoTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      padding: EdgeInsets.symmetric(horizontal: 60.0.w),
       child: InkWell(
         onTap: () => myFocusNode.requestFocus(),
-        child: Container(
-          height: size.height * 0.05,
-          width: size.width * 0.7,
-          decoration: BoxDecoration(
-            color: AppColors.textFieldColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: InkWell(
-            onTap: () => myFocusNode.requestFocus(),
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 60,
-                  right: 0,
-                  bottom: 14,
-                  child: SizedBox(
-                    width: size.width * 0.2,
-                    child: TextFormField(
-                      focusNode: myFocusNode,
-                      controller: widget.controller,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      textAlign: TextAlign.left,
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(19)
-                      ],
-                    ),
-                  ),
+        child: TextFormField(
+          focusNode: myFocusNode,
+          controller: widget.controller,
+          style: TextStyle(color: Colors.white, fontSize: 14.sp),
+          decoration: InputDecoration(
+            prefixIconConstraints:
+                const BoxConstraints(minWidth: 0, minHeight: 0),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
                 ),
-                Positioned(
-                  top: 0,
-                  left: 10,
-                  right: 0,
-                  bottom: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: SizedBox(
-                      height: size.height * 0.1,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * 0.12,
-                            child: Text(
-                              widget.title,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            ConstStrings.dots,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12.w),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(32.0),
+              borderSide: const BorderSide(
+                width: 0,
+                style: BorderStyle.none,
+              ),
+            ),
+            filled: true,
+            fillColor: AppColors.textFieldColor.withOpacity(0.4),
           ),
+          textAlign: TextAlign.left,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.text,
+          inputFormatters: <TextInputFormatter>[
+            LengthLimitingTextInputFormatter(19)
+          ],
         ),
       ),
     );
