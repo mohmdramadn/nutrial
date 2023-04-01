@@ -154,11 +154,18 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
                 borderSide: BorderSide.none),
             filled: true,
             fillColor: AppColors.textFieldColor.withOpacity(0.4),
-            labelStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
+            prefixIconConstraints:
+            const BoxConstraints(minWidth: 0, minHeight: 0),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                ),
+              ),
             ),
-            label: Text(widget.title),
             suffixIcon: InkWell(
               splashColor: Colors.transparent,
               onTap: () => context.read<OnBoardViewModel>().setShowPassState(),

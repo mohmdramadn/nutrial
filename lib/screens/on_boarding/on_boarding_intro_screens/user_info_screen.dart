@@ -149,6 +149,18 @@ class _InfoTextFieldState extends State<_InfoTextField> {
           controller: widget.controller,
           style: TextStyle(color: Colors.white, fontSize: 14.sp),
           decoration: InputDecoration(
+            prefixIconConstraints:
+                const BoxConstraints(minWidth: 0, minHeight: 0),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12.w),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -159,11 +171,6 @@ class _InfoTextFieldState extends State<_InfoTextField> {
             ),
             filled: true,
             fillColor: AppColors.textFieldColor.withOpacity(0.4),
-            labelStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
-            ),
-            label: Text(widget.title),
           ),
           textAlign: TextAlign.left,
           textInputAction: TextInputAction.next,

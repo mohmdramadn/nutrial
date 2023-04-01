@@ -80,7 +80,6 @@ class _BodyState extends State<_Body> {
         padding: EdgeInsets.only(bottom: _viewInsets.bottom),
         child: Column(
           children: [
-            SizedBox(height: 65.h),
             Text(
               S.of(context).percentage,
               style: TextStyle(
@@ -97,7 +96,9 @@ class _BodyState extends State<_Body> {
             SizedBox(height: 20.h),
             _BodyComponent(controller: waterController, title: S.of(context).water),
             SizedBox(height: 20.h),
-            _BodyComponent(controller: fatController, title: S.of(context).fats)
+            _BodyComponent(controller: fatController, title: S.of(context).fats),
+            SizedBox(height: 20.h),
+            _BodyComponent(controller: fatController, title: S.of(context).height)
           ],
         ),
       ),
@@ -176,7 +177,9 @@ class _PercentageTextFieldState extends State<_PercentageTextField> {
           controller: widget.controller,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12.w),
+            suffixText: '%',
+            suffixStyle: const TextStyle(color: Colors.white),
+            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 8.w),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(19),
                 borderSide: BorderSide.none
