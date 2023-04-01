@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
+import 'package:nutrial/screens/calories/calories_screen.dart';
 import 'package:nutrial/screens/pdf/pdf_screen.dart';
 import 'package:nutrial/screens/profile/profile_screen.dart';
 import 'package:nutrial/screens/settings/settings_screen.dart';
@@ -14,7 +15,7 @@ class HomeViewModel extends ChangeNotifier {
     return [
       const ProfileScreen(),
       const CategoriesScreen(),
-      const ProfileScreen(),
+      const CaloriesScreen(),
       const PdfScreen(),
       const SettingsScreen(),
     ];
