@@ -251,6 +251,7 @@ class _UserName extends StatelessWidget {
         SizedBox(
           width: 200.w,
           child: TextFormField(
+            textInputAction: TextInputAction.next,
             controller: controller,
             cursorColor: AppColors.primaryDarkColor,
             decoration: InputDecoration(
