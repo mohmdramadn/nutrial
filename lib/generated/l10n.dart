@@ -480,10 +480,10 @@ class S {
     );
   }
 
-  /// `TODAY`
+  /// `Today`
   String get today {
     return Intl.message(
-      'TODAY',
+      'Today',
       name: 'today',
       desc: '',
       args: [],
