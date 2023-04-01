@@ -14,5 +14,6 @@ const String profileRoute = 'profileRoute';
 const String homeRoute = 'homeRoute';
 const String categoriesRoute = 'categoriesRoute';
 const String cardioRoute = 'cardioRoute';
+const String cardioExerciseRoute = 'cardioExerciseRoute';
 const String sessionsRoute = 'sessionsRoute';
 const String caloriesRoute = 'caloriesRoute';

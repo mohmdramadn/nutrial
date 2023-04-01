@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/screens/cardio/cardio_view_model.dart';
-import 'package:nutrial/screens/cardio_exercise/cardio_exercise_screen.dart';
 import 'package:provider/provider.dart';
 
 class CardioScreen extends StatelessWidget {
@@ -71,7 +69,9 @@ class _CardioActivities extends StatelessWidget {
           itemCount: cardioList.length,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-              onTap: ()=> Get.to(const CardioExerciseScreen()),
+                onTap: () => context
+                    .read<CardioViewModel>()
+                    .navigateAction(cardioList[index]),
                 child: _CardioItem(itemName: cardioList[index]));
           },
           separatorBuilder: (BuildContext context, int index) {

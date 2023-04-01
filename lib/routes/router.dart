@@ -3,6 +3,7 @@ import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
 import 'package:nutrial/screens/calories/calories_screen.dart';
 import 'package:nutrial/screens/cardio/cardio_screen.dart';
+import 'package:nutrial/screens/cardio_exercise/cardio_exercise_screen.dart';
 import 'package:nutrial/screens/home/home_screen.dart';
 import 'package:nutrial/screens/login/login_screen.dart';
 import 'package:nutrial/screens/on_boarding/on_boarding_intro_screens/age_screen.dart';
@@ -81,6 +82,11 @@ Route onGenerateRoute(RouteSettings settings) {
       case cardioRoute:
       return MaterialPageRoute(
           builder: (context) => const CardioScreen(), settings: settings);
+
+      case cardioExerciseRoute:
+        var activity = settings.arguments as String;
+      return MaterialPageRoute(
+          builder: (context) =>  CardioExerciseScreen(activity: activity), settings: settings);
 
       case sessionsRoute:
       return MaterialPageRoute(
