@@ -72,14 +72,14 @@ class CardioExerciseViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> saveSessionActivityActionAsync()async{
+  Future<void> saveCardioActionAsync()async{
     setLoadingState(true);
     var isConnected = await connectionService.checkConnection();
     if(!isConnected){
       setLoadingState(false);
       notifyListeners();
     }
-    var response = await firebaseService.saveSessionsAsync(
+    var response = await firebaseService.saveCardioAsync(
       activityName: activity,
       minutes: _minutes ?? '',
       weight: _selectedWeight!,

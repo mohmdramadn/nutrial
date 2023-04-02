@@ -82,24 +82,23 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
-  Future<Result<bool>> saveSessionsAsync({
+  Future<Result<bool>> saveCardioAsync({
     required String activityName,
     required String minutes,
     required String weight,
     required String calories,
   }) async {
     final activityData = <String, dynamic>{
+      'activity': activityName,
       'minutes': minutes,
       'weight': weight,
       'calories': calories,
     };
     try {
       await database
-          .collection('sessions')
+          .collection('cardio')
           .doc(user?.uid)
-          .collection(DateTime.now().dateForFirebase())
-          .doc(activityName)
-          .set(activityData);
+          .collection(DateTime.now().dateForFirebase()).add(activityData);
 
       return Result.value(true);
     } catch (e) {
@@ -122,18 +121,19 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
-  Future<Result<Map<DateTime, List<QuerySnapshot>>>> getUserSessions() async {
+  Future<Result<Map<DateTime, List<QuerySnapshot>>>> getUserCardio() async {
     Map<DateTime, List<QuerySnapshot>>? map = {};
     try {
       var queryDate = DateTime.now();
       List<QuerySnapshot> snapshots = [];
-      for (int i = 0; i <= 6; i++) {
-        var sessions = database
-            .collection('sessions')
+      for (int i = 0; i <= 2; i++) {
+        var cardio = database
+            .collection('cardio')
             .doc(user?.uid)
             .collection(queryDate.dateForFirebase());
 
-        final QuerySnapshot querySnapshot = await sessions.get();
+
+        final QuerySnapshot querySnapshot = await cardio.get();
 
         if(querySnapshot.docs.isNotEmpty) {
           snapshots.add(querySnapshot);

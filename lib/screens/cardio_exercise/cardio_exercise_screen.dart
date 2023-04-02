@@ -295,7 +295,7 @@ class _SaveButtonState extends State<_SaveButton> {
     return ElevatedButton(
       onPressed: () => context
           .read<CardioExerciseViewModel>()
-          .saveSessionActivityActionAsync(),
+          .saveCardioActionAsync(),
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: AppColors.saveButtonColor,

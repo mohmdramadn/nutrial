@@ -11,6 +11,9 @@ import 'package:nutrial/screens/calories/calories_components/new_items_row.dart'
 import 'package:nutrial/screens/calories/calories_components/saved_items_row.dart';
 import 'package:nutrial/screens/calories/calories_components/selected_items_row.dart';
 import 'package:nutrial/screens/calories/calories_view_model.dart';
+import 'package:nutrial/services/connection_service.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
 class CaloriesScreen extends StatelessWidget {
@@ -21,7 +24,13 @@ class CaloriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CaloriesViewModel>(
-        create: (_) => CaloriesViewModel(), child: const _Body());
+        create: (_) => CaloriesViewModel(
+              connectionService: context.read<ConnectionService>(),
+              firebaseService: context.read<FirebaseService>(),
+              messageService: context.read<MessageService>(),
+              localization: S.of(context),
+            ),
+        child: const _Body());
   }
 }
 
@@ -45,6 +54,7 @@ class _BodyState extends State<_Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CaloriesViewModel>().createTableRowsInit();
+      context.read<CaloriesViewModel>().getCardioAsync();
     });
 
     scrollController = ScrollController();
@@ -229,17 +239,22 @@ class _CardioActivityList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var vm = context.watch<CaloriesViewModel>();
+    var cardioList = vm.isTodaySelected ? vm.todayActivity : vm.yesterdayActivity;
 
     return Flexible(
       child: Column(
         children: [
-          for (int i = 0; i <= vm.cardioItems.length - 1; i++)
-            Column(
-              children: [
-                const _CardioActivity(),
-                SizedBox(height: 10.h),
-              ],
-            )
+          if (cardioList.isNotEmpty)
+            for (int i = 0; i <= cardioList.length - 1; i++)
+              Column(
+                children: [
+                  _CardioActivity(
+                    activityName: cardioList[i].activity,
+                    caloriesBurned: cardioList[i].calories,
+                  ),
+                  SizedBox(height: 10.h),
+                ],
+              )
         ],
       ),
     );
@@ -249,7 +264,12 @@ class _CardioActivityList extends StatelessWidget {
 class _CardioActivity extends StatelessWidget {
   const _CardioActivity({
     Key? key,
+    required this.activityName,
+    required this.caloriesBurned,
   }) : super(key: key);
+
+  final String activityName;
+  final String caloriesBurned;
 
   @override
   Widget build(BuildContext context) {
@@ -264,15 +284,14 @@ class _CardioActivity extends StatelessWidget {
               vertical: 8.0.h, horizontal: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              //TODO add actual activites
+            children: [
               Text(
-                'Cycling, mountain bike, bmx',
-                style: TextStyle(color: Colors.white),
+                activityName,
+                style: const TextStyle(color: Colors.white),
               ),
               Text(
-                '300 CAL',
-                style: TextStyle(color: Colors.white),
+                '$caloriesBurned CAL',
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),

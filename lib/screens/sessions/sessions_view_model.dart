@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
-import 'package:nutrial/models/sessions.dart';
+import 'package:nutrial/models/cardio.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -29,7 +29,7 @@ class SessionsViewModel extends ChangeNotifier{
       setLoadingState(false);
       notifyListeners();
     }
-    var response = await firebaseService.getUserSessions();
+    var response = await firebaseService.getUserCardio();
 
     if (response.isError) {
       messageService.showErrorSnackBar('', localization.error);
@@ -46,8 +46,8 @@ class SessionsViewModel extends ChangeNotifier{
 
   Map<DateTime, List<QuerySnapshot>>? _sessionsResponse = {};
 
-  List<Sessions>? _sessions = [];
-  List<Sessions>? get sessions => _sessions;
+  List<CardioActivity>? _sessions = [];
+  List<CardioActivity>? get sessions => _sessions;
 
   List<String> _sessionsTitle =[];
   List<String> get sessionsTitle => _sessionsTitle;
@@ -62,7 +62,7 @@ class SessionsViewModel extends ChangeNotifier{
   void _filterSessionsResponse() {
     for (var entry in _sessionsResponse!.entries) {
       var data = entry.value.first.docs.first.data() as Map<String, dynamic>;
-      var session = Sessions.fromJson(data);
+      var session = CardioActivity.fromJson(data);
       _sessions!.add(session);
       _sessionsTitle.add(_setSessionTime(entry.key));
     }

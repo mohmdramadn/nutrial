@@ -1,9 +1,28 @@
+import 'package:collection/collection.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
+import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/models/calories_model.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
+import 'package:nutrial/models/cardio.dart';
+import 'package:nutrial/services/connection_service.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 
 class CaloriesViewModel extends ChangeNotifier{
+  final ConnectionService connectionService;
+  final FirebaseService firebaseService;
+  final MessageService messageService;
+  final S localization;
+
+  CaloriesViewModel({
+    required this.connectionService,
+    required this.firebaseService,
+    required this.messageService,
+    required this.localization,
+  });
+
   var items = CaloriesDB().calories;
   List<ItemModel> itemsList = [];
 
@@ -79,9 +98,6 @@ class CaloriesViewModel extends ChangeNotifier{
 
   List<ItemModel> _carbsSelectedItems = [];
   List<ItemModel> get carbsSelectedItems => _carbsSelectedItems;
-  //TODO add actual activities
-  List<String> _cardioItems = ['test','test2'];
-  List<String> get cardioItems => _cardioItems;
 
   ItemModel? _selectedProteinItem;
   ItemModel? get selectedProteinItem => _selectedProteinItem;
@@ -120,13 +136,29 @@ class CaloriesViewModel extends ChangeNotifier{
   int _waterBottlesCount = 0;
   int get waterBottlesCount => _waterBottlesCount;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setLoadingState(value){
+    _isLoading = value;
+    notifyListeners();
+  }
 
-  String? get todayDate => DateTime.now().dateOnly();
+  final DateTime _todayDate = DateTime.now();
+  String? get todayDate => _todayDate.dateOnly();
 
-  String? get yesterdayDate =>
-      DateTime.now().subtract(const Duration(days: 1)).dateOnly();
+  final DateTime _yesterdayDate =
+      DateTime.now().subtract(const Duration(days: 1));
+  String? get yesterdayDate => _yesterdayDate.dateOnly();
 
-  bool _isTodaySelected = false;
+  Map<DateTime, List<QuerySnapshot>>? _cardioResponse = {};
+
+  List<CardioActivity>? _cardio = [];
+  List<CardioActivity>? get cardio => _cardio;
+
+  List<CardioActivity> todayActivity = [];
+  List<CardioActivity> yesterdayActivity = [];
+
+  bool _isTodaySelected = true;
   bool get isTodaySelected => _isTodaySelected;
   void setTodaySelectedState(){
     _isTodaySelected = !_isTodaySelected;
@@ -329,5 +361,61 @@ class CaloriesViewModel extends ChangeNotifier{
     _carbsSelectedItems.remove(item);
     calculateCarbsProgress();
     notifyListeners();
+  }
+
+  Future<void> getCardioAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+    var response = await firebaseService.getUserCardio();
+
+    if (response.isError) {
+      messageService.showErrorSnackBar('', localization.error);
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    _cardioResponse = response.asValue!.value;
+    todayCardio();
+    yesterdayCardio();
+    setLoadingState(false);
+  }
+
+
+  bool _isCardioLoading = false;
+  bool get isCardioLoading => _isCardioLoading;
+  void setCardioLoadingState(value){
+    _isCardioLoading = value;
+    notifyListeners();
+  }
+
+  void yesterdayCardio() {
+    var yesterdayCardio = _cardioResponse!.entries
+        .firstWhereOrNull((element) => element.key.day == _yesterdayDate.day);
+    if(yesterdayCardio == null) return;
+    for (var element in yesterdayCardio.value) {
+      for (var activity in element.docs) {
+        var cardio =
+        CardioActivity.fromJson(activity.data() as Map<String, dynamic>);
+        yesterdayActivity.add(cardio);
+      }
+    }
+  }
+
+  void todayCardio() {
+    var todayCardio = _cardioResponse!.entries
+        .firstWhereOrNull((element) => element.key.day == _todayDate.day);
+    if(todayCardio == null) return;
+    for (var element in todayCardio.value) {
+      for (var activity in element.docs) {
+        var cardio =
+            CardioActivity.fromJson(activity.data() as Map<String, dynamic>);
+        todayActivity.add(cardio);
+      }
+    }
   }
 }
