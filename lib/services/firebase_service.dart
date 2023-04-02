@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:async/async.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
+import 'package:nutrial/models/pdf_items_model.dart';
 import 'package:nutrial/models/profile_model.dart';
 
 class FirebaseService extends ChangeNotifier {
@@ -99,6 +100,29 @@ class FirebaseService extends ChangeNotifier {
           .collection('cardio')
           .doc(user?.uid)
           .collection(DateTime.now().dateForFirebase()).add(activityData);
+
+      return Result.value(true);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<bool>> saveCaloriesAsync({
+    required List<Calories> proteinItems,
+    required List<Calories> carbsItems,
+  }) async {
+
+    Map<String, List<dynamic>> data = {
+      "protein": List<dynamic>.from(proteinItems.map((p) => p.toJson())),
+      "carbs": List<dynamic>.from(carbsItems.map((c) => c.toJson())),
+    };
+    try {
+      await database
+          .collection('calories')
+          .doc(user?.uid)
+          .collection(DateTime.now().dateForFirebase())
+          .doc(user?.uid)
+          .set(data);
 
       return Result.value(true);
     } catch (e) {

@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/models/calories_model.dart';
@@ -24,12 +26,12 @@ class CaloriesViewModel extends ChangeNotifier{
   });
 
   var items = CaloriesDB().calories;
-  List<ItemModel> itemsList = [];
+  List<Calories> itemsList = [];
 
   void createTableRowsInit() {
     for (int index = 0; index < items.length; index++) {
       itemsList.add(
-        ItemModel(
+        Calories(
           itemName: items[index].itemName,
           itemCalories: items[index].itemCalories,
           itemQuantity: items[index].itemQuantity,
@@ -93,17 +95,17 @@ class CaloriesViewModel extends ChangeNotifier{
   TextEditingController proteinGoalController = TextEditingController();
   TextEditingController carbsGoalController = TextEditingController();
 
-  List<ItemModel> _proteinsSelectedItems = [];
-  List<ItemModel> get proteinsSelectedItems => _proteinsSelectedItems;
+  List<Calories> _proteinsSelectedItems = [];
+  List<Calories> get proteinsSelectedItems => _proteinsSelectedItems;
 
-  List<ItemModel> _carbsSelectedItems = [];
-  List<ItemModel> get carbsSelectedItems => _carbsSelectedItems;
+  List<Calories> _carbsSelectedItems = [];
+  List<Calories> get carbsSelectedItems => _carbsSelectedItems;
 
-  ItemModel? _selectedProteinItem;
-  ItemModel? get selectedProteinItem => _selectedProteinItem;
+  Calories? _selectedProteinItem;
+  Calories? get selectedProteinItem => _selectedProteinItem;
 
-  ItemModel? _selectedCarbsItem;
-  ItemModel? get selectedCarbsItem => _selectedCarbsItem;
+  Calories? _selectedCarbsItem;
+  Calories? get selectedCarbsItem => _selectedCarbsItem;
 
   double totalProteinCalories = 0;
   double proteinGoalCalories = 100;
@@ -247,7 +249,7 @@ class CaloriesViewModel extends ChangeNotifier{
     carbsQtyController.text = '';
   }
 
-  void setSelectedProteinItem({required ItemModel item}) {
+  void setSelectedProteinItem({required Calories item}) {
     _selectedProteinItem = item;
     setSelectedProteinItemState();
     setNewProteinItemState();
@@ -255,7 +257,7 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void setSelectedCarbsItem({required ItemModel item}) {
+  void setSelectedCarbsItem({required Calories item}) {
     _selectedCarbsItem = item;
     setSelectedCarbsItemState();
     setNewCarbsItemState();
@@ -263,7 +265,7 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _addProteinItemAction(ItemModel? item) {
+  void _addProteinItemAction(Calories? item) {
     item!.itemQuantity = proteinQtyController.text;
     item.totalCal = double.tryParse(_calculatedProteinCalories!);
     _proteinsSelectedItems.add(item);
@@ -271,7 +273,7 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _addCarbsItemAction(ItemModel? item) {
+  void _addCarbsItemAction(Calories? item) {
     item!.itemQuantity = carbsQtyController.text;
     item.totalCal = double.tryParse(_calculatedCarbsCalories!);
     _carbsSelectedItems.add(item);
@@ -351,13 +353,13 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void onDeleteProteinItemSelectedAction({required ItemModel item}){
+  void onDeleteProteinItemSelectedAction({required Calories item}){
     _proteinsSelectedItems.remove(item);
     calculateProteinProgress();
     notifyListeners();
   }
 
-  void onDeleteCarbItemSelectedAction({required ItemModel item}){
+  void onDeleteCarbItemSelectedAction({required Calories item}){
     _carbsSelectedItems.remove(item);
     calculateCarbsProgress();
     notifyListeners();
@@ -417,5 +419,48 @@ class CaloriesViewModel extends ChangeNotifier{
         todayActivity.add(cardio);
       }
     }
+  }
+
+  Future<void> saveCaloriesActionAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+    if (_proteinsSelectedItems.isEmpty && _carbsSelectedItems.isEmpty) {
+      Fluttertoast.showToast(
+          msg: "No calories added",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      setLoadingState(false);
+      return;
+    }
+    var response = await firebaseService.saveCaloriesAsync(
+      proteinItems: _proteinsSelectedItems,
+      carbsItems: _carbsSelectedItems,
+    );
+
+    if (response.isError) {
+      messageService.showErrorSnackBar('', localization.error);
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    Fluttertoast.showToast(
+        msg: "Saved",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+    setLoadingState(false);
   }
 }

@@ -1,21 +1,28 @@
-import 'package:flutter/cupertino.dart';
-
-class ItemModel {
+class Calories {
   String? itemName;
   int? itemCalories;
   String? itemQuantity;
-  TextEditingController? itemQty;
-  bool? isEnableEditing;
-  String? itemQtyNum;
   double? totalCal;
 
-  ItemModel({
+  Calories({
     this.itemName,
     this.itemCalories,
-    this.itemQty,
-    this.isEnableEditing,
     this.totalCal,
-    this.itemQtyNum,
     this.itemQuantity,
   });
+
+  factory Calories.fromJson(Map<String, dynamic> json) => Calories(
+    itemName: json["item name"],
+    itemCalories: json["item calories"],
+    totalCal: json["total calories"],
+    itemQuantity: json["item quantity"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "item name": itemName,
+    "item calories": itemCalories,
+    "total calories": totalCal,
+    "item quantity": itemQuantity,
+  };
+
 }

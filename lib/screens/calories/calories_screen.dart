@@ -400,7 +400,7 @@ class _SavedItems extends StatelessWidget {
     required this.isProtein,
   }) : super(key: key);
 
-  final List<ItemModel> itemsList;
+  final List<Calories> itemsList;
   final bool isProtein;
 
   @override
@@ -604,9 +604,10 @@ class _SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: ()=> context.read<CaloriesViewModel>().saveCaloriesActionAsync(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -618,14 +619,16 @@ class _SaveButton extends StatelessWidget {
                 color: const Color(0xFFE59D80),
                 borderRadius: BorderRadius.circular(20)),
             child: Center(
-              child: Text(
-                S.of(context).save.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: vm.isLoading
+                  ? const CircularProgressIndicator()
+                  : Text(
+                      S.of(context).save.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
           Padding(
