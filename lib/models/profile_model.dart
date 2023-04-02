@@ -37,16 +37,3 @@ class UserProfileModel {
     );
   }
 }
-
-/*
-Age
-Email
-Fats Percentage
-Full name
-Gender
-Muscles Percentage
-Water Percentage
-docId
-uid
-username
-* */
