@@ -53,8 +53,9 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CaloriesViewModel>().createTableRowsInit();
+      context.read<CaloriesViewModel>().getCaloriesFromJson();
       context.read<CaloriesViewModel>().getCardioAsync();
+      context.read<CaloriesViewModel>().getCaloriesAsync();
     });
 
     scrollController = ScrollController();
@@ -158,7 +159,7 @@ class _BodyState extends State<_Body> {
                             .read<CaloriesViewModel>()
                             .onSubmitProteinButtonAction(),
                       ),
-                    if (vm.proteinsSelectedItems.length != 0)
+                    if (!vm.isLoading && vm.proteinsSelectedItems.length != 0)
                       _SavedItems(
                         itemsList: vm.proteinsSelectedItems,
                         isProtein: true,
@@ -210,12 +211,12 @@ class _BodyState extends State<_Body> {
                             .read<CaloriesViewModel>()
                             .onSubmitCarbsButtonAction(),
                       ),
-                    if (vm.carbsSelectedItems.length != 0)
+                    if (showCarbsMenu) const _Items(isProtein: false),
+                    if (!vm.isLoading &&vm.carbsSelectedItems.length != 0)
                       _SavedItems(
                         itemsList: vm.carbsSelectedItems,
                         isProtein: false,
                       ),
-                    if (showCarbsMenu) const _Items(isProtein: false),
                     const _CardioHeader(),
                     const _CardioActivityList(),
                     const _SaveButton(),
@@ -400,7 +401,7 @@ class _SavedItems extends StatelessWidget {
     required this.isProtein,
   }) : super(key: key);
 
-  final List<Calories> itemsList;
+  final List<CaloriesModel> itemsList;
   final bool isProtein;
 
   @override
@@ -434,7 +435,8 @@ class _Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var items = context.select((CaloriesViewModel vm) => vm.itemsList);
+    var protein = context.select((CaloriesViewModel vm) => vm.proteinCalories);
+    var carbsFats = context.select((CaloriesViewModel vm) => vm.carbsCalories);
 
     return Padding(
       padding: EdgeInsets.only(left: 80.w, right: 105.w),
@@ -444,18 +446,26 @@ class _Items extends StatelessWidget {
             border: Border.all(color: Colors.transparent),
             color: Colors.grey.withOpacity(0.5)),
         child: ListView.separated(
-          itemCount: items.length - 1,
+          itemCount: isProtein
+              ? protein.isEmpty
+                  ? protein.length
+                  : protein.length - 1
+              : carbsFats.isEmpty
+                  ? carbsFats.length
+                  : carbsFats.length - 1,
           itemBuilder: (context, int index) {
             return InkWell(
               onTap: isProtein
                   ? () => context
                       .read<CaloriesViewModel>()
-                      .setSelectedProteinItem(item: items[index])
+                      .setSelectedProteinItem(food: protein[index])
                   : () => context
                       .read<CaloriesViewModel>()
-                      .setSelectedCarbsItem(item: items[index]),
+                      .setSelectedCarbsItem(food: carbsFats[index]),
               child: Text(
-                '${index + 1}. ${items[index].itemName!}',
+                isProtein
+                    ? '${index + 1}. ${protein[index].foodType}'
+                    : '${index + 1}. ${carbsFats[index].foodType}',
                 style: TextStyle(color: Colors.white, fontSize: 12.sp),
               ),
             );

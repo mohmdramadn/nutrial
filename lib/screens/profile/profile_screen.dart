@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutrial/components/logo.dart';
@@ -183,70 +182,6 @@ class _ProfileDetails extends StatelessWidget {
             const _UpdateProfileButton(),
             SizedBox(height: 100.h),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _MusclePercentage extends StatelessWidget {
-  const _MusclePercentage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.04,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: AppColors.primaryLightColor2),
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: Padding(
-            padding: EdgeInsets.only(left: 25.0.w),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        S.of(context).musclesPercentage,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 28.w),
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '33.7 %',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );

@@ -1,21 +1,32 @@
-class Calories {
+import 'package:nutrial/models/food.dart';
+
+class CaloriesModel {
   String? itemName;
   int? itemCalories;
   String? itemQuantity;
   double? totalCal;
 
-  Calories({
+  CaloriesModel({
     this.itemName,
     this.itemCalories,
     this.totalCal,
     this.itemQuantity,
   });
 
-  factory Calories.fromJson(Map<String, dynamic> json) => Calories(
+  factory CaloriesModel.fromJson(Map<String, dynamic> json) => CaloriesModel(
     itemName: json["item name"],
     itemCalories: json["item calories"],
     totalCal: json["total calories"],
     itemQuantity: json["item quantity"],
+  );
+
+  factory CaloriesModel.fromLocalJsonDatabase(Food food) => CaloriesModel(
+    itemName: food.foodType,
+    itemCalories: int.tryParse(
+          food.calories.replaceAll(RegExp(r'[^0-9]'), ''),
+        ),
+        totalCal: 0.0,
+    itemQuantity: food.wight,
   );
 
   Map<String, dynamic> toJson() => {

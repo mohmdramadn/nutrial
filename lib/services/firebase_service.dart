@@ -8,6 +8,8 @@ import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
 import 'package:nutrial/models/profile_model.dart';
 
+import '../models/calories.dart';
+
 class FirebaseService extends ChangeNotifier {
   final firebaseAuth = FirebaseAuth.instance;
   final database = FirebaseFirestore.instance;
@@ -108,8 +110,9 @@ class FirebaseService extends ChangeNotifier {
   }
 
   Future<Result<bool>> saveCaloriesAsync({
-    required List<Calories> proteinItems,
-    required List<Calories> carbsItems,
+    required List<CaloriesModel> proteinItems,
+    required List<CaloriesModel> carbsItems,
+    required DateTime date,
   }) async {
 
     Map<String, List<dynamic>> data = {
@@ -120,7 +123,7 @@ class FirebaseService extends ChangeNotifier {
       await database
           .collection('calories')
           .doc(user?.uid)
-          .collection(DateTime.now().dateForFirebase())
+          .collection(date.dateForFirebase())
           .doc(user?.uid)
           .set(data);
 
@@ -167,6 +170,23 @@ class FirebaseService extends ChangeNotifier {
         queryDate = queryDate.subtract(const Duration(days: 1));
       }
       return Result.value(map);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<Calories>> getCalories({required DateTime date}) async {
+    try {
+      var caloriesResponse = await database
+          .collection('calories')
+          .doc(user?.uid)
+          .collection(date.dateForFirebase()).doc(user?.uid).get();
+      if(caloriesResponse.data() != null) {
+        var calories =
+            Calories.fromJson(caloriesResponse.data() as Map<String, dynamic>);
+        return Result.value(calories);
+      }
+      return Result.error('No Data');
     } catch (e) {
       return Result.error(e);
     }

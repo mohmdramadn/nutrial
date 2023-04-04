@@ -1,16 +1,18 @@
 import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
-import 'package:nutrial/models/calories_model.dart';
+import 'package:nutrial/helper/calories_database.dart';
+import 'package:nutrial/models/food.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
 import 'package:nutrial/models/cardio.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
+
+import '../../models/calories.dart';
 
 class CaloriesViewModel extends ChangeNotifier{
   final ConnectionService connectionService;
@@ -25,20 +27,16 @@ class CaloriesViewModel extends ChangeNotifier{
     required this.localization,
   });
 
-  var items = CaloriesDB().calories;
-  List<Calories> itemsList = [];
+  List<Food> _proteinCalories = [];
+  List<Food> get proteinCalories => _proteinCalories;
 
-  void createTableRowsInit() {
-    for (int index = 0; index < items.length; index++) {
-      itemsList.add(
-        Calories(
-          itemName: items[index].itemName,
-          itemCalories: items[index].itemCalories,
-          itemQuantity: items[index].itemQuantity,
-          totalCal: 0,
-        ),
-      );
-    }
+  List<Food> _carbsCalories = [];
+  List<Food> get carbsCalories => _carbsCalories;
+
+  Future<void> getCaloriesFromJson() async {
+    _proteinCalories = CaloriesDatabase.instance.proteinCalories;
+    _carbsCalories = CaloriesDatabase.instance.carbsCalories;
+    setLoadingState(false);
     notifyListeners();
   }
 
@@ -95,17 +93,17 @@ class CaloriesViewModel extends ChangeNotifier{
   TextEditingController proteinGoalController = TextEditingController();
   TextEditingController carbsGoalController = TextEditingController();
 
-  List<Calories> _proteinsSelectedItems = [];
-  List<Calories> get proteinsSelectedItems => _proteinsSelectedItems;
+  List<CaloriesModel> _proteinsSelectedItems = [];
+  List<CaloriesModel> get proteinsSelectedItems => _proteinsSelectedItems;
 
-  List<Calories> _carbsSelectedItems = [];
-  List<Calories> get carbsSelectedItems => _carbsSelectedItems;
+  List<CaloriesModel> _carbsSelectedItems = [];
+  List<CaloriesModel> get carbsSelectedItems => _carbsSelectedItems;
 
-  Calories? _selectedProteinItem;
-  Calories? get selectedProteinItem => _selectedProteinItem;
+  CaloriesModel? _selectedProteinItem;
+  CaloriesModel? get selectedProteinItem => _selectedProteinItem;
 
-  Calories? _selectedCarbsItem;
-  Calories? get selectedCarbsItem => _selectedCarbsItem;
+  CaloriesModel? _selectedCarbsItem;
+  CaloriesModel? get selectedCarbsItem => _selectedCarbsItem;
 
   double totalProteinCalories = 0;
   double proteinGoalCalories = 100;
@@ -114,14 +112,14 @@ class CaloriesViewModel extends ChangeNotifier{
   void setProteinGoalValue(value){
     var newValue = double.tryParse(value);
     proteinGoalCalories = newValue ?? proteinGoalCalories;
-    calculateProteinProgress();
+    addProteinProgress();
     notifyListeners();
   }
 
   void setCarbsGoalValue(value){
     var newValue = double.tryParse(value);
     carbsGoalCalories = newValue ?? carbsGoalCalories;
-    calculateCarbsProgress();
+    addCarbsProgress();
     notifyListeners();
   }
 
@@ -149,13 +147,14 @@ class CaloriesViewModel extends ChangeNotifier{
   String? get todayDate => _todayDate.dateOnly();
 
   final DateTime _yesterdayDate =
-      DateTime.now().subtract(const Duration(days: 1));
+  DateTime(2023, 04, 03);
+      // DateTime.now().subtract(const Duration(days: 1));
   String? get yesterdayDate => _yesterdayDate.dateOnly();
 
   Map<DateTime, List<QuerySnapshot>>? _cardioResponse = {};
 
-  List<CardioActivity>? _cardio = [];
-  List<CardioActivity>? get cardio => _cardio;
+  Calories? _calories = Calories(carbs: [], protein: []);
+  Calories? get calories => _calories;
 
   List<CardioActivity> todayActivity = [];
   List<CardioActivity> yesterdayActivity = [];
@@ -164,6 +163,7 @@ class CaloriesViewModel extends ChangeNotifier{
   bool get isTodaySelected => _isTodaySelected;
   void setTodaySelectedState(){
     _isTodaySelected = !_isTodaySelected;
+    getCaloriesAsync();
     notifyListeners();
   }
 
@@ -249,7 +249,8 @@ class CaloriesViewModel extends ChangeNotifier{
     carbsQtyController.text = '';
   }
 
-  void setSelectedProteinItem({required Calories item}) {
+  void setSelectedProteinItem({required Food food}) {
+    var item = CaloriesModel.fromLocalJsonDatabase(food);
     _selectedProteinItem = item;
     setSelectedProteinItemState();
     setNewProteinItemState();
@@ -257,7 +258,8 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void setSelectedCarbsItem({required Calories item}) {
+  void setSelectedCarbsItem({required Food food}) {
+    var item = CaloriesModel.fromLocalJsonDatabase(food);
     _selectedCarbsItem = item;
     setSelectedCarbsItemState();
     setNewCarbsItemState();
@@ -265,19 +267,19 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _addProteinItemAction(Calories? item) {
+  void _addProteinItemAction(CaloriesModel? item) {
     item!.itemQuantity = proteinQtyController.text;
     item.totalCal = double.tryParse(_calculatedProteinCalories!);
     _proteinsSelectedItems.add(item);
-    calculateProteinProgress();
+    addProteinProgress();
     notifyListeners();
   }
 
-  void _addCarbsItemAction(Calories? item) {
+  void _addCarbsItemAction(CaloriesModel? item) {
     item!.itemQuantity = carbsQtyController.text;
     item.totalCal = double.tryParse(_calculatedCarbsCalories!);
     _carbsSelectedItems.add(item);
-    calculateCarbsProgress();
+    addCarbsProgress();
     notifyListeners();
   }
 
@@ -319,7 +321,7 @@ class CaloriesViewModel extends ChangeNotifier{
     );
   }
 
-  void calculateProteinProgress() {
+  void addProteinProgress() {
     if (_proteinsSelectedItems.length == 0) {
       totalProteinCalories = 0;
       proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
@@ -327,6 +329,13 @@ class CaloriesViewModel extends ChangeNotifier{
           totalProteinCalories <= (proteinGoalCalories + 50);
       notifyListeners();
       return;
+    }
+    if(_calculatedProteinCalories == null){
+      var sum = 0.0;
+      for(var item in _proteinsSelectedItems){
+        sum += item.totalCal!;
+        _calculatedProteinCalories = sum.roundToDouble().toString();
+      }
     }
     totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
     proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
@@ -336,7 +345,7 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void calculateCarbsProgress() {
+  void addCarbsProgress() {
     if (_carbsSelectedItems.length == 0) {
       totalCarbsCalories = 0;
       carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
@@ -344,6 +353,13 @@ class CaloriesViewModel extends ChangeNotifier{
           totalCarbsCalories <= (carbsGoalCalories + 50);
       notifyListeners();
       return;
+    }
+    if(_calculatedCarbsCalories == null){
+      var sum = 0.0;
+      for(var item in _carbsSelectedItems){
+        sum += item.totalCal!;
+        _calculatedCarbsCalories = sum.toString();
+      }
     }
     totalCarbsCalories += num.tryParse(_calculatedCarbsCalories!)!;
     carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
@@ -353,15 +369,32 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void onDeleteProteinItemSelectedAction({required Calories item}){
+  void onDeleteProteinItemSelectedAction({required CaloriesModel item}){
     _proteinsSelectedItems.remove(item);
-    calculateProteinProgress();
+    subtractOnDeleteAction(item,true);
     notifyListeners();
   }
 
-  void onDeleteCarbItemSelectedAction({required Calories item}){
+  void onDeleteCarbItemSelectedAction({required CaloriesModel item}){
     _carbsSelectedItems.remove(item);
-    calculateCarbsProgress();
+    subtractOnDeleteAction(item,false);
+    notifyListeners();
+  }
+
+  void subtractOnDeleteAction(CaloriesModel item,bool isProtein){
+    var totalCalories = double.tryParse(
+        isProtein ? _calculatedProteinCalories! : _calculatedCarbsCalories!);
+    if (!isProtein) {
+      _calculatedCarbsCalories = (totalCalories! - item.totalCal!).toString();
+      totalCarbsCalories =
+          num.tryParse(_calculatedCarbsCalories!)!.roundToDouble();
+      carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+      return;
+    }
+    _calculatedProteinCalories = (totalCalories! - item.totalCal!).toString();
+    totalProteinCalories =
+        num.tryParse(_calculatedProteinCalories!)!.roundToDouble();
+    proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
     notifyListeners();
   }
 
@@ -387,12 +420,33 @@ class CaloriesViewModel extends ChangeNotifier{
     setLoadingState(false);
   }
 
+  Future<void> getCaloriesAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+    var response = await firebaseService
+        .getCalories(date: _isTodaySelected ? _todayDate : _yesterdayDate);
 
-  bool _isCardioLoading = false;
-  bool get isCardioLoading => _isCardioLoading;
-  void setCardioLoadingState(value){
-    _isCardioLoading = value;
-    notifyListeners();
+    if (response.isError) {
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    _calories = response.asValue!.value;
+    if(_calories!.protein != null){
+      _proteinsSelectedItems += _calories!.protein;
+      addProteinProgress();
+    }
+
+    if(_calories!.carbs != null){
+      _carbsSelectedItems += _calories!.carbs;
+      addCarbsProgress();
+    }
+    setLoadingState(false);
   }
 
   void yesterdayCardio() {
@@ -443,6 +497,7 @@ class CaloriesViewModel extends ChangeNotifier{
     var response = await firebaseService.saveCaloriesAsync(
       proteinItems: _proteinsSelectedItems,
       carbsItems: _carbsSelectedItems,
+      date: isTodaySelected ? _todayDate : _yesterdayDate,
     );
 
     if (response.isError) {
