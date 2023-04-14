@@ -2,12 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/helper/calories_database.dart';
 import 'package:nutrial/models/food.dart';
 import 'package:nutrial/models/pdf_items_model.dart';
 import 'package:nutrial/models/cardio.dart';
+import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -147,13 +149,12 @@ class CaloriesViewModel extends ChangeNotifier{
   String? get todayDate => _todayDate.dateOnly();
 
   final DateTime _yesterdayDate =
-  DateTime(2023, 04, 03);
-      // DateTime.now().subtract(const Duration(days: 1));
+      DateTime.now().subtract(const Duration(days: 1));
   String? get yesterdayDate => _yesterdayDate.dateOnly();
 
   Map<DateTime, List<QuerySnapshot>>? _cardioResponse = {};
 
-  Calories? _calories = Calories(carbs: [], protein: []);
+  Calories? _calories = Calories(carbs: [], protein: [], water: 0);
   Calories? get calories => _calories;
 
   List<CardioActivity> todayActivity = [];
@@ -163,7 +164,22 @@ class CaloriesViewModel extends ChangeNotifier{
   bool get isTodaySelected => _isTodaySelected;
   void setTodaySelectedState(){
     _isTodaySelected = !_isTodaySelected;
+    clearData();
     getCaloriesAsync();
+    getCardioAsync();
+    notifyListeners();
+  }
+
+  void clearData(){
+    _proteinsSelectedItems.clear();
+    _carbsSelectedItems.clear();
+    proteinProgressRatio = 0.0;
+    carbsProgressRatio = 0.0;
+    totalProteinCalories = 0;
+    totalCarbsCalories = 0;
+    _waterBottlesCount = 0;
+    todayActivity.clear();
+    yesterdayActivity.clear();
     notifyListeners();
   }
 
@@ -330,7 +346,7 @@ class CaloriesViewModel extends ChangeNotifier{
       notifyListeners();
       return;
     }
-    if(_calculatedProteinCalories == null){
+    if(_calculatedProteinCalories == null || _calculatedProteinCalories == '0'){
       var sum = 0.0;
       for(var item in _proteinsSelectedItems){
         sum += item.totalCal!;
@@ -354,7 +370,7 @@ class CaloriesViewModel extends ChangeNotifier{
       notifyListeners();
       return;
     }
-    if(_calculatedCarbsCalories == null){
+    if(_calculatedCarbsCalories == null || _calculatedCarbsCalories == '0'){
       var sum = 0.0;
       for(var item in _carbsSelectedItems){
         sum += item.totalCal!;
@@ -415,8 +431,8 @@ class CaloriesViewModel extends ChangeNotifier{
     }
 
     _cardioResponse = response.asValue!.value;
-    todayCardio();
-    yesterdayCardio();
+    getTodayCardio();
+    getYesterdayCardio();
     setLoadingState(false);
   }
 
@@ -437,6 +453,7 @@ class CaloriesViewModel extends ChangeNotifier{
     }
 
     _calories = response.asValue!.value;
+    _waterBottlesCount = _calories!.water;
     if(_calories!.protein != null){
       _proteinsSelectedItems += _calories!.protein;
       addProteinProgress();
@@ -449,7 +466,7 @@ class CaloriesViewModel extends ChangeNotifier{
     setLoadingState(false);
   }
 
-  void yesterdayCardio() {
+  void getYesterdayCardio() {
     var yesterdayCardio = _cardioResponse!.entries
         .firstWhereOrNull((element) => element.key.day == _yesterdayDate.day);
     if(yesterdayCardio == null) return;
@@ -462,7 +479,7 @@ class CaloriesViewModel extends ChangeNotifier{
     }
   }
 
-  void todayCardio() {
+  void getTodayCardio() {
     var todayCardio = _cardioResponse!.entries
         .firstWhereOrNull((element) => element.key.day == _todayDate.day);
     if(todayCardio == null) return;
@@ -498,6 +515,7 @@ class CaloriesViewModel extends ChangeNotifier{
       proteinItems: _proteinsSelectedItems,
       carbsItems: _carbsSelectedItems,
       date: isTodaySelected ? _todayDate : _yesterdayDate,
+      water: _waterBottlesCount,
     );
 
     if (response.isError) {
@@ -517,5 +535,13 @@ class CaloriesViewModel extends ChangeNotifier{
         fontSize: 16.0);
 
     setLoadingState(false);
+  }
+
+  Future<void> navigateToCardioScreen() async {
+    await Get.toNamed(cardioRoute,
+        arguments: isTodaySelected ? _todayDate : _yesterdayDate);
+    todayActivity.clear();
+    yesterdayActivity.clear();
+    getCardioAsync();
   }
 }

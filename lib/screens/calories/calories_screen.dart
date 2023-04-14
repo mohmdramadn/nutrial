@@ -130,12 +130,9 @@ class _BodyState extends State<_Body> {
                           .read<CaloriesViewModel>()
                           .setProteinGoalValue(value),
                     ),
-                    LinearProgressIndicatorApp(
-                      consumedCaloriesPercentage: vm.proteinProgressRatio,
-                      color: vm.isMetProteinGoal
-                          ? const AlwaysStoppedAnimation<Color>(
-                              AppColors.floatingButton)
-                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+                    _ProgressIndicator(
+                      progressRatio: vm.proteinProgressRatio,
+                      condition: vm.isMetProteinGoal,
                     ),
                     const _HeaderCategory(isProtein: true),
                     if (vm.showNewProteinItem)
@@ -182,12 +179,9 @@ class _BodyState extends State<_Body> {
                           .read<CaloriesViewModel>()
                           .setCarbsGoalValue(value),
                     ),
-                    LinearProgressIndicatorApp(
-                      consumedCaloriesPercentage: vm.carbsProgressRatio,
-                      color: vm.isMetCarbsGoal
-                          ? const AlwaysStoppedAnimation<Color>(
-                              AppColors.floatingButton)
-                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+                    _ProgressIndicator(
+                      progressRatio: vm.carbsProgressRatio,
+                      condition: vm.isMetCarbsGoal,
                     ),
                     const _HeaderCategory(isProtein: false),
                     if (vm.showNewCarbsItem)
@@ -227,6 +221,28 @@ class _BodyState extends State<_Body> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ProgressIndicator extends StatelessWidget {
+  const _ProgressIndicator({
+    Key? key,
+    required this.progressRatio,
+    required this.condition,
+  }) : super(key: key);
+
+  final double progressRatio;
+  final bool condition;
+
+  @override
+  Widget build(BuildContext context) {
+    return LinearProgressIndicatorApp(
+      consumedCaloriesPercentage: progressRatio,
+      color: condition
+          ? const AlwaysStoppedAnimation<Color>(
+              AppColors.floatingButton)
+          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
     );
   }
 }
@@ -310,9 +326,21 @@ class _CardioHeader extends StatelessWidget {
     return Flexible(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
-        child: const _Category(
-          imgName: 'cardio',
-          isHasNumbers: false,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Flexible(
+              child: _Category(
+                imgName: 'cardio',
+                isHasNumbers: false,
+              ),
+            ),
+            InkWell(
+              onTap: () =>
+                  context.read<CaloriesViewModel>().navigateToCardioScreen(),
+              child: Image.asset('assets/icons/add.png'),
+            )
+          ],
         ),
       ),
     );

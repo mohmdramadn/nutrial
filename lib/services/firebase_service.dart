@@ -112,12 +112,14 @@ class FirebaseService extends ChangeNotifier {
   Future<Result<bool>> saveCaloriesAsync({
     required List<CaloriesModel> proteinItems,
     required List<CaloriesModel> carbsItems,
+    required int water,
     required DateTime date,
   }) async {
 
-    Map<String, List<dynamic>> data = {
+    Map<String, dynamic> data = {
       "protein": List<dynamic>.from(proteinItems.map((p) => p.toJson())),
       "carbs": List<dynamic>.from(carbsItems.map((c) => c.toJson())),
+      "water": water,
     };
     try {
       await database
