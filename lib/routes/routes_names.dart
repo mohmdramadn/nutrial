@@ -1,4 +1,5 @@
 const String splashRoute = 'splashRoute';
+const String welcomeRoute = 'welcomeRoute';
 const String loginRoute = 'loginRoute';
 const String signUpRoute = 'signUpRoute';
 const String onBoardingRoute = 'onBoardingRoute';

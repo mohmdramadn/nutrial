@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
 import 'package:nutrial/routes/routes_names.dart';
@@ -32,6 +30,11 @@ class ProfileViewModel extends ChangeNotifier {
     if(!isConnected){
       setLoadingState(false);
       notifyListeners();
+      return;
+    }
+
+    if (!isLoggedIn) {
+      setLoadingState(false);
       return;
     }
     var response = await firebaseService.getUserProfile();
@@ -65,12 +68,13 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> logoutActionAsync() async {
     if (!isLoggedIn) return;
-    var response = await firebaseService.logoutAsync();
-    if (response.isError) log('unable to logout');
-    _user = UserProfileModel();
-    Preference.instance
-        .saveData(PreferenceStrings.userProfile, _user);
+    await firebaseService.logoutAsync();
+    Preference.instance.clearAll();
     Get.offAndToNamed(loginRoute);
+  }
+
+  void navigateToLogin(){
+    Get.toNamed(loginRoute);
   }
 
   bool get isArabic => Get.locale == const Locale('ar');

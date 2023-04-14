@@ -19,11 +19,16 @@ import 'package:nutrial/screens/profile/profile_screen.dart';
 import 'package:nutrial/screens/sessions/sessions_screen.dart';
 
 import 'package:nutrial/screens/sign_up/sign_up_screen.dart';
+import 'package:nutrial/screens/splash/splash_screen.dart';
 import 'package:nutrial/screens/welcome_screen/welcome_screen.dart';
 
 Route onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case splashRoute:
+      return MaterialPageRoute(
+          builder: (context) => const SplashScreen(), settings: settings);
+
+      case welcomeRoute:
       return MaterialPageRoute(
           builder: (context) => const WelcomeScreen(), settings: settings);
 

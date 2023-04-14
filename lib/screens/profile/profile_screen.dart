@@ -44,7 +44,6 @@ class _BodyState extends State<_Body> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProfileViewModel>().initGetProfileAsync();
-      // context.read<ProfileViewModel>().isArabicLang();
     });
     super.initState();
   }
@@ -52,25 +51,66 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     var isLoading = context.watch<ProfileViewModel>().isLoading;
+    var isLoggedIn = context.watch<ProfileViewModel>().isLoggedIn;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            SafeArea(
-              child: Column(
-                children: [
-                  const Logo(),
-                  isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : _ProfileDetails(
-                          nextSession: nextSession,
-                        ),
-                ],
-              ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              const Logo(),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : !isLoggedIn
+                  ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white70,
+                          ),
+                          child: Column(
+                            children: const [
+                              Text('You are not logged in'),
+                              _LoginButton(),
+                            ],
+                          ),
+                        )
+                      : _ProfileDetails(nextSession: nextSession),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LoginButton extends StatelessWidget {
+  const _LoginButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 300.w,
+      child: ElevatedButton(
+        onPressed: ()=> context.read<ProfileViewModel>().navigateToLogin(),
+        style: ButtonStyle(
+          padding:
+          MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          backgroundColor:
+          MaterialStateProperty.all<Color>(AppColors.primaryLightColor4),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+              side: const BorderSide(color: AppColors.primaryLightColor4),
             ),
-          ],
+          ),
+        ),
+        child: Text(
+          S.of(context).login,
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
       ),
     );

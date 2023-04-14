@@ -7,6 +7,7 @@ import 'package:nutrial/firebase_options.dart';
 import 'package:nutrial/helper/calories_database.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/providers.dart';
+import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/services/app_language.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           onGenerateRoute: onGenerateRoute,
+          initialRoute: splashRoute,
           opaqueRoute: Get.isOpaqueRouteDefault,
           color: AppColors.backgroundColor,
         ),
