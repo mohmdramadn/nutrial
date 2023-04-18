@@ -37,6 +37,7 @@ class Language{
 
 class PreferenceStrings{
   static const String userProfile = 'user_profile';
+  static const String user = 'user';
 }
 
 class WeekDays{

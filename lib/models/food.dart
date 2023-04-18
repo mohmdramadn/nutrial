@@ -15,12 +15,12 @@ class CaloriesFields {
 //     final calories = caloriesFromJson(jsonString);
 
 
-List<Calories> caloriesFromJson(String str) => List<Calories>.from(json.decode(str).map((x) => Calories.fromJson(x)));
+List<Food> caloriesFromJson(String str) => List<Food>.from(json.decode(str).map((x) => Food.fromJson(x)));
 
-String caloriesToJson(List<Calories> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String caloriesToJson(List<Food> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Calories {
-  Calories({
+class Food {
+  Food({
     required this.foodType,
     required this.wight,
     required this.calories,
@@ -30,18 +30,18 @@ class Calories {
   String wight;
   dynamic calories;
 
-  Calories copyWith({
+  Food copyWith({
     String? foodType,
     String? wight,
     dynamic calories,
   }) =>
-      Calories(
+      Food(
         foodType: foodType ?? this.foodType,
         wight: wight ?? this.wight,
         calories: calories ?? this.calories,
       );
 
-  factory Calories.fromJson(Map<String, dynamic> json) => Calories(
+  factory Food.fromJson(Map<String, dynamic> json) => Food(
     foodType: json["Food type"],
     wight: json["Wight"],
     calories: json["Calories"],

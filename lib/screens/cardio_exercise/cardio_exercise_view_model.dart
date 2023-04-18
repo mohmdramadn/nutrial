@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/services/connection_service.dart';
@@ -33,6 +34,10 @@ class CardioExerciseViewModel extends ChangeNotifier{
   bool get isSuccess => _isSuccess;
   void setSuccessState(value){
     _isSuccess = value;
+    Future.delayed(const Duration(seconds: 3),(){
+      Get.back();
+      Get.back();
+    });
     notifyListeners();
   }
 
@@ -72,14 +77,14 @@ class CardioExerciseViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> saveSessionActivityActionAsync()async{
+  Future<void> saveCardioActionAsync()async{
     setLoadingState(true);
     var isConnected = await connectionService.checkConnection();
     if(!isConnected){
       setLoadingState(false);
       notifyListeners();
     }
-    var response = await firebaseService.saveSessionsAsync(
+    var response = await firebaseService.saveCardioAsync(
       activityName: activity,
       minutes: _minutes ?? '',
       weight: _selectedWeight!,
@@ -94,6 +99,7 @@ class CardioExerciseViewModel extends ChangeNotifier{
       return;
     }
 
+    setSuccessState(true);
     setLoadingState(false);
     notifyListeners();
   }

@@ -11,6 +11,9 @@ import 'package:nutrial/screens/calories/calories_components/new_items_row.dart'
 import 'package:nutrial/screens/calories/calories_components/saved_items_row.dart';
 import 'package:nutrial/screens/calories/calories_components/selected_items_row.dart';
 import 'package:nutrial/screens/calories/calories_view_model.dart';
+import 'package:nutrial/services/connection_service.dart';
+import 'package:nutrial/services/firebase_service.dart';
+import 'package:nutrial/services/message_service.dart';
 import 'package:provider/provider.dart';
 
 class CaloriesScreen extends StatelessWidget {
@@ -21,7 +24,13 @@ class CaloriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CaloriesViewModel>(
-        create: (_) => CaloriesViewModel(), child: const _Body());
+        create: (_) => CaloriesViewModel(
+              connectionService: context.read<ConnectionService>(),
+              firebaseService: context.read<FirebaseService>(),
+              messageService: context.read<MessageService>(),
+              localization: S.of(context),
+            ),
+        child: const _Body());
   }
 }
 
@@ -44,7 +53,9 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CaloriesViewModel>().createTableRowsInit();
+      context.read<CaloriesViewModel>().getCaloriesFromJson();
+      context.read<CaloriesViewModel>().getCardioAsync();
+      context.read<CaloriesViewModel>().getCaloriesAsync();
     });
 
     scrollController = ScrollController();
@@ -119,12 +130,9 @@ class _BodyState extends State<_Body> {
                           .read<CaloriesViewModel>()
                           .setProteinGoalValue(value),
                     ),
-                    LinearProgressIndicatorApp(
-                      consumedCaloriesPercentage: vm.proteinProgressRatio,
-                      color: vm.isMetProteinGoal
-                          ? const AlwaysStoppedAnimation<Color>(
-                              AppColors.floatingButton)
-                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+                    _ProgressIndicator(
+                      progressRatio: vm.proteinProgressRatio,
+                      condition: vm.isMetProteinGoal,
                     ),
                     const _HeaderCategory(isProtein: true),
                     if (vm.showNewProteinItem)
@@ -148,7 +156,7 @@ class _BodyState extends State<_Body> {
                             .read<CaloriesViewModel>()
                             .onSubmitProteinButtonAction(),
                       ),
-                    if (vm.proteinsSelectedItems.length != 0)
+                    if (!vm.isLoading && vm.proteinsSelectedItems.length != 0)
                       _SavedItems(
                         itemsList: vm.proteinsSelectedItems,
                         isProtein: true,
@@ -171,12 +179,9 @@ class _BodyState extends State<_Body> {
                           .read<CaloriesViewModel>()
                           .setCarbsGoalValue(value),
                     ),
-                    LinearProgressIndicatorApp(
-                      consumedCaloriesPercentage: vm.carbsProgressRatio,
-                      color: vm.isMetCarbsGoal
-                          ? const AlwaysStoppedAnimation<Color>(
-                              AppColors.floatingButton)
-                          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+                    _ProgressIndicator(
+                      progressRatio: vm.carbsProgressRatio,
+                      condition: vm.isMetCarbsGoal,
                     ),
                     const _HeaderCategory(isProtein: false),
                     if (vm.showNewCarbsItem)
@@ -200,12 +205,12 @@ class _BodyState extends State<_Body> {
                             .read<CaloriesViewModel>()
                             .onSubmitCarbsButtonAction(),
                       ),
-                    if (vm.carbsSelectedItems.length != 0)
+                    if (showCarbsMenu) const _Items(isProtein: false),
+                    if (!vm.isLoading &&vm.carbsSelectedItems.length != 0)
                       _SavedItems(
                         itemsList: vm.carbsSelectedItems,
                         isProtein: false,
                       ),
-                    if (showCarbsMenu) const _Items(isProtein: false),
                     const _CardioHeader(),
                     const _CardioActivityList(),
                     const _SaveButton(),
@@ -220,6 +225,28 @@ class _BodyState extends State<_Body> {
   }
 }
 
+class _ProgressIndicator extends StatelessWidget {
+  const _ProgressIndicator({
+    Key? key,
+    required this.progressRatio,
+    required this.condition,
+  }) : super(key: key);
+
+  final double progressRatio;
+  final bool condition;
+
+  @override
+  Widget build(BuildContext context) {
+    return LinearProgressIndicatorApp(
+      consumedCaloriesPercentage: progressRatio,
+      color: condition
+          ? const AlwaysStoppedAnimation<Color>(
+              AppColors.floatingButton)
+          : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
+    );
+  }
+}
+
 class _CardioActivityList extends StatelessWidget {
   const _CardioActivityList({
     Key? key,
@@ -229,17 +256,22 @@ class _CardioActivityList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var vm = context.watch<CaloriesViewModel>();
+    var cardioList = vm.isTodaySelected ? vm.todayActivity : vm.yesterdayActivity;
 
     return Flexible(
       child: Column(
         children: [
-          for (int i = 0; i <= vm.cardioItems.length - 1; i++)
-            Column(
-              children: [
-                const _CardioActivity(),
-                SizedBox(height: 10.h),
-              ],
-            )
+          if (cardioList.isNotEmpty)
+            for (int i = 0; i <= cardioList.length - 1; i++)
+              Column(
+                children: [
+                  _CardioActivity(
+                    activityName: cardioList[i].activity,
+                    caloriesBurned: cardioList[i].calories,
+                  ),
+                  SizedBox(height: 10.h),
+                ],
+              )
         ],
       ),
     );
@@ -249,7 +281,12 @@ class _CardioActivityList extends StatelessWidget {
 class _CardioActivity extends StatelessWidget {
   const _CardioActivity({
     Key? key,
+    required this.activityName,
+    required this.caloriesBurned,
   }) : super(key: key);
+
+  final String activityName;
+  final String caloriesBurned;
 
   @override
   Widget build(BuildContext context) {
@@ -264,15 +301,14 @@ class _CardioActivity extends StatelessWidget {
               vertical: 8.0.h, horizontal: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              //TODO add actual activites
+            children: [
               Text(
-                'Cycling, mountain bike, bmx',
-                style: TextStyle(color: Colors.white),
+                activityName,
+                style: const TextStyle(color: Colors.white),
               ),
               Text(
-                '300 CAL',
-                style: TextStyle(color: Colors.white),
+                '$caloriesBurned CAL',
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -290,9 +326,21 @@ class _CardioHeader extends StatelessWidget {
     return Flexible(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
-        child: const _Category(
-          imgName: 'cardio',
-          isHasNumbers: false,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Flexible(
+              child: _Category(
+                imgName: 'cardio',
+                isHasNumbers: false,
+              ),
+            ),
+            InkWell(
+              onTap: () =>
+                  context.read<CaloriesViewModel>().navigateToCardioScreen(),
+              child: Image.asset('assets/icons/add.png'),
+            )
+          ],
         ),
       ),
     );
@@ -381,7 +429,7 @@ class _SavedItems extends StatelessWidget {
     required this.isProtein,
   }) : super(key: key);
 
-  final List<ItemModel> itemsList;
+  final List<CaloriesModel> itemsList;
   final bool isProtein;
 
   @override
@@ -415,7 +463,8 @@ class _Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var items = context.select((CaloriesViewModel vm) => vm.itemsList);
+    var protein = context.select((CaloriesViewModel vm) => vm.proteinCalories);
+    var carbsFats = context.select((CaloriesViewModel vm) => vm.carbsCalories);
 
     return Padding(
       padding: EdgeInsets.only(left: 80.w, right: 105.w),
@@ -425,18 +474,26 @@ class _Items extends StatelessWidget {
             border: Border.all(color: Colors.transparent),
             color: Colors.grey.withOpacity(0.5)),
         child: ListView.separated(
-          itemCount: items.length - 1,
+          itemCount: isProtein
+              ? protein.isEmpty
+                  ? protein.length
+                  : protein.length - 1
+              : carbsFats.isEmpty
+                  ? carbsFats.length
+                  : carbsFats.length - 1,
           itemBuilder: (context, int index) {
             return InkWell(
               onTap: isProtein
                   ? () => context
                       .read<CaloriesViewModel>()
-                      .setSelectedProteinItem(item: items[index])
+                      .setSelectedProteinItem(food: protein[index])
                   : () => context
                       .read<CaloriesViewModel>()
-                      .setSelectedCarbsItem(item: items[index]),
+                      .setSelectedCarbsItem(food: carbsFats[index]),
               child: Text(
-                '${index + 1}. ${items[index].itemName!}',
+                isProtein
+                    ? '${index + 1}. ${protein[index].foodType}'
+                    : '${index + 1}. ${carbsFats[index].foodType}',
                 style: TextStyle(color: Colors.white, fontSize: 12.sp),
               ),
             );
@@ -585,9 +642,10 @@ class _SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: ()=> context.read<CaloriesViewModel>().saveCaloriesActionAsync(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -599,14 +657,16 @@ class _SaveButton extends StatelessWidget {
                 color: const Color(0xFFE59D80),
                 borderRadius: BorderRadius.circular(20)),
             child: Center(
-              child: Text(
-                S.of(context).save.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: vm.isLoading
+                  ? const CircularProgressIndicator()
+                  : Text(
+                      S.of(context).save.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
           Padding(

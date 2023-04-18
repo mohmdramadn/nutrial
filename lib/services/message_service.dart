@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nutrial/constants/colors.dart';
 
@@ -23,6 +24,8 @@ class MessageService {
   void showErrorSnackBar(String? title, String? message) {
     Get.snackbar(title ?? '', message ?? '',
         instantInit: true,
+        padding: EdgeInsets.only(top: 10.sp,bottom: 10.sp),
+        titleText: const Text('',style: TextStyle(fontSize: 0)),
         backgroundColor: AppColors.errorColor,
         snackPosition: SnackPosition.BOTTOM,
         snackStyle: SnackStyle.FLOATING,
@@ -30,7 +33,7 @@ class MessageService {
         messageText: Text(
           message ?? '',
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18, color: Colors.white),
+          style: const TextStyle(fontSize: 14, color: Colors.white),
         ));
   }
 }

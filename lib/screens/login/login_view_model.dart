@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
+import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
@@ -47,7 +49,7 @@ class LoginViewModel extends ChangeNotifier{
       Fluttertoast.showToast(
           msg: "No internet connection",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
+          gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
@@ -64,6 +66,9 @@ class LoginViewModel extends ChangeNotifier{
           '', loginResponse.asError!.error.toString());
       return;
     }
+
+    Preference.instance
+        .saveData(PreferenceStrings.user, loginResponse.asValue!.value);
 
     setLoadingState(false);
     notifyListeners();

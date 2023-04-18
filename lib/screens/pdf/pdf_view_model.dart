@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nutrial/helper/calories_database.dart';
-import 'package:nutrial/models/cal_model.dart';
+import 'package:nutrial/models/food.dart';
 
 class PdfViewModel extends ChangeNotifier {
 
@@ -11,11 +11,11 @@ class PdfViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Calories> _proteinCalories = [];
-  List<Calories> get proteinCalories => _proteinCalories;
+  List<Food> _proteinCalories = [];
+  List<Food> get proteinCalories => _proteinCalories;
 
-  List<Calories> _carbsCalories = [];
-  List<Calories> get carbsCalories => _carbsCalories;
+  List<Food> _carbsCalories = [];
+  List<Food> get carbsCalories => _carbsCalories;
 
   Future<void> getCaloriesAsync() async {
     _proteinCalories = CaloriesDatabase.instance.proteinCalories;

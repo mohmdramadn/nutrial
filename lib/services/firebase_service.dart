@@ -5,7 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:async/async.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
+import 'package:nutrial/models/pdf_items_model.dart';
 import 'package:nutrial/models/profile_model.dart';
+
+import '../models/calories.dart';
 
 class FirebaseService extends ChangeNotifier {
   final firebaseAuth = FirebaseAuth.instance;
@@ -82,24 +85,49 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
-  Future<Result<bool>> saveSessionsAsync({
+  Future<Result<bool>> saveCardioAsync({
     required String activityName,
     required String minutes,
     required String weight,
     required String calories,
   }) async {
     final activityData = <String, dynamic>{
+      'activity': activityName,
       'minutes': minutes,
       'weight': weight,
       'calories': calories,
     };
     try {
       await database
-          .collection('sessions')
+          .collection('cardio')
           .doc(user?.uid)
-          .collection(DateTime.now().dateForFirebase())
-          .doc(activityName)
-          .set(activityData);
+          .collection(DateTime.now().dateForFirebase()).add(activityData);
+
+      return Result.value(true);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<bool>> saveCaloriesAsync({
+    required List<CaloriesModel> proteinItems,
+    required List<CaloriesModel> carbsItems,
+    required int water,
+    required DateTime date,
+  }) async {
+
+    Map<String, dynamic> data = {
+      "protein": List<dynamic>.from(proteinItems.map((p) => p.toJson())),
+      "carbs": List<dynamic>.from(carbsItems.map((c) => c.toJson())),
+      "water": water,
+    };
+    try {
+      await database
+          .collection('calories')
+          .doc(user?.uid)
+          .collection(date.dateForFirebase())
+          .doc(user?.uid)
+          .set(data);
 
       return Result.value(true);
     } catch (e) {
@@ -122,18 +150,19 @@ class FirebaseService extends ChangeNotifier {
     }
   }
 
-  Future<Result<Map<DateTime, List<QuerySnapshot>>>> getUserSessions() async {
+  Future<Result<Map<DateTime, List<QuerySnapshot>>>> getUserCardio() async {
     Map<DateTime, List<QuerySnapshot>>? map = {};
     try {
       var queryDate = DateTime.now();
       List<QuerySnapshot> snapshots = [];
-      for (int i = 0; i <= 6; i++) {
-        var sessions = database
-            .collection('sessions')
+      for (int i = 0; i <= 2; i++) {
+        var cardio = database
+            .collection('cardio')
             .doc(user?.uid)
             .collection(queryDate.dateForFirebase());
 
-        final QuerySnapshot querySnapshot = await sessions.get();
+
+        final QuerySnapshot querySnapshot = await cardio.get();
 
         if(querySnapshot.docs.isNotEmpty) {
           snapshots.add(querySnapshot);
@@ -143,6 +172,23 @@ class FirebaseService extends ChangeNotifier {
         queryDate = queryDate.subtract(const Duration(days: 1));
       }
       return Result.value(map);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<Calories>> getCalories({required DateTime date}) async {
+    try {
+      var caloriesResponse = await database
+          .collection('calories')
+          .doc(user?.uid)
+          .collection(date.dateForFirebase()).doc(user?.uid).get();
+      if(caloriesResponse.data() != null) {
+        var calories =
+            Calories.fromJson(caloriesResponse.data() as Map<String, dynamic>);
+        return Result.value(calories);
+      }
+      return Result.error('No Data');
     } catch (e) {
       return Result.error(e);
     }
