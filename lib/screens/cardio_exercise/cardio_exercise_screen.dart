@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutrial/components/logo.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
@@ -88,11 +89,13 @@ class _SuccessWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/lift_icon.png',
-          height: 200,
-          width: 200,
-          fit: BoxFit.contain,
+        SizedBox(
+          width: 250.w,
+          height: 250.h,
+          child: Lottie.asset(
+            "assets/lottie/arm_lift.json",
+            fit: BoxFit.cover,
+          ),
         ),
         SizedBox(height: size.height * .1),
         const Center(
