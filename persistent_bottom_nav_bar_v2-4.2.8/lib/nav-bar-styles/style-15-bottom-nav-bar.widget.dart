@@ -15,70 +15,70 @@ class BottomNavStyle15 extends StatelessWidget {
     return navBarEssentials!.navBarHeight == 0
         ? const SizedBox.shrink()
         : Container(
-            width: 150.0,
-            height: height,
+          width: 250.0,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
             color: isSelected
                 ? (item.activeColorSecondary ?? item.activeColorPrimary)
                 : item.inactiveColorPrimary ?? item.activeColorPrimary,
-            padding: EdgeInsets.only(
-                top: navBarEssentials!.padding?.top ??
-                    navBarEssentials!.navBarHeight! * 0.15,
-                bottom: navBarEssentials!.padding?.bottom ??
-                    navBarEssentials!.navBarHeight! * 0.12),
-            child: Container(
-              alignment: Alignment.center,
-              height: height,
-              child: ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: IconTheme(
-                          data: IconThemeData(
-                              size: item.iconSize,
-                              color: isSelected
-                                  ? (item.activeColorSecondary ??
-                                      item.activeColorPrimary)
-                                  : item.inactiveColorPrimary ??
-                                      item.activeColorPrimary),
-                          child: isSelected
-                              ? item.icon
-                              : item.inactiveIcon ?? item.icon,
+            border: Border.all(color: Colors.transparent),
+          ),
+          padding: EdgeInsets.only(
+              top: navBarEssentials!.padding?.top ??
+                  navBarEssentials!.navBarHeight! * 0.15,
+              bottom: navBarEssentials!.padding?.bottom ??
+                  navBarEssentials!.navBarHeight! * 0.12),
+          child: Container(
+            alignment: Alignment.center,
+            height: height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: IconTheme(
+                    data: IconThemeData(
+                        size: item.iconSize,
+                        color: isSelected
+                            ? (item.activeColorSecondary ??
+                                item.activeColorPrimary)
+                            : item.inactiveColorPrimary ??
+                                item.activeColorPrimary),
+                    child: isSelected
+                        ? item.icon
+                        : item.inactiveIcon ?? item.icon,
+                  ),
+                ),
+                item.title == null
+                    ? const SizedBox.shrink()
+                    : Material(
+                        type: MaterialType.transparency,
+                        child: FittedBox(
+                          child: Text(
+                            item.title!,
+                            style: item.textStyle != null
+                                ? (item.textStyle!.apply(
+                                    color: isSelected
+                                        ? (item.activeColorSecondary ??
+                                            item.activeColorPrimary)
+                                        : item.inactiveColorPrimary,
+                                  ))
+                                : TextStyle(
+                                    color: isSelected
+                                        ? (item.activeColorSecondary ??
+                                            item.activeColorPrimary)
+                                        : item.inactiveColorPrimary,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.0,
+                                  ),
+                          ),
                         ),
-                      ),
-                      item.title == null
-                          ? const SizedBox.shrink()
-                          : Material(
-                              type: MaterialType.transparency,
-                              child: FittedBox(
-                                  child: Text(
-                                item.title!,
-                                style: item.textStyle != null
-                                    ? (item.textStyle!.apply(
-                                        color: isSelected
-                                            ? (item.activeColorSecondary ??
-                                                item.activeColorPrimary)
-                                            : item.inactiveColorPrimary))
-                                    : TextStyle(
-                                        color: isSelected
-                                            ? (item.activeColorSecondary ??
-                                                item.activeColorPrimary)
-                                            : item.inactiveColorPrimary,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.0),
-                              )),
-                            )
-                    ],
-                  )
-                ],
-              ),
+                      )
+              ],
             ),
-          );
+          ),
+        );
   }
 
   Widget _buildMiddleItem(

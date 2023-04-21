@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
-import 'package:nutrial/routes/router.dart';
-import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
 import 'package:nutrial/screens/calories/calories_screen.dart';
 import 'package:nutrial/screens/pdf/pdf_screen.dart';
