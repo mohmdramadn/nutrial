@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/screens/home/home_view_model.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -47,7 +48,7 @@ class _Body extends StatelessWidget {
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 300),
       ),
       navBarStyle:
           NavBarStyle.style15, // Choose the nav bar style with this property.
