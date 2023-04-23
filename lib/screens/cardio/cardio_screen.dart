@@ -75,22 +75,25 @@ class _CardioActivities extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20.w)
           ),
         ),
-        child: ListView.separated(
-          itemCount: cardioList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-                onTap: () => context
-                    .read<CardioViewModel>()
-                    .navigateAction(cardioList[index].activity),
-                child: _CardioItem(itemName: cardioList[index].activity));
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-              child: const Divider(
-                  color: AppColors.yellowTextColor, thickness: 0.5),
-            );
-          },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0.h),
+          child: ListView.separated(
+            itemCount: cardioList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return InkWell(
+                  onTap: () => context
+                      .read<CardioViewModel>()
+                      .navigateAction(cardioList[index].activity),
+                  child: _CardioItem(itemName: cardioList[index].activity));
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: const Divider(
+                    color: AppColors.yellowTextColor, thickness: 0.5),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -112,7 +115,7 @@ class _SearchBox extends StatelessWidget {
 
     return Padding(
       padding:
-          EdgeInsets.only(bottom: 20.0.h, top: 50.0.h, left: 32.w, right: 32.w),
+          EdgeInsets.only(bottom: 10.0.h, top: 10.0.h, left: 32.w, right: 32.w),
       child: Container(
         width: size.width * 0.9,
         height: 50.h,
@@ -202,7 +205,7 @@ class _Header extends StatelessWidget {
             ),
           ),
         ),
-        const _Date(),
+        // const _Date(),
       ],
     );
   }
