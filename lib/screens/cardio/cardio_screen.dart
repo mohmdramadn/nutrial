@@ -15,26 +15,39 @@ class CardioScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CardioViewModel>().initAsync();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
+    var isLoading = context.watch<CardioViewModel>().isLoading;
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const _Header(),
-            _SearchBox(size: size),
-            _CardioActivities(size: size)
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const _Header(),
+          _SearchBox(size: size),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _CardioActivities(size: size)
+        ],
       ),
     );
   }
@@ -50,29 +63,26 @@ class _CardioActivities extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cardioList = context.select((CardioViewModel vm) => vm.cardioList);
+    var cardioList = context.watch<CardioViewModel>().cardioList;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 32.0.w, vertical: 8.0.h),
       child: Container(
         width: size.width * 0.9,
-        height: size.height,
-        decoration: const BoxDecoration(
+        height: 425.h,
+        decoration: BoxDecoration(
           color: AppColors.darkPrimaryColor,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
+          borderRadius: BorderRadius.all(Radius.circular(20.w)
           ),
         ),
         child: ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
           itemCount: cardioList.length,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
                 onTap: () => context
                     .read<CardioViewModel>()
-                    .navigateAction(cardioList[index]),
-                child: _CardioItem(itemName: cardioList[index]));
+                    .navigateAction(cardioList[index].activity),
+                child: _CardioItem(itemName: cardioList[index].activity));
           },
           separatorBuilder: (BuildContext context, int index) {
             return Padding(
@@ -140,9 +150,12 @@ class _CardioItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            itemName,
-            style: const TextStyle(color: Colors.white),
+          Expanded(
+            child: Text(
+              itemName,
+              maxLines: 3,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
           GestureDetector(
             onTap: () {},

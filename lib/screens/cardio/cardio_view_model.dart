@@ -1,17 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:nutrial/helper/calories_database.dart';
+import 'package:nutrial/models/activites.dart';
 import 'package:nutrial/routes/routes_names.dart';
 
-class CardioViewModel extends ChangeNotifier{
-  TextEditingController searchController = TextEditingController();
-  List<String> cardioList = [
-    'Cycling, mountain bike, bmx',
-    'Cycling, <10 mph, leisure bicycling',
-    'Cycling, >20 mph, racing',
-    'Cycling, 10-11.9 mph, light',
-  ];
+class CardioViewModel extends ChangeNotifier {
+  void initAsync() {
+    _cardioList = LocalDatabase.instance.activities;
+    setLoadingState(false);
+    notifyListeners();
+  }
 
-  void navigateAction(String activity){
-    Get.toNamed(cardioExerciseRoute,arguments: activity);
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+  void setLoadingState(value){
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  TextEditingController searchController = TextEditingController();
+  List<Activities> _cardioList = [];
+  List<Activities> get cardioList => _cardioList;
+
+  void navigateAction(String activity) {
+    Get.toNamed(cardioExerciseRoute, arguments: activity);
   }
 }

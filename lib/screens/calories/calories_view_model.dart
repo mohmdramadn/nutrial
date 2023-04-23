@@ -36,8 +36,8 @@ class CaloriesViewModel extends ChangeNotifier{
   List<Food> get carbsCalories => _carbsCalories;
 
   Future<void> getCaloriesFromJson() async {
-    _proteinCalories = CaloriesDatabase.instance.proteinCalories;
-    _carbsCalories = CaloriesDatabase.instance.carbsCalories;
+    _proteinCalories = LocalDatabase.instance.proteinCalories;
+    _carbsCalories = LocalDatabase.instance.carbsCalories;
     setLoadingState(false);
     notifyListeners();
   }

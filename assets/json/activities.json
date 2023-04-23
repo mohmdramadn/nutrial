@@ -1,0 +1,611 @@
+[
+   {
+      "activity":"Cycling, < mph, leisure bicycling"
+   },
+   {
+      "activity":"Cycling, mountain bike, bmx"
+   },
+   {
+      "activity":"Cycling, > mph, racing"
+   },
+   {
+      "activity":"Cycling, - mph, light"
+   },
+   {
+      "activity":"Cycling, - mph, moderate"
+   },
+   {
+      "activity":"Cycling, - mph, vigorous"
+   },
+   {
+      "activity":"Cycling, - mph, very fast,"
+   },
+   {
+      "activity":"racing"
+   },
+   {
+      "activity":"Unicycling"
+   },
+   {
+      "activity":"Stationary cycling, very light"
+   },
+   {
+      "activity":"Stationary cycling, light"
+   },
+   {
+      "activity":"Stationary cycling, moderate"
+   },
+   {
+      "activity":"Stationary cycling, vigorous"
+   },
+   {
+      "activity":"Stationary cycling, very vigorous"
+   },
+   {
+      "activity":"Calisthenics, vigorous, pushups,"
+   },
+   {
+      "activity":"situps..."
+   },
+   {
+      "activity":"Calisthenics, light"
+   },
+   {
+      "activity":"Circuit training, minimal rest"
+   },
+   {
+      "activity":"Weight lifting, body building,"
+   },
+   {
+      "activity":"vigorous"
+   },
+   {
+      "activity":"Weight lifting, light workout"
+   },
+   {
+      "activity":"Rowing machine, light"
+   },
+   {
+      "activity":"Rowing machine, moderate"
+   },
+   {
+      "activity":"Rowing machine, vigorous"
+   },
+   {
+      "activity":"Rowing machine, very vigorous"
+   },
+   {
+      "activity":"Ski machine"
+   },
+   {
+      "activity":"Aerobics, low impact"
+   },
+   {
+      "activity":"Aerobics, high impact"
+   },
+   {
+      "activity":"Aerobics, step aerobics"
+   },
+   {
+      "activity":"Aerobics, general"
+   },
+   {
+      "activity":"Jazzercise"
+   },
+   {
+      "activity":"Stretching, hatha yoga"
+   },
+   {
+      "activity":"Mild stretching"
+   },
+   {
+      "activity":"Instructing aerobic class"
+   },
+   {
+      "activity":"Water aerobics"
+   },
+   {
+      "activity":"Ballet, twist, jazz, tap"
+   },
+   {
+      "activity":"Ballroom dancing, slow"
+   },
+   {
+      "activity":"Ballroom dancing, fast"
+   },
+   {
+      "activity":"Running, mph ( minute mile)"
+   },
+   {
+      "activity":"Running, mph (. minute"
+   },
+   {
+      "activity":"mile)"
+   },
+   {
+      "activity":"Running, mph ( min mile)"
+   },
+   {
+      "activity":"Running, mph ( min mile)"
+   },
+   {
+      "activity":"Running, mph (. min mile)"
+   },
+   {
+      "activity":"Running, .mph ( min mile)"
+   },
+   {
+      "activity":"Running, mph (. min mile)"
+   },
+   {
+      "activity":"Running, mph ( min mile)"
+   },
+   {
+      "activity":"Running, mph ( min mile)"
+   },
+   {
+      "activity":"Running, mph ( min mile)"
+   },
+   {
+      "activity":"Running, cross country"
+   },
+   {
+      "activity":"Running, general"
+   },
+   {
+      "activity":"Running, on a track, team practice"
+   },
+   {
+      "activity":"Running, stairs, up"
+   },
+   {
+      "activity":"Track and field (shot, discus)"
+   },
+   {
+      "activity":"Track and field (high jump, pole"
+   },
+   {
+      "activity":"vault)"
+   },
+   {
+      "activity":"Track and field (hurdles)"
+   },
+   {
+      "activity":"Archery"
+   },
+   {
+      "activity":"Badminton"
+   },
+   {
+      "activity":"Basketball game, competitive"
+   },
+   {
+      "activity":"Playing basketball, non game"
+   },
+   {
+      "activity":"Basketball, officiating"
+   },
+   {
+      "activity":"Basketball, shooting baskets"
+   },
+   {
+      "activity":"Basketball, wheelchair"
+   },
+   {
+      "activity":"Running, training, pushing"
+   },
+   {
+      "activity":"wheelchair"
+   },
+   {
+      "activity":"Billiards"
+   },
+   {
+      "activity":"Bowling"
+   },
+   {
+      "activity":"Boxing, in ring"
+   },
+   {
+      "activity":"Boxing, punching bag"
+   },
+   {
+      "activity":"Boxing, sparring"
+   },
+   {
+      "activity":"Cricket (batting, bowling)"
+   },
+   {
+      "activity":"Croquet"
+   },
+   {
+      "activity":"Curling"
+   },
+   {
+      "activity":"Darts (wall or lawn)"
+   },
+   {
+      "activity":"Fencing"
+   },
+   {
+      "activity":"Football, competitive"
+   },
+   {
+      "activity":"Golf, general"
+   },
+   {
+      "activity":"Golf, walking and carrying clubs"
+   },
+   {
+      "activity":"Golf, driving range"
+   },
+   {
+      "activity":"Golf, miniature golf"
+   },
+   {
+      "activity":"Golf, walking and pulling clubs"
+   },
+   {
+      "activity":"Golf, using power cart"
+   },
+   {
+      "activity":"Gymnastics"
+   },
+   {
+      "activity":"Hacky sack"
+   },
+   {
+      "activity":"Handball"
+   },
+   {
+      "activity":"Handball, team"
+   },
+   {
+      "activity":"Hockey, field hockey"
+   },
+   {
+      "activity":"Hockey, ice hockey"
+   },
+   {
+      "activity":"Riding a horse, general"
+   },
+   {
+      "activity":"Horesback riding, saddling horse"
+   },
+   {
+      "activity":"Horseback riding, grooming horse"
+   },
+   {
+      "activity":"Horseback riding, trotting"
+   },
+   {
+      "activity":"Horseback riding, walking"
+   },
+   {
+      "activity":"Horse racing, galloping"
+   },
+   {
+      "activity":"Horse grooming, moderate"
+   },
+   {
+      "activity":"Horseshoe pitching"
+   },
+   {
+      "activity":"Jai alai"
+   },
+   {
+      "activity":"Martial arts, judo, karate, jujitsu"
+   },
+   {
+      "activity":"Martial arts, kick boxing"
+   },
+   {
+      "activity":"Martial arts, tae kwan do"
+   },
+   {
+      "activity":"Krav maga training"
+   },
+   {
+      "activity":"Juggling"
+   },
+   {
+      "activity":"Kickball"
+   },
+   {
+      "activity":"Lacrosse"
+   },
+   {
+      "activity":"Orienteering"
+   },
+   {
+      "activity":"Playing paddleball"
+   },
+   {
+      "activity":"Paddleball, competitive"
+   },
+   {
+      "activity":"Polo"
+   },
+   {
+      "activity":"Racquetball, competitive"
+   },
+   {
+      "activity":"Playing racquetball"
+   },
+   {
+      "activity":"Rock climbing, ascending rock"
+   },
+   {
+      "activity":"Rock climbing, rappelling"
+   },
+   {
+      "activity":"Jumping rope, fast"
+   },
+   {
+      "activity":"Jumping rope, moderate"
+   },
+   {
+      "activity":"Jumping rope, slow"
+   },
+   {
+      "activity":"Rugby"
+   },
+   {
+      "activity":"Shuffleboard, lawn bowling"
+   },
+   {
+      "activity":"Skateboarding"
+   },
+   {
+      "activity":"Roller skating"
+   },
+   {
+      "activity":"Roller blading, in-line skating"
+   },
+   {
+      "activity":"Sky diving"
+   },
+   {
+      "activity":"Soccer, competitive"
+   },
+   {
+      "activity":"Playing soccer"
+   },
+   {
+      "activity":"Softball or baseball"
+   },
+   {
+      "activity":"Softball, officiating"
+   },
+   {
+      "activity":"Softball, pitching"
+   },
+   {
+      "activity":"Squash"
+   },
+   {
+      "activity":"Table tennis, ping pong"
+   },
+   {
+      "activity":"Tai chi"
+   },
+   {
+      "activity":"Playing tennis"
+   },
+   {
+      "activity":"Tennis, doubles"
+   },
+   {
+      "activity":"Tennis, singles"
+   },
+   {
+      "activity":"Trampoline"
+   },
+   {
+      "activity":"Volleyball, competitive"
+   },
+   {
+      "activity":"Playing volleyball"
+   },
+   {
+      "activity":"Volleyball, beach"
+   },
+   {
+      "activity":"Wrestling"
+   },
+   {
+      "activity":"Wallyball"
+   },
+   {
+      "activity":"Backpacking, Hiking with pack"
+   },
+   {
+      "activity":"Carrying infant, level ground"
+   },
+   {
+      "activity":"Carrying infant, upstairs"
+   },
+   {
+      "activity":"Carrying to 24 lbs, upstairs"
+   },
+   {
+      "activity":"Carrying to 49 lbs, upstairs"
+   },
+   {
+      "activity":"Standing, playing with children, light"
+   },
+   {
+      "activity":"Walk/run, playing with children, moderate"
+   },
+   {
+      "activity":"Walk/run, playing with children, vigorous"
+   },
+   {
+      "activity":"Carrying small children"
+   },
+   {
+      "activity":"Loading, unloading car"
+   },
+   {
+      "activity":"Climbing hills, carrying up to 9 lbs"
+   },
+   {
+      "activity":"Climbing hills, carrying 10 to 20 lb"
+   },
+   {
+      "activity":"Climbing hills, carrying 21 to 42 lb"
+   },
+   {
+      "activity":"Climbing hills, carrying over 42 lb"
+   },
+   {
+      "activity":"Walking downstairs"
+   },
+   {
+      "activity":"Hiking, cross country"
+   },
+   {
+      "activity":"Bird watching"
+   },
+   {
+      "activity":"Race walking"
+   },
+   {
+      "activity":"Rock climbing, mountain climbing"
+   },
+   {
+      "activity":"Walking using crutches"
+   },
+   {
+      "activity":"Walking the dog"
+   },
+   {
+      "activity":"Walking, under mph, very slow"
+   },
+   {
+      "activity":"Walking mph, slow"
+   },
+   {
+      "activity":"Walking mph"
+   },
+   {
+      "activity":"Walking mph, moderate"
+   },
+   {
+      "activity":"Walking mph, brisk pace"
+   },
+   {
+      "activity":"Walking mph, uphill"
+   },
+   {
+      "activity":"Walking mph, very brisk"
+   },
+   {
+      "activity":"Walking mph"
+   },
+   {
+      "activity":"Walking mph"
+   },
+   {
+      "activity":"Boating, power, speed boat"
+   },
+   {
+      "activity":"Canoeing, camping trip"
+   },
+   {
+      "activity":"Canoeing, rowing, light"
+   },
+   {
+      "activity":"Canoeing, rowing, moderate"
+   },
+   {
+      "activity":"Canoeing, rowing, vigorous"
+   },
+   {
+      "activity":"Crew, sculling, rowing, competition"
+   },
+   {
+      "activity":"Kayaking"
+   },
+   {
+      "activity":"Paddle boat"
+   },
+   {
+      "activity":"Windsurfing, sailing"
+   },
+   {
+      "activity":"Sailing, competition"
+   },
+   {
+      "activity":"Sailing, yachting, ocean sailing"
+   },
+   {
+      "activity":"Skiing, water skiing"
+   },
+   {
+      "activity":"Ski mobiling"
+   },
+   {
+      "activity":"Skin diving, fast"
+   },
+   {
+      "activity":"Skin diving, moderate"
+   },
+   {
+      "activity":"Skin diving, scuba diving"
+   },
+   {
+      "activity":"Snorkeling"
+   },
+   {
+      "activity":"Surfing, body surfing or board surfing"
+   },
+   {
+      "activity":"Whitewater rafting, kayaking, canoeing"
+   },
+   {
+      "activity":"Swimming laps, freestyle, fast"
+   },
+   {
+      "activity":"Swimming laps, freestyle, slow"
+   },
+   {
+      "activity":"Swimming backstroke"
+   },
+   {
+      "activity":"Swimming breaststroke"
+   },
+   {
+      "activity":"Swimming butterfly"
+   },
+   {
+      "activity":"Swimming leisurely, not laps"
+   },
+   {
+      "activity":"Swimming sidestroke"
+   },
+   {
+      "activity":"Swimming synchronized"
+   },
+   {
+      "activity":"Swimming, treading water, fast, vigorous"
+   },
+   {
+      "activity":"Swimming, treading water, moderate"
+   },
+   {
+      "activity":"Water aerobics, water calisthenics"
+   },
+   {
+      "activity":"Water polo"
+   },
+   {
+      "activity":"Water volleyball"
+   },
+   {
+      "activity":"Water jogging"
+   },
+   {
+      "activity":"Diving, springboard or platform"
+   }
+]
