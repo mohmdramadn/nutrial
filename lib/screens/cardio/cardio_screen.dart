@@ -45,11 +45,78 @@ class _BodyState extends State<_Body> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const _Header(),
-          _SearchBox(size: size),
+          const _SearchTypeAhead(),
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : _CardioActivities(size: size)
         ],
+      ),
+    );
+  }
+}
+
+class _SearchTypeAhead extends StatelessWidget {
+  const _SearchTypeAhead({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var controller =
+        context.select((CardioViewModel vm) => vm.searchController);
+    var activities = context.watch<CardioViewModel>().cardioList;
+
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: 10.0.h, top: 10.0.h, left: 32.w, right: 32.w),
+      child: TypeAheadField<Activities>(
+        keepSuggestionsOnSuggestionSelected: false,
+        suggestionsBoxDecoration: SuggestionsBoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: AppColors.darkPrimaryColor,
+          hasScrollbar: true,
+        ),
+        textFieldConfiguration: TextFieldConfiguration(
+          controller: controller,
+          autofocus: false,
+          style: DefaultTextStyle.of(context)
+              .style
+              .copyWith(fontStyle: FontStyle.italic),
+          decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide.none
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: S.of(context).searchWorkout,
+              prefixIcon: const Icon(Icons.search, size: 35),
+              suffixIcon: InkWell(
+                  onTap: () => controller.clear(),
+                  child: const Icon(Icons.arrow_drop_down,
+                      color: AppColors.primaryColor))),
+        ),
+        suggestionsCallback: (pattern) async {
+          var filteredActivities =
+          activities.where((c) => c.activityName.contains(pattern));
+          return filteredActivities;
+        },
+        itemBuilder: (context, suggestion) {
+          return Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              suggestion.activityName,
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: TextAlign.center,
+            ),
+          );
+        },
+        onSuggestionSelected: (selectedActivity) {
+          context
+              .read<CardioViewModel>()
+              .navigateAction(selectedActivity);
+        },
       ),
     );
   }
@@ -95,44 +162,6 @@ class _CardioActivities extends StatelessWidget {
                     color: AppColors.yellowTextColor, thickness: 0.5),
               );
             },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SearchBox extends StatelessWidget {
-  const _SearchBox({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    var controller =
-        context.select((CardioViewModel vm) => vm.searchController);
-
-    return Padding(
-      padding:
-          EdgeInsets.only(bottom: 10.0.h, top: 10.0.h, left: 32.w, right: 32.w),
-      child: Container(
-        width: size.width * 0.9,
-        height: 50.h,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25), color: Colors.white),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search, size: 35),
-              hintText: S.of(context).searchWorkout,
-              border: InputBorder.none,
-            ),
-            onChanged: (value) {},
           ),
         ),
       ),
