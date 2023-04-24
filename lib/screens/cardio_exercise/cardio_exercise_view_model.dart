@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
+import 'package:nutrial/models/activites.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -11,7 +16,7 @@ class CardioExerciseViewModel extends ChangeNotifier{
   final MessageService messageService;
   final FirebaseService firebaseService;
   final S localization;
-  final String activity;
+  final Activities activity;
 
   CardioExerciseViewModel({
     required this.connectionService,
@@ -49,13 +54,6 @@ class CardioExerciseViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  Map<int, String> weightCaloriesMap = {
-    60:Calories.twoHundredAndThirtySix,
-    70:Calories.fiveHundredAndNinetyEight,
-    80:Calories.sixHundredAndNinetyFive,
-    90:Calories.sevenHundredAndNinetyOne,
-  };
-
   String? _totalCalories;
   String? get totalCalories => _totalCalories;
 
@@ -68,24 +66,41 @@ class CardioExerciseViewModel extends ChangeNotifier{
     var minutesInt = int.tryParse(minutes.replaceAll(RegExp(r'[^0-9]'), ''));
     var weight =
         int.tryParse(_selectedWeight!.replaceAll(RegExp(r'[^0-9]'), ''));
-    var caloriesValue = weightCaloriesMap.entries
-        .firstWhere((entry) => entry.key == weight)
-        .value.replaceAll(RegExp(r'[^0-9]'), '');
-    var calories = int.tryParse(caloriesValue);
+    var calories = _getSelectedKilograms(weight!);
     _totalCalories =
-        ((minutesInt! * calories!) / 60).round().toString();
+        ((minutesInt! * calories) / 60).round().toString();
     notifyListeners();
   }
 
+  int _getSelectedKilograms(int weight){
+    if(weight == 60) return activity.sixtyKilograms;
+    if(weight == 70) return activity.seventyKilograms;
+    if(weight == 80) return activity.eightyKilograms;
+    if(weight == 90) return activity.ninetyKilograms;
+    return activity.seventyKilograms;
+  }
+
   Future<void> saveCardioActionAsync()async{
-    setLoadingState(true);
     var isConnected = await connectionService.checkConnection();
     if(!isConnected){
-      setLoadingState(false);
       notifyListeners();
     }
+    if(_minutes == null || _minutes == '') {
+      Fluttertoast.showToast(
+        msg: S.of(Get.context!).enterMinutes,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.primaryLightColor,
+        textColor: Colors.white,
+        fontSize: 16.0.sp,
+      );
+      notifyListeners();
+      return;
+    }
+    setLoadingState(true);
     var response = await firebaseService.saveCardioAsync(
-      activityName: activity,
+      activityName: activity.activityName,
       minutes: _minutes ?? '',
       weight: _selectedWeight!,
       calories: _totalCalories!,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
+import 'package:nutrial/models/activites.dart';
 import 'package:nutrial/screens/cardio/cardio_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -83,8 +85,8 @@ class _CardioActivities extends StatelessWidget {
               return InkWell(
                   onTap: () => context
                       .read<CardioViewModel>()
-                      .navigateAction(cardioList[index].activity),
-                  child: _CardioItem(itemName: cardioList[index].activity));
+                      .navigateAction(cardioList[index]),
+                  child: _CardioItem(itemName: cardioList[index].activityName));
             },
             separatorBuilder: (BuildContext context, int index) {
               return Padding(
@@ -210,7 +212,7 @@ class _Header extends StatelessWidget {
     );
   }
 }
-
+//TODO ask about if this is needed
 class _Date extends StatelessWidget {
   const _Date({
     Key? key,

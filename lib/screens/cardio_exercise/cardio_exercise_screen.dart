@@ -6,6 +6,7 @@ import 'package:nutrial/components/logo.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
+import 'package:nutrial/models/activites.dart';
 import 'package:nutrial/screens/cardio_exercise/cardio_exercise_view_model.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
@@ -15,7 +16,7 @@ import 'package:provider/provider.dart';
 class CardioExerciseScreen extends StatelessWidget {
   const CardioExerciseScreen({Key? key, required this.activity})
       : super(key: key);
-  final String activity;
+  final Activities activity;
 
   @override
   Widget build(BuildContext context) {
@@ -41,38 +42,46 @@ class _Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     var isSuccess =
         context.select((CardioExerciseViewModel vm) => vm.isSuccess);
+    var activity =
+        context.select((CardioExerciseViewModel vm) => vm.activity);
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            const _BackgroundImg(),
-            SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.h),
-                  const Logo(),
-                  SizedBox(height: 70.h),
-                  if (isSuccess) const _SuccessWidget(),
-                  if (!isSuccess)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [_Minutes(), _BodyWeight()],
-                    ),
-                  if (!isSuccess) SizedBox(height: size.height * 0.02),
-                  if (!isSuccess)
-                    Flexible(child: _TotalCalories(size: size, total: 'total')),
-                  if (!isSuccess) const _SaveButton(),
-                  if (!isSuccess) SizedBox(height: size.height * 0.04),
-                  if (!isSuccess) _BottomKilosCalories(size: size)
-                ],
-              ),
-            )
-          ],
-        ),
+      body: Stack(
+        children: [
+          const _BackgroundImg(),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.h),
+                const Logo(),
+                SizedBox(height: 60.h),
+                if (isSuccess) const _SuccessWidget(),
+                Flexible(
+                  child: Text(
+                    activity.activityName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 25.sp, color: Colors.white),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                if (!isSuccess)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [_Minutes(), _BodyWeight()],
+                  ),
+                if (!isSuccess) SizedBox(height: size.height * 0.02),
+                if (!isSuccess)
+                  Flexible(child: _TotalCalories(size: size, total: 'total')),
+                if (!isSuccess) const _SaveButton(),
+                if (!isSuccess) SizedBox(height: size.height * 0.04),
+                if (!isSuccess) _BottomKilosCalories(size: size)
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

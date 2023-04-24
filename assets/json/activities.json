@@ -1,608 +1,1745 @@
 [
-   {
-      "activity":"Cycling, < mph, leisure bicycling"
-   },
-   {
-      "activity":"Cycling, mountain bike, bmx"
-   },
-   {
-      "activity":"Cycling, > mph, racing"
-   },
-   {
-      "activity":"Cycling, - mph, light"
-   },
-   {
-      "activity":"Cycling, - mph, moderate"
-   },
-   {
-      "activity":"Cycling, - mph, vigorous"
-   },
-   {
-      "activity":"Cycling, - mph, very fast,"
-   },
-   {
-      "activity":"racing"
-   },
-   {
-      "activity":"Unicycling"
-   },
-   {
-      "activity":"Stationary cycling, very light"
-   },
-   {
-      "activity":"Stationary cycling, light"
-   },
-   {
-      "activity":"Stationary cycling, moderate"
-   },
-   {
-      "activity":"Stationary cycling, vigorous"
-   },
-   {
-      "activity":"Stationary cycling, very vigorous"
-   },
-   {
-      "activity":"Calisthenics, vigorous, pushups,"
-   },
-   {
-      "activity":"situps..."
-   },
-   {
-      "activity":"Calisthenics, light"
-   },
-   {
-      "activity":"Circuit training, minimal rest"
-   },
-   {
-      "activity":"Weight lifting, body building,"
-   },
-   {
-      "activity":"vigorous"
-   },
-   {
-      "activity":"Weight lifting, light workout"
-   },
-   {
-      "activity":"Rowing machine, light"
-   },
-   {
-      "activity":"Rowing machine, moderate"
-   },
-   {
-      "activity":"Rowing machine, vigorous"
-   },
-   {
-      "activity":"Rowing machine, very vigorous"
-   },
-   {
-      "activity":"Ski machine"
-   },
-   {
-      "activity":"Aerobics, low impact"
-   },
-   {
-      "activity":"Aerobics, high impact"
-   },
-   {
-      "activity":"Aerobics, step aerobics"
-   },
-   {
-      "activity":"Aerobics, general"
-   },
-   {
-      "activity":"Jazzercise"
-   },
-   {
-      "activity":"Stretching, hatha yoga"
-   },
-   {
-      "activity":"Mild stretching"
-   },
-   {
-      "activity":"Instructing aerobic class"
-   },
-   {
-      "activity":"Water aerobics"
-   },
-   {
-      "activity":"Ballet, twist, jazz, tap"
-   },
-   {
-      "activity":"Ballroom dancing, slow"
-   },
-   {
-      "activity":"Ballroom dancing, fast"
-   },
-   {
-      "activity":"Running,5 mph (12 minute mile)"
-   },
-   {
-      "activity":"Running,5.2 mph (11.5 minute mile)"
-   },
-   {
-      "activity":"Running,6 mph (10 min mile)"
-   },
-   {
-      "activity":"Running,6.7 mph (9 min mile)"
-   },
-   {
-      "activity":"Running,7 mph (8.5 min mile)"
-   },
-   {
-      "activity":"Running, 8 mph (7.5 min mile)"
-   },
-   {
-      "activity":"Running, 8.6 mph"
-   },
-   {
-      "activity":"Running, 9 mph (6.5 min mile)"
-   },
-   {
-      "activity":"Running, 10 mph (6 min mile)"
-   },
-   {
-      "activity":"Running, 10.9 mph"
-   },
-   {
-      "activity":"Running, cross country"
-   },
-   {
-      "activity":"Running, general"
-   },
-   {
-      "activity":"Running, on a track, team practice"
-   },
-   {
-      "activity":"Running, stairs, up"
-   },
-   {
-      "activity":"Track and field (shot, discus)"
-   },
-   {
-      "activity":"Track and field (high jump, pole"
-   },
-   {
-      "activity":"vault)"
-   },
-   {
-      "activity":"Track and field (hurdles)"
-   },
-   {
-      "activity":"Archery"
-   },
-   {
-      "activity":"Badminton"
-   },
-   {
-      "activity":"Basketball game, competitive"
-   },
-   {
-      "activity":"Playing basketball, non game"
-   },
-   {
-      "activity":"Basketball, officiating"
-   },
-   {
-      "activity":"Basketball, shooting baskets"
-   },
-   {
-      "activity":"Basketball, wheelchair"
-   },
-   {
-      "activity":"Running, training, pushing"
-   },
-   {
-      "activity":"wheelchair"
-   },
-   {
-      "activity":"Billiards"
-   },
-   {
-      "activity":"Bowling"
-   },
-   {
-      "activity":"Boxing, in ring"
-   },
-   {
-      "activity":"Boxing, punching bag"
-   },
-   {
-      "activity":"Boxing, sparring"
-   },
-   {
-      "activity":"Cricket (batting, bowling)"
-   },
-   {
-      "activity":"Croquet"
-   },
-   {
-      "activity":"Curling"
-   },
-   {
-      "activity":"Darts (wall or lawn)"
-   },
-   {
-      "activity":"Fencing"
-   },
-   {
-      "activity":"Football, competitive"
-   },
-   {
-      "activity":"Golf, general"
-   },
-   {
-      "activity":"Golf, walking and carrying clubs"
-   },
-   {
-      "activity":"Golf, driving range"
-   },
-   {
-      "activity":"Golf, miniature golf"
-   },
-   {
-      "activity":"Golf, walking and pulling clubs"
-   },
-   {
-      "activity":"Golf, using power cart"
-   },
-   {
-      "activity":"Gymnastics"
-   },
-   {
-      "activity":"Hacky sack"
-   },
-   {
-      "activity":"Handball"
-   },
-   {
-      "activity":"Handball, team"
-   },
-   {
-      "activity":"Hockey, field hockey"
-   },
-   {
-      "activity":"Hockey, ice hockey"
-   },
-   {
-      "activity":"Riding a horse, general"
-   },
-   {
-      "activity":"Horesback riding, saddling horse"
-   },
-   {
-      "activity":"Horseback riding, grooming horse"
-   },
-   {
-      "activity":"Horseback riding, trotting"
-   },
-   {
-      "activity":"Horseback riding, walking"
-   },
-   {
-      "activity":"Horse racing, galloping"
-   },
-   {
-      "activity":"Horse grooming, moderate"
-   },
-   {
-      "activity":"Horseshoe pitching"
-   },
-   {
-      "activity":"Jai alai"
-   },
-   {
-      "activity":"Martial arts, judo, karate, jujitsu"
-   },
-   {
-      "activity":"Martial arts, kick boxing"
-   },
-   {
-      "activity":"Martial arts, tae kwan do"
-   },
-   {
-      "activity":"Krav maga training"
-   },
-   {
-      "activity":"Juggling"
-   },
-   {
-      "activity":"Kickball"
-   },
-   {
-      "activity":"Lacrosse"
-   },
-   {
-      "activity":"Orienteering"
-   },
-   {
-      "activity":"Playing paddleball"
-   },
-   {
-      "activity":"Paddleball, competitive"
-   },
-   {
-      "activity":"Polo"
-   },
-   {
-      "activity":"Racquetball, competitive"
-   },
-   {
-      "activity":"Playing racquetball"
-   },
-   {
-      "activity":"Rock climbing, ascending rock"
-   },
-   {
-      "activity":"Rock climbing, rappelling"
-   },
-   {
-      "activity":"Jumping rope, fast"
-   },
-   {
-      "activity":"Jumping rope, moderate"
-   },
-   {
-      "activity":"Jumping rope, slow"
-   },
-   {
-      "activity":"Rugby"
-   },
-   {
-      "activity":"Shuffleboard, lawn bowling"
-   },
-   {
-      "activity":"Skateboarding"
-   },
-   {
-      "activity":"Roller skating"
-   },
-   {
-      "activity":"Roller blading, in-line skating"
-   },
-   {
-      "activity":"Sky diving"
-   },
-   {
-      "activity":"Soccer, competitive"
-   },
-   {
-      "activity":"Playing soccer"
-   },
-   {
-      "activity":"Softball or baseball"
-   },
-   {
-      "activity":"Softball, officiating"
-   },
-   {
-      "activity":"Softball, pitching"
-   },
-   {
-      "activity":"Squash"
-   },
-   {
-      "activity":"Table tennis, ping pong"
-   },
-   {
-      "activity":"Tai chi"
-   },
-   {
-      "activity":"Playing tennis"
-   },
-   {
-      "activity":"Tennis, doubles"
-   },
-   {
-      "activity":"Tennis, singles"
-   },
-   {
-      "activity":"Trampoline"
-   },
-   {
-      "activity":"Volleyball, competitive"
-   },
-   {
-      "activity":"Playing volleyball"
-   },
-   {
-      "activity":"Volleyball, beach"
-   },
-   {
-      "activity":"Wrestling"
-   },
-   {
-      "activity":"Wallyball"
-   },
-   {
-      "activity":"Backpacking, Hiking with pack"
-   },
-   {
-      "activity":"Carrying infant, level ground"
-   },
-   {
-      "activity":"Carrying infant, upstairs"
-   },
-   {
-      "activity":"Carrying to 24 lbs, upstairs"
-   },
-   {
-      "activity":"Carrying to 49 lbs, upstairs"
-   },
-   {
-      "activity":"Standing, playing with children, light"
-   },
-   {
-      "activity":"Walk/run, playing with children, moderate"
-   },
-   {
-      "activity":"Walk/run, playing with children, vigorous"
-   },
-   {
-      "activity":"Carrying small children"
-   },
-   {
-      "activity":"Loading, unloading car"
-   },
-   {
-      "activity":"Climbing hills, carrying up to 9 lbs"
-   },
-   {
-      "activity":"Climbing hills, carrying 10 to 20 lb"
-   },
-   {
-      "activity":"Climbing hills, carrying 21 to 42 lb"
-   },
-   {
-      "activity":"Climbing hills, carrying over 42 lb"
-   },
-   {
-      "activity":"Walking downstairs"
-   },
-   {
-      "activity":"Hiking, cross country"
-   },
-   {
-      "activity":"Bird watching"
-   },
-   {
-      "activity":"Race walking"
-   },
-   {
-      "activity":"Rock climbing, mountain climbing"
-   },
-   {
-      "activity":"Walking using crutches"
-   },
-   {
-      "activity":"Walking the dog"
-   },
-   {
-      "activity":"Walking, under mph, very slow"
-   },
-   {
-      "activity":"Walking mph, slow"
-   },
-   {
-      "activity":"Walking mph"
-   },
-   {
-      "activity":"Walking mph, moderate"
-   },
-   {
-      "activity":"Walking mph, brisk pace"
-   },
-   {
-      "activity":"Walking mph, uphill"
-   },
-   {
-      "activity":"Walking mph, very brisk"
-   },
-   {
-      "activity":"Walking mph"
-   },
-   {
-      "activity":"Walking mph"
-   },
-   {
-      "activity":"Boating, power, speed boat"
-   },
-   {
-      "activity":"Canoeing, camping trip"
-   },
-   {
-      "activity":"Canoeing, rowing, light"
-   },
-   {
-      "activity":"Canoeing, rowing, moderate"
-   },
-   {
-      "activity":"Canoeing, rowing, vigorous"
-   },
-   {
-      "activity":"Crew, sculling, rowing, competition"
-   },
-   {
-      "activity":"Kayaking"
-   },
-   {
-      "activity":"Paddle boat"
-   },
-   {
-      "activity":"Windsurfing, sailing"
-   },
-   {
-      "activity":"Sailing, competition"
-   },
-   {
-      "activity":"Sailing, yachting, ocean sailing"
-   },
-   {
-      "activity":"Skiing, water skiing"
-   },
-   {
-      "activity":"Ski mobiling"
-   },
-   {
-      "activity":"Skin diving, fast"
-   },
-   {
-      "activity":"Skin diving, moderate"
-   },
-   {
-      "activity":"Skin diving, scuba diving"
-   },
-   {
-      "activity":"Snorkeling"
-   },
-   {
-      "activity":"Surfing, body surfing or board surfing"
-   },
-   {
-      "activity":"Whitewater rafting, kayaking, canoeing"
-   },
-   {
-      "activity":"Swimming laps, freestyle, fast"
-   },
-   {
-      "activity":"Swimming laps, freestyle, slow"
-   },
-   {
-      "activity":"Swimming backstroke"
-   },
-   {
-      "activity":"Swimming breaststroke"
-   },
-   {
-      "activity":"Swimming butterfly"
-   },
-   {
-      "activity":"Swimming leisurely, not laps"
-   },
-   {
-      "activity":"Swimming sidestroke"
-   },
-   {
-      "activity":"Swimming synchronized"
-   },
-   {
-      "activity":"Swimming, treading water, fast, vigorous"
-   },
-   {
-      "activity":"Swimming, treading water, moderate"
-   },
-   {
-      "activity":"Water aerobics, water calisthenics"
-   },
-   {
-      "activity":"Water polo"
-   },
-   {
-      "activity":"Water volleyball"
-   },
-   {
-      "activity":"Water jogging"
-   },
-   {
-      "activity":"Diving, springboard or platform"
-   }
+    {
+        "Activity":"Cycling, mountain bike, bmx",
+        "sixty kilograms":502,
+        "seventy kilograms":598,
+        "eighty kilograms":695,
+        "ninety kilograms":791
+    },
+    {
+        "Activity":"Cycling, <10 mph, leisure bicycling",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Cycling, >20 mph, racing",
+        "sixty kilograms":944,
+        "seventy kilograms":1126,
+        "eighty kilograms":1308,
+        "ninety kilograms":1489
+    },
+    {
+        "Activity":"Cycling, 10-11.9 mph, light",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Cycling, 12-13.9 mph, moderate",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Cycling, 14-15.9 mph, vigorous",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Cycling, 16-19 mph, very fast, racing",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Unicycling",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Stationary cycling, very light",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Stationary cycling, light",
+        "sixty kilograms":325,
+        "seventy kilograms":387,
+        "eighty kilograms":449,
+        "ninety kilograms":512
+    },
+    {
+        "Activity":"Stationary cycling, moderate",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Stationary cycling, vigorous",
+        "sixty kilograms":620,
+        "seventy kilograms":739,
+        "eighty kilograms":858,
+        "ninety kilograms":977
+    },
+    {
+        "Activity":"Stationary cycling, very vigorous",
+        "sixty kilograms":738,
+        "seventy kilograms":880,
+        "eighty kilograms":1022,
+        "ninety kilograms":1163
+    },
+    {
+        "Activity":"Calisthenics, vigorous, pushups, situps\u2026",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Calisthenics, light",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Circuit training, minimal rest",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Weight lifting, body building, vigorous",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Weight lifting, light workout",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Health club exercise",
+        "sixty kilograms":325,
+        "seventy kilograms":387,
+        "eighty kilograms":449,
+        "ninety kilograms":512
+    },
+    {
+        "Activity":"Stair machine",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Rowing machine, light",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Rowing machine, moderate",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Rowing machine, vigorous",
+        "sixty kilograms":502,
+        "seventy kilograms":598,
+        "eighty kilograms":695,
+        "ninety kilograms":791
+    },
+    {
+        "Activity":"Rowing machine, very vigorous",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Ski machine",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Aerobics, low impact",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Aerobics, high impact",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Aerobics, step aerobics",
+        "sixty kilograms":502,
+        "seventy kilograms":598,
+        "eighty kilograms":695,
+        "ninety kilograms":791
+    },
+    {
+        "Activity":"Aerobics, general",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    },
+    {
+        "Activity":"Jazzercise",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Stretching, hatha yoga",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Mild stretching",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Instructing aerobic class",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Water aerobics",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Ballet, twist, jazz, tap",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Ballroom dancing, slow",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Ballroom dancing, fast",
+        "sixty kilograms":325,
+        "seventy kilograms":387,
+        "eighty kilograms":449,
+        "ninety kilograms":512
+    },
+    {
+        "Activity":"Running, 5 mph (12 minute mile)",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Running, 5.2 mph (11.5 minute mile)",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Running, 6 mph (10 min mile)",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Running, 6.7 mph (9 min mile)",
+        "sixty kilograms":649,
+        "seventy kilograms":774,
+        "eighty kilograms":899,
+        "ninety kilograms":1024
+    },
+    {
+        "Activity":"Running, 7 mph (8.5 min mile)",
+        "sixty kilograms":679,
+        "seventy kilograms":809,
+        "eighty kilograms":940,
+        "ninety kilograms":1070
+    },
+    {
+        "Activity":"Running, 7.5mph (8 min mile)",
+        "sixty kilograms":738,
+        "seventy kilograms":880,
+        "eighty kilograms":1022,
+        "ninety kilograms":1163
+    },
+    {
+        "Activity":"Running, 8 mph (7.5 min mile)",
+        "sixty kilograms":797,
+        "seventy kilograms":950,
+        "eighty kilograms":1103,
+        "ninety kilograms":1256
+    },
+    {
+        "Activity":"Running, 8.6 mph (7 min mile)",
+        "sixty kilograms":826,
+        "seventy kilograms":985,
+        "eighty kilograms":1144,
+        "ninety kilograms":1303
+    },
+    {
+        "Activity":"Running, 9 mph (6.5 min mile)",
+        "sixty kilograms":885,
+        "seventy kilograms":1056,
+        "eighty kilograms":1226,
+        "ninety kilograms":1396
+    },
+    {
+        "Activity":"Running, 10 mph (6 min mile)",
+        "sixty kilograms":944,
+        "seventy kilograms":1126,
+        "eighty kilograms":1308,
+        "ninety kilograms":1489
+    },
+    {
+        "Activity":"Running, 10.9 mph (5.5 min mile)",
+        "sixty kilograms":1062,
+        "seventy kilograms":1267,
+        "eighty kilograms":1471,
+        "ninety kilograms":1675
+    },
+    {
+        "Activity":"Running, cross country",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Running, general",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Running, on a track, team practice",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Running, stairs, up",
+        "sixty kilograms":885,
+        "seventy kilograms":1056,
+        "eighty kilograms":1226,
+        "ninety kilograms":1396
+    },
+    {
+        "Activity":"Track and field (shot, discus)",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Track and field (high jump, pole vault)",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Track and field (hurdles)",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Archery",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Badminton",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Basketball game, competitive",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Playing basketball, non game",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Basketball, officiating",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Basketball, shooting baskets",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Basketball, wheelchair",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    },
+    {
+        "Activity":"Running, training, pushing wheelchair",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Billiards",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Bowling",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Boxing, in ring",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Boxing, punching bag",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Boxing, sparring",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Coaching: football, basketball, soccer\u2026",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Cricket (batting, bowling)",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Croquet",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Curling",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Darts (wall or lawn)",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Fencing",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Football, competitive",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Football, touch, flag, general",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Football or baseball, playing catch",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Frisbee playing, general",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Frisbee, ultimate frisbee",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Golf, general",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Golf, walking and carrying clubs",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Golf, driving range",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Golf, miniature golf",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Golf, walking and pulling clubs",
+        "sixty kilograms":254,
+        "seventy kilograms":303,
+        "eighty kilograms":351,
+        "ninety kilograms":400
+    },
+    {
+        "Activity":"Golf, using power cart",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Gymnastics",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Hacky sack",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Handball",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Handball, team",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Hockey, field hockey",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Hockey, ice hockey",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Riding a horse, general",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Horesback riding, saddling horse",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Horseback riding, grooming horse",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Horseback riding, trotting",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    },
+    {
+        "Activity":"Horseback riding, walking",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Horse racing, galloping",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Horse grooming, moderate",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Horseshoe pitching",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Jai alai",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Martial arts, judo, karate, jujitsu",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Martial arts, kick boxing",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Martial arts, tae kwan do",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Krav maga training",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Juggling",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Kickball",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Lacrosse",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Orienteering",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Playing paddleball",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Paddleball, competitive",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Polo",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Racquetball, competitive",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Playing racquetball",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Rock climbing, ascending rock",
+        "sixty kilograms":649,
+        "seventy kilograms":774,
+        "eighty kilograms":899,
+        "ninety kilograms":1024
+    },
+    {
+        "Activity":"Rock climbing, rappelling",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Jumping rope, fast",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Jumping rope, moderate",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Jumping rope, slow",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Rugby",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Shuffleboard, lawn bowling",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Skateboarding",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Roller skating",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Roller blading, in-line skating",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Sky diving",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Soccer, competitive",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Playing soccer",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Softball or baseball",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Softball, officiating",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Softball, pitching",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Squash",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Table tennis, ping pong",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Tai chi",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Playing tennis",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Tennis, doubles",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Tennis, singles",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Trampoline",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Volleyball, competitive",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Playing volleyball",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Volleyball, beach",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Wrestling",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Wallyball",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Backpacking, Hiking with pack",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Carrying infant, level ground",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Carrying infant, upstairs",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Carrying 16 to 24 lbs, upstairs",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Carrying 25 to 49 lbs, upstairs",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Standing, playing with children, light",
+        "sixty kilograms":165,
+        "seventy kilograms":197,
+        "eighty kilograms":229,
+        "ninety kilograms":261
+    },
+    {
+        "Activity":"Walk\/run, playing with children, moderate",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Walk\/run, playing with children, vigorous",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Carrying small children",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Loading, unloading car",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Climbing hills, carrying up to 9 lbs",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Climbing hills, carrying 10 to 20 lb",
+        "sixty kilograms":443,
+        "seventy kilograms":528,
+        "eighty kilograms":613,
+        "ninety kilograms":698
+    },
+    {
+        "Activity":"Climbing hills, carrying 21 to 42 lb",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Climbing hills, carrying over 42 lb",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Walking downstairs",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Hiking, cross country",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Bird watching",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Marching, rapidly, military",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    },
+    {
+        "Activity":"Children's games, hopscotch, dodgeball",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Pushing stroller or walking with children",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Pushing a wheelchair",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Race walking",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    },
+    {
+        "Activity":"Rock climbing, mountain climbing",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Walking using crutches",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Walking the dog",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Walking, under 2.0 mph, very slow",
+        "sixty kilograms":118,
+        "seventy kilograms":141,
+        "eighty kilograms":163,
+        "ninety kilograms":186
+    },
+    {
+        "Activity":"Walking 2.0 mph, slow",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Walking 2.5 mph",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Walking 3.0 mph, moderate",
+        "sixty kilograms":195,
+        "seventy kilograms":232,
+        "eighty kilograms":270,
+        "ninety kilograms":307
+    },
+    {
+        "Activity":"Walking 3.5 mph, brisk pace",
+        "sixty kilograms":224,
+        "seventy kilograms":267,
+        "eighty kilograms":311,
+        "ninety kilograms":354
+    },
+    {
+        "Activity":"Walking 3.5 mph, uphill",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Walking 4.0 mph, very brisk",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Walking 4.5 mph",
+        "sixty kilograms":372,
+        "seventy kilograms":443,
+        "eighty kilograms":515,
+        "ninety kilograms":586
+    },
+    {
+        "Activity":"Walking 5.0 mph",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Boating, power, speed boat",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Canoeing, camping trip",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Canoeing, rowing, light",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Canoeing, rowing, moderate",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Canoeing, rowing, vigorous",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Crew, sculling, rowing, competition",
+        "sixty kilograms":708,
+        "seventy kilograms":844,
+        "eighty kilograms":981,
+        "ninety kilograms":1117
+    },
+    {
+        "Activity":"Kayaking",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Paddle boat",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Windsurfing, sailing",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Sailing, competition",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Sailing, yachting, ocean sailing",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Skiing, water skiing",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Ski mobiling",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Skin diving, fast",
+        "sixty kilograms":944,
+        "seventy kilograms":1126,
+        "eighty kilograms":1308,
+        "ninety kilograms":1489
+    },
+    {
+        "Activity":"Skin diving, moderate",
+        "sixty kilograms":738,
+        "seventy kilograms":880,
+        "eighty kilograms":1022,
+        "ninety kilograms":1163
+    },
+    {
+        "Activity":"Skin diving, scuba diving",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Snorkeling",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Surfing, body surfing or board surfing",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Whitewater rafting, kayaking, canoeing",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Swimming laps, freestyle, fast",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Swimming laps, freestyle, slow",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Swimming backstroke",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Swimming breaststroke",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Swimming butterfly",
+        "sixty kilograms":649,
+        "seventy kilograms":774,
+        "eighty kilograms":899,
+        "ninety kilograms":1024
+    },
+    {
+        "Activity":"Swimming leisurely, not laps",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Swimming sidestroke",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Swimming synchronized",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Swimming, treading water, fast, vigorous",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Swimming, treading water, moderate",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Water aerobics, water calisthenics",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Water polo",
+        "sixty kilograms":590,
+        "seventy kilograms":704,
+        "eighty kilograms":817,
+        "ninety kilograms":931
+    },
+    {
+        "Activity":"Water volleyball",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Water jogging",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Diving, springboard or platform",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Ice skating, < 9 mph",
+        "sixty kilograms":325,
+        "seventy kilograms":387,
+        "eighty kilograms":449,
+        "ninety kilograms":512
+    },
+    {
+        "Activity":"Ice skating, average speed",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Ice skating, rapidly",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Speed skating, ice, competitive",
+        "sixty kilograms":885,
+        "seventy kilograms":1056,
+        "eighty kilograms":1226,
+        "ninety kilograms":1396
+    },
+    {
+        "Activity":"Cross country snow skiing, slow",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Cross country skiing, moderate",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Cross country skiing, vigorous",
+        "sixty kilograms":531,
+        "seventy kilograms":633,
+        "eighty kilograms":735,
+        "ninety kilograms":838
+    },
+    {
+        "Activity":"Cross country skiing, racing",
+        "sixty kilograms":826,
+        "seventy kilograms":985,
+        "eighty kilograms":1144,
+        "ninety kilograms":1303
+    },
+    {
+        "Activity":"Cross country skiing, uphill",
+        "sixty kilograms":974,
+        "seventy kilograms":1161,
+        "eighty kilograms":1348,
+        "ninety kilograms":1536
+    },
+    {
+        "Activity":"Snow skiing, downhill skiing, light",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Downhill snow skiing, moderate",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Downhill snow skiing, racing",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Sledding, tobagganing, luge",
+        "sixty kilograms":413,
+        "seventy kilograms":493,
+        "eighty kilograms":572,
+        "ninety kilograms":651
+    },
+    {
+        "Activity":"Snow shoeing",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Snowmobiling",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"General housework",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Cleaning gutters",
+        "sixty kilograms":295,
+        "seventy kilograms":352,
+        "eighty kilograms":409,
+        "ninety kilograms":465
+    },
+    {
+        "Activity":"Painting",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Sit, playing with animals",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Walk \/ run, playing with animals",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Bathing dog",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Mowing lawn, walk, power mower",
+        "sixty kilograms":325,
+        "seventy kilograms":387,
+        "eighty kilograms":449,
+        "ninety kilograms":512
+    },
+    {
+        "Activity":"Mowing lawn, riding mower",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Walking, snow blower",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Riding, snow blower",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Shoveling snow by hand",
+        "sixty kilograms":354,
+        "seventy kilograms":422,
+        "eighty kilograms":490,
+        "ninety kilograms":558
+    },
+    {
+        "Activity":"Raking lawn",
+        "sixty kilograms":254,
+        "seventy kilograms":303,
+        "eighty kilograms":351,
+        "ninety kilograms":400
+    },
+    {
+        "Activity":"Gardening, general",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Bagging grass, leaves",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Watering lawn or garden",
+        "sixty kilograms":89,
+        "seventy kilograms":106,
+        "eighty kilograms":123,
+        "ninety kilograms":140
+    },
+    {
+        "Activity":"Weeding, cultivating garden",
+        "sixty kilograms":266,
+        "seventy kilograms":317,
+        "eighty kilograms":368,
+        "ninety kilograms":419
+    },
+    {
+        "Activity":"Carpentry, general",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Carrying heavy loads",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"Carrying moderate loads upstairs",
+        "sixty kilograms":472,
+        "seventy kilograms":563,
+        "eighty kilograms":654,
+        "ninety kilograms":745
+    },
+    {
+        "Activity":"General cleaning",
+        "sixty kilograms":207,
+        "seventy kilograms":246,
+        "eighty kilograms":286,
+        "ninety kilograms":326
+    },
+    {
+        "Activity":"Cleaning, dusting",
+        "sixty kilograms":148,
+        "seventy kilograms":176,
+        "eighty kilograms":204,
+        "ninety kilograms":233
+    },
+    {
+        "Activity":"Taking out trash",
+        "sixty kilograms":177,
+        "seventy kilograms":211,
+        "eighty kilograms":245,
+        "ninety kilograms":279
+    },
+    {
+        "Activity":"Walking, pushing a wheelchair",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Teach physical education,exercise class",
+        "sixty kilograms":236,
+        "seventy kilograms":281,
+        "eighty kilograms":327,
+        "ninety kilograms":372
+    },
+    {
+        "Activity":"Teach exercise classes (& participate)",
+        "sixty kilograms":384,
+        "seventy kilograms":457,
+        "eighty kilograms":531,
+        "ninety kilograms":605
+    }
 ]

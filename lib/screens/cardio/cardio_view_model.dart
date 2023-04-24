@@ -22,7 +22,7 @@ class CardioViewModel extends ChangeNotifier {
   List<Activities> _cardioList = [];
   List<Activities> get cardioList => _cardioList;
 
-  void navigateAction(String activity) {
+  void navigateAction(Activities activity) {
     Get.toNamed(cardioExerciseRoute, arguments: activity);
   }
 }
