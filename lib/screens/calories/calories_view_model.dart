@@ -501,7 +501,7 @@ class CaloriesViewModel extends ChangeNotifier{
     }
     if (_proteinsSelectedItems.isEmpty && _carbsSelectedItems.isEmpty) {
       Fluttertoast.showToast(
-          msg: "No calories added",
+          msg: S.of(Get.context!).caloriesError,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -526,7 +526,7 @@ class CaloriesViewModel extends ChangeNotifier{
     }
 
     Fluttertoast.showToast(
-        msg: "Saved",
+        msg: S.of(Get.context!).saved,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

@@ -849,6 +849,36 @@ class S {
       args: [],
     );
   }
+
+  /// `No calories added`
+  String get caloriesError {
+    return Intl.message(
+      'No calories added',
+      name: 'caloriesError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved`
+  String get saved {
+    return Intl.message(
+      'Saved',
+      name: 'saved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Activity Minutes`
+  String get enterMinutes {
+    return Intl.message(
+      'Enter Activity Minutes',
+      name: 'enterMinutes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
