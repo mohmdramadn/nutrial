@@ -22,9 +22,11 @@ class CaloriesModel {
 
   factory CaloriesModel.fromLocalJsonDatabase(Food food) => CaloriesModel(
     itemName: food.foodType,
-    itemCalories: int.tryParse(
-          food.calories.replaceAll(RegExp(r'[^0-9]'), ''),
-        ),
+    itemCalories: food.calories.runtimeType == int
+            ? food.calories
+            : int.tryParse(
+                food.calories.replaceAll(RegExp(r'[^0-9]'), ''),
+              ),
         totalCal: 0.0,
     itemQuantity: food.wight,
   );
