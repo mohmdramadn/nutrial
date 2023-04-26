@@ -73,6 +73,8 @@ class _BodyState extends State<_Body> {
         context.select((OnBoardViewModel vm) => vm.waterController);
     var fatController =
         context.select((OnBoardViewModel vm) => vm.fatsController);
+    var heightController =
+        context.select((OnBoardViewModel vm) => vm.heightController);
 
     return SingleChildScrollView(
       controller: scrollController,
@@ -94,11 +96,17 @@ class _BodyState extends State<_Body> {
             _BodyComponent(
                 controller: musclesController, title: S.of(context).muscles),
             SizedBox(height: 20.h),
-            _BodyComponent(controller: waterController, title: S.of(context).water),
+            _BodyComponent(
+                controller: waterController, title: S.of(context).water),
             SizedBox(height: 20.h),
-            _BodyComponent(controller: fatController, title: S.of(context).fats),
+            _BodyComponent(
+                controller: fatController, title: S.of(context).fats),
             SizedBox(height: 20.h),
-            _BodyComponent(controller: fatController, title: S.of(context).height)
+            _BodyComponent(
+              controller: heightController,
+              title: S.of(context).height,
+              isHeight: true,
+            )
           ],
         ),
       ),
@@ -111,10 +119,12 @@ class _BodyComponent extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.title,
+    this.isHeight = false,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String title;
+  final bool isHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +143,7 @@ class _BodyComponent extends StatelessWidget {
             ),
           ),
         ),
-        _PercentageTextField(controller: controller),
+        _PercentageTextField(controller: controller, isHeight: isHeight),
       ],
     );
   }
@@ -143,9 +153,11 @@ class _PercentageTextField extends StatefulWidget {
   const _PercentageTextField({
     Key? key,
     required this.controller,
+    required this.isHeight,
   }) : super(key: key);
 
   final TextEditingController controller;
+  final bool isHeight;
 
   @override
   State<_PercentageTextField> createState() => _PercentageTextFieldState();
@@ -177,22 +189,23 @@ class _PercentageTextFieldState extends State<_PercentageTextField> {
           controller: widget.controller,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            suffixText: '%',
+            suffixText: widget.isHeight ? 'cm' : '%',
             suffixStyle: const TextStyle(color: Colors.white),
-            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 8.w),
-              border: OutlineInputBorder(
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.w),
+            border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(19),
-                borderSide: BorderSide.none
-              ),
-              filled: true,
-              fillColor: AppColors.textFieldColor.withOpacity(0.4),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: AppColors.textFieldColor.withOpacity(0.4),
           ),
           textAlign: TextAlign.center,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(2)
+            widget.isHeight
+                ? LengthLimitingTextInputFormatter(4)
+                : LengthLimitingTextInputFormatter(2)
           ],
         ),
       ),
