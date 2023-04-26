@@ -80,5 +80,6 @@
   "shareApp": "شارك التطبيق",
   "noInternetConnection": "لا يوجد اتصال بالانترنت",
   "newUser": "مستخدم جديد",
-  "alreadyHaveAccount": "لدي حساب بالفعل"
+  "alreadyHaveAccount": "لدي حساب بالفعل",
+  "notLoggedIn": "لم تسجل دخولك"
 }
