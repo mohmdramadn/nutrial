@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextSession": MessageLookupByLibrary.simpleMessage("السيشن القادمة"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("لا يوجد اتصال بالانترنت"),
+        "notLoggedIn": MessageLookupByLibrary.simpleMessage("لم تسجل دخولك"),
         "oldPassword":
             MessageLookupByLibrary.simpleMessage("كلمه المرور القديمه"),
         "passNotMatching":

@@ -99,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nextSession": MessageLookupByLibrary.simpleMessage("Next Session"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "notLoggedIn":
+            MessageLookupByLibrary.simpleMessage("You are not logged in"),
         "oldPassword": MessageLookupByLibrary.simpleMessage("Old Password"),
         "passNotMatching":
             MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),

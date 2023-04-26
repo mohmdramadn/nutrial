@@ -849,6 +849,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You are not logged in`
+  String get notLoggedIn {
+    return Intl.message(
+      'You are not logged in',
+      name: 'notLoggedIn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
