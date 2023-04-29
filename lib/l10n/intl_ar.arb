@@ -81,5 +81,8 @@
   "noInternetConnection": "لا يوجد اتصال بالانترنت",
   "newUser": "مستخدم جديد",
   "alreadyHaveAccount": "لدي حساب بالفعل",
-  "notLoggedIn": "لم تسجل دخولك"
+  "notLoggedIn": "لم تسجل دخولك",
+  "caloriesError": "لم تضيف سعرات حرارية",
+  "saved": "تم الحفظ",
+  "enterMinutes": "ادخل عدد الدقائق"
 }

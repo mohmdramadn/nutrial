@@ -50,6 +50,7 @@ dependencies:
   device_preview: ^1.1.0
   flutter_switch: ^0.3.2
   lottie: ^2.3.2
+  flutter_typeahead: ^4.3.1
 
   flutter_localizations:
     sdk: flutter

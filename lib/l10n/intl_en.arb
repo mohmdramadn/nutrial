@@ -79,5 +79,8 @@
   "chooseItem": "Choose Item",
   "shareApp": "Share App",
   "noInternetConnection": "No internet connection",
-  "notLoggedIn": "You are not logged in"
+  "notLoggedIn": "You are not logged in",
+  "caloriesError": "No calories added",
+  "saved": "Saved",
+  "enterMinutes": "Enter Activity Minutes"
 }

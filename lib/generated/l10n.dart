@@ -849,12 +849,42 @@ class S {
       args: [],
     );
   }
-
+  
   /// `You are not logged in`
   String get notLoggedIn {
     return Intl.message(
       'You are not logged in',
       name: 'notLoggedIn',
+       desc: '',
+      args: [],
+    );
+  }
+  
+  /// `No calories added`
+  String get caloriesError {
+    return Intl.message(
+      'No calories added',
+      name: 'caloriesError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved`
+  String get saved {
+    return Intl.message(
+      'Saved',
+      name: 'saved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Activity Minutes`
+  String get enterMinutes {
+    return Intl.message(
+      'Enter Activity Minutes',
+      name: 'enterMinutes',
       desc: '',
       args: [],
     );
