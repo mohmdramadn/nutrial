@@ -849,7 +849,17 @@ class S {
       args: [],
     );
   }
-
+  
+  /// `You are not logged in`
+  String get notLoggedIn {
+    return Intl.message(
+      'You are not logged in',
+      name: 'notLoggedIn',
+       desc: '',
+      args: [],
+    );
+  }
+  
   /// `No calories added`
   String get caloriesError {
     return Intl.message(

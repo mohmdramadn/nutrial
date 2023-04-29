@@ -5,6 +5,7 @@ class UserProfileModel {
   String? password;
   String? age;
   String? gender;
+  String? height;
   String? email;
   String? fatsPercentage;
   String? waterPercentage;
@@ -14,6 +15,7 @@ class UserProfileModel {
     this.uid,
     this.fullName,
     this.gender,
+    this.height,
     this.email,
     this.age,
     this.fatsPercentage,
@@ -30,6 +32,7 @@ class UserProfileModel {
       email: data["Email"] ?? "",
       age: data["Age"] ?? "",
       gender: data["Gender"] ?? "",
+      height: data["Height"] ?? "",
       musclesPercentage: data["Muscles Percentage"] ?? "",
       waterPercentage: data["Water Percentage"] ?? "",
       username: data["username"] ?? "",

@@ -19,8 +19,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ProfileViewModel>(
-        create: (_) =>
-            ProfileViewModel(
+        create: (_) => ProfileViewModel(
               firebaseService: context.read<FirebaseService>(),
               messageService: context.read<MessageService>(),
               connectionService: context.read<ConnectionService>(),
@@ -60,25 +59,52 @@ class _BodyState extends State<_Body> {
           child: Column(
             children: [
               const Logo(),
+              if (!isLoggedIn) SizedBox(height: 200.h),
               isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : !isLoggedIn
-                  ? Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white70,
-                          ),
-                          child: Column(
-                            children: const [
-                              Text('You are not logged in'),
-                              _LoginButton(),
-                            ],
-                          ),
-                        )
+                      ? const _LogInContainer()
                       : _ProfileDetails(nextSession: nextSession),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LogInContainer extends StatelessWidget {
+  const _LogInContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.grey.withOpacity(0.7),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20.0.h),
+            child: Text(
+              S.of(context).notLoggedIn,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.sp,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0.sp),
+            child: const _LoginButton(),
+          ),
+        ],
       ),
     );
   }
@@ -94,17 +120,17 @@ class _LoginButton extends StatelessWidget {
     return SizedBox(
       width: 300.w,
       child: ElevatedButton(
-        onPressed: ()=> context.read<ProfileViewModel>().navigateToLogin(),
+        onPressed: () => context.read<ProfileViewModel>().navigateToLogin(),
         style: ButtonStyle(
           padding:
-          MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
+              MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(15)),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           backgroundColor:
-          MaterialStateProperty.all<Color>(AppColors.primaryLightColor4),
+              MaterialStateProperty.all<Color>(AppColors.primaryColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
-              side: const BorderSide(color: AppColors.primaryLightColor4),
+              side: const BorderSide(color: AppColors.primaryColor),
             ),
           ),
         ),
@@ -175,7 +201,7 @@ class _ProfileDetails extends StatelessWidget {
             ),
             ProfileDetailsItem(
               title: S.of(context).height,
-              value: '173 cm',
+              value: '${userData?.height} cm',
               onTap: () {},
               isArabic: isArabic,
             ),
@@ -244,8 +270,7 @@ class _LastBodyCompTitle extends StatelessWidget {
       child: Container(
         height: 25.h,
         decoration: const BoxDecoration(
-          border:
-              Border(bottom: BorderSide(color: AppColors.orangeTextColor)),
+          border: Border(bottom: BorderSide(color: AppColors.orangeTextColor)),
         ),
         child: Text(
           S.of(context).lastBodyComp,

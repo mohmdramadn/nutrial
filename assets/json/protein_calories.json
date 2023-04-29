@@ -2,142 +2,142 @@
    {
       "Food type":"Boiled Chicken Skinless Breast ",
       "Wight":"100 gms",
-      "Calories":"155 cal"
+      "Calories":155
    },
    {
       "Food type":"Boiled Chicken Skinless Thigh ",
       "Wight":"100 gms",
-      "Calories":"195 cal"
+      "Calories":195
    },
    {
       "Food type":"Boiled Lean Beef ",
       "Wight":"100 gms",
-      "Calories":"150 cal"
+      "Calories":150
    },
    {
       "Food type":"Chicken Liver ",
       "Wight":"100 gms",
-      "Calories":"180 cal"
+      "Calories":180
    },
    {
       "Food type":"Egg White ",
       "Wight":"Piece",
-      "Calories":"17 cal"
+      "Calories":17
    },
    {
       "Food type":"Grilled Bolty ",
       "Wight":"100 gms",
-      "Calories":"140 cal"
+      "Calories":140
    },
    {
       "Food type":"7 Grilled Bory",
       "Wight":"100 gms",
-      "Calories":"150 cal"
+      "Calories":150
    },
    {
       "Food type":"Grilled Calamari ",
       "Wight":"100 gms",
-      "Calories":"140 cal"
+      "Calories":140
    },
    {
       "Food type":"Grilled Chicken Skinless Breast",
       "Wight":"100 gms",
-      "Calories":"170 cal"
+      "Calories":170
    },
    {
       "Food type":"Grilled Chicken Skinless Thigh",
       "Wight":"100 gms",
-      "Calories":"210 cal"
+      "Calories":210
    },
    {
       "Food type":"Grilled Crab",
       "Wight":"100 gms",
-      "Calories":"100 cal"
+      "Calories":100
    },
    {
       "Food type":"Grilled Denes",
       "Wight":"100 gms",
-      "Calories":"90 cal"
+      "Calories":90
    },
    {
       "Food type":"Grilled Dove Hamam",
       "Wight":"100 gms",
-      "Calories":"220 cal"
+      "Calories":220
    },
    {
       "Food type":"Grilled Fillet Kesher Bayad",
       "Wight":"100 gms",
-      "Calories":"100 cal"
+      "Calories":100
    },
    {
       "Food type":"Grilled Lean Beef or Steak",
       "Wight":"100 gms",
-      "Calories":"190 cal"
+      "Calories":190
    },
    {
       "Food type":"Grilled Mackrel",
       "Wight":"100 gms",
-      "Calories":"270 cal"
+      "Calories":270
    },
    {
       "Food type":"Grilled Meat liver",
       "Wight":"100 gms",
-      "Calories":"200 cal"
+      "Calories":200
    },
    {
       "Food type":"Grilled Minced Beef or Kofta ",
       "Wight":"100 gms",
-      "Calories":"280 cal"
+      "Calories":280
    },
    {
       "Food type":"Grilled Moussa",
       "Wight":"100 gms",
-      "Calories":"100 cal"
+      "Calories":100
    },
    {
       "Food type":"Grilled Rabbit",
       "Wight":"100 gms",
-      "Calories":"190 cal"
+      "Calories":190
    },
    {
       "Food type":"Grilled Salmon ",
       "Wight":"100 gms",
-      "Calories":"170 cal"
+      "Calories":170
    },
    {
       "Food type":"Grilled Shrimps ",
       "Wight":"100 gms",
-      "Calories":"100 cal"
+      "Calories":100
    },
    {
       "Food type":"Grilled Skinless Duck ",
       "Wight":"100 gms",
-      "Calories":"205 cal"
+      "Calories":205
    },
    {
       "Food type":"Grilled Turkey Skinless Breast ",
       "Wight":"100 gms",
-      "Calories":"150 cal"
+      "Calories":150
    },
    {
       "Food type":"Grilled Turkey Skinless Thigh ",
       "Wight":"100 gms",
-      "Calories":"170 cal"
+      "Calories":170
    },
    {
       "Food type":"Grilled Wakar",
       "Wight":"100 gms",
-      "Calories":"100 cal"
+      "Calories":100
    },
    {
       "Food type":"Sardines",
       "Wight":"100 gms",
-      "Calories":"220 cal"
+      "Calories":220
    },
    {
       "Food type":"Water Canned light Tuna",
       "Wight":"can",
-      "Calories":"200 cal"
+      "Calories":200
    },
    {
       "Food type":"turkey pastrami",
@@ -286,7 +286,7 @@
    },
    {
       "Food type":"Fried chicken breast without skin",
-      "Wight":"half breast",
+      "Wight":"1",
       "Calories":161
    },
    {

@@ -39,7 +39,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
     var response = await firebaseService.getUserProfile();
     if (response.isError) {
-      messageService.showErrorSnackBar('', response.asError!.error.toString());
+      _isLoggedIn = false;
       setLoadingState(false);
       notifyListeners();
       return;
@@ -64,17 +64,23 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isLoggedIn => firebaseService.checkIfLoggedIn();
+  bool _isLoggedIn = true;
+  bool get isLoggedIn {
+    if (firebaseService.checkIfLoggedIn() && _isLoggedIn) {
+      return _isLoggedIn = true;
+    }
+    return _isLoggedIn = false;
+  }
 
   Future<void> logoutActionAsync() async {
     if (!isLoggedIn) return;
     await firebaseService.logoutAsync();
     Preference.instance.clearAll();
-    Get.offAndToNamed(loginRoute);
+    Get.offAndToNamed(welcomeRoute);
   }
 
   void navigateToLogin(){
-    Get.toNamed(loginRoute);
+    Get.offAndToNamed(welcomeRoute);
   }
 
   bool get isArabic => Get.locale == const Locale('ar');

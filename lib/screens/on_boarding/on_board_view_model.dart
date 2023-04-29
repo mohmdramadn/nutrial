@@ -127,6 +127,7 @@ class OnBoardViewModel extends ChangeNotifier{
     userProfileModel.waterPercentage = waterController.text;
     userProfileModel.fatsPercentage = fatsController.text;
     userProfileModel.age = ageController.text;
+    userProfileModel.height = heightController.text;
     userProfileModel.gender =
     _gender == 1 ? localization.male : localization.female;
   }

@@ -16,9 +16,9 @@ class SplashViewModel extends ChangeNotifier {
     var localUser = await Preference.instance.getData(PreferenceStrings.user);
 
     if (!loggedIn && (localUser != user) || (user == null || localUser == null)) {
-      Get.toNamed(welcomeRoute);
+      Get.offAndToNamed(welcomeRoute);
       return;
     }
-    Get.toNamed(homeRoute);
+    Get.offAndToNamed(homeRoute);
   }
 }

@@ -71,6 +71,7 @@ class FirebaseService extends ChangeNotifier {
       'Full name': model.fullName,
       'username': model.username,
       'Gender': model.gender,
+      'Height': model.height,
       'Age': model.age,
       'Muscles Percentage': model.musclesPercentage,
       'Water Percentage': model.waterPercentage,

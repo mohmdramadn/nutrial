@@ -63,26 +63,6 @@ class ProfileDetailsItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Expanded(
-                //   child: Row(
-                //     mainAxisSize: MainAxisSize.max,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     crossAxisAlignment: isArabic
-                //         ? CrossAxisAlignment.end
-                //         : CrossAxisAlignment.start,
-                //     children: [
-                //       Expanded(
-                //         child: Text(
-                //           value,
-                //           style: TextStyle(
-                //             fontSize: 14.sp,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
