@@ -36,9 +36,10 @@ void main() {
     final AppLanguage appLanguage = AppLanguage();
     await appLanguage.fetchLocale();
 
-    final caloriesDatabase = CaloriesDatabase.instance;
+    final caloriesDatabase = LocalDatabase.instance;
     await caloriesDatabase.getProteinCaloriesData();
     await caloriesDatabase.getCarbsFatsCaloriesData();
+    await caloriesDatabase.getActivitiesData();
 
     runApp(
       ChangeNotifierProvider<AppLanguage>.value(

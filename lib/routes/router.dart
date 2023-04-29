@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutrial/models/activites.dart';
 import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/screens/calculator/categories_screen.dart';
 import 'package:nutrial/screens/calories/calories_screen.dart';
@@ -89,7 +90,7 @@ Route onGenerateRoute(RouteSettings settings) {
           builder: (context) => const CardioScreen(), settings: settings);
 
       case cardioExerciseRoute:
-        var activity = settings.arguments as String;
+        var activity = settings.arguments as Activities;
       return MaterialPageRoute(
           builder: (context) =>  CardioExerciseScreen(activity: activity), settings: settings);
 

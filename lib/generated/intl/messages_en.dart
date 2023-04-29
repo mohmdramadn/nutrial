@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("Calories Calculator"),
+        "caloriesError":
+            MessageLookupByLibrary.simpleMessage("No calories added"),
         "cardio": MessageLookupByLibrary.simpleMessage("CARDIO"),
         "changeInfo":
             MessageLookupByLibrary.simpleMessage("Change Information"),
@@ -53,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "commWith": MessageLookupByLibrary.simpleMessage("Or communicate with"),
         "done": MessageLookupByLibrary.simpleMessage("Successfully"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enterMinutes":
+            MessageLookupByLibrary.simpleMessage("Enter Activity Minutes"),
         "enterPersonalDetails": MessageLookupByLibrary.simpleMessage(
             "Now enter your personal details.."),
         "enterYourAge": MessageLookupByLibrary.simpleMessage("Enter your age"),
@@ -109,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileMenu": MessageLookupByLibrary.simpleMessage("Profile Menu"),
         "reEnter": MessageLookupByLibrary.simpleMessage("Re-enter"),
         "save": MessageLookupByLibrary.simpleMessage("SAVE"),
+        "saved": MessageLookupByLibrary.simpleMessage("Saved"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("Search workout"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "Finally set your password .."),

@@ -78,5 +78,8 @@
   "weight": "Weight",
   "chooseItem": "Choose Item",
   "shareApp": "Share App",
-  "noInternetConnection": "No internet connection"
+  "noInternetConnection": "No internet connection",
+  "caloriesError": "No calories added",
+  "saved": "Saved",
+  "enterMinutes": "Enter Activity Minutes"
 }

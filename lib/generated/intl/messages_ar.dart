@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calories": MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("حساب السعرات الحرارية"),
+        "caloriesError":
+            MessageLookupByLibrary.simpleMessage("لم تضيف سعرات حرارية"),
         "cardio": MessageLookupByLibrary.simpleMessage("الكارديو"),
         "changeInfo":
             MessageLookupByLibrary.simpleMessage("Change Information"),
@@ -54,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أو تواصل معنا من خلال"),
         "done": MessageLookupByLibrary.simpleMessage("تم بنجاح"),
         "email": MessageLookupByLibrary.simpleMessage("الايميل"),
+        "enterMinutes":
+            MessageLookupByLibrary.simpleMessage("ادخل عدد الدقائق"),
         "enterPersonalDetails": MessageLookupByLibrary.simpleMessage(
             "الان ادخل التفاصيل الخاصه بك"),
         "enterYourAge": MessageLookupByLibrary.simpleMessage("ادخل عمرك"),
@@ -109,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("قايمة الملف الشخصي"),
         "reEnter": MessageLookupByLibrary.simpleMessage("اعد الكلمة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "saved": MessageLookupByLibrary.simpleMessage("تم الحفظ"),
         "searchWorkout": MessageLookupByLibrary.simpleMessage("ابحث عن تمرين"),
         "setPasswordTitle": MessageLookupByLibrary.simpleMessage(
             "و اخيرا ادخل كلمة المرور الخاصة بك"),
