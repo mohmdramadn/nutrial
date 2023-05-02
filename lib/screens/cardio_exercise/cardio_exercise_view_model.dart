@@ -7,6 +7,7 @@ import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/constants/constant_strings.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/models/activites.dart';
+import 'package:nutrial/routes/routes_names.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -27,6 +28,8 @@ class CardioExerciseViewModel extends ChangeNotifier{
   });
 
   TextEditingController minutesController = TextEditingController();
+
+  bool get isLoggedIn => firebaseService.checkIfLoggedIn();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -84,6 +87,19 @@ class CardioExerciseViewModel extends ChangeNotifier{
     var isConnected = await connectionService.checkConnection();
     if(!isConnected){
       notifyListeners();
+    }
+    if (!isLoggedIn) {
+      messageService.showDecisionAlertDialog(
+        title: '',
+        message: localization.notLoggedIn,
+        confirm: localization.login,
+        cancel: localization.signup,
+        onConfirm: () => Get.offAllNamed(loginRoute),
+        onCancel: () => Get.offAllNamed(onBoardingRoute),
+      );
+      setLoadingState(false);
+      notifyListeners();
+      return;
     }
     if(_minutes == null || _minutes == '') {
       Fluttertoast.showToast(
