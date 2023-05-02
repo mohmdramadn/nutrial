@@ -82,5 +82,8 @@
   "notLoggedIn": "You are not logged in",
   "caloriesError": "No calories added",
   "saved": "Saved",
-  "enterMinutes": "Enter Activity Minutes"
+  "enterMinutes": "Enter Activity Minutes",
+  "grams": "gm",
+  "items": "Items",
+  "cal": "CAL"
 }

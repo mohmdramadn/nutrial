@@ -84,5 +84,8 @@
   "notLoggedIn": "لم تسجل دخولك",
   "caloriesError": "لم تضيف سعرات حرارية",
   "saved": "تم الحفظ",
-  "enterMinutes": "ادخل عدد الدقائق"
+  "enterMinutes": "ادخل عدد الدقائق",
+  "grams": "جرام",
+  "items": "الأصناف",
+  "cal": "CAL"
 }
