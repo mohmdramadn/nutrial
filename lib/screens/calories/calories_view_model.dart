@@ -29,18 +29,75 @@ class CaloriesViewModel extends ChangeNotifier{
     required this.localization,
   });
 
-  List<Food> _proteinCalories = [];
-  List<Food> get proteinCalories => _proteinCalories;
-
-  List<Food> _carbsCalories = [];
-  List<Food> get carbsCalories => _carbsCalories;
-
   Future<void> getCaloriesFromJson() async {
     _proteinCalories = LocalDatabase.instance.proteinCalories;
     _carbsCalories = LocalDatabase.instance.carbsCalories;
     setLoadingState(false);
     notifyListeners();
   }
+
+  Future<void> getCardioAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+
+    if(!isLoggedIn) return;
+
+    var response = await firebaseService.getUserCardio();
+
+    if (response.isError) {
+      messageService.showErrorSnackBar('', localization.error);
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    _cardioResponse = response.asValue!.value;
+    getTodayCardio();
+    getYesterdayCardio();
+    setLoadingState(false);
+  }
+
+  Future<void> getCaloriesAsync()async{
+    setLoadingState(true);
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected){
+      setLoadingState(false);
+      notifyListeners();
+    }
+    var response = await firebaseService
+        .getCalories(date: _isTodaySelected ? _todayDate : _yesterdayDate);
+
+    if (response.isError) {
+      setLoadingState(false);
+      notifyListeners();
+      return;
+    }
+
+    _calories = response.asValue!.value;
+    _waterBottlesCount = _calories!.water;
+    if(_calories!.protein != null){
+      _proteinsSelectedItems += _calories!.protein;
+      _addProteinProgress();
+    }
+
+    if(_calories!.carbs != null){
+      _carbsSelectedItems += _calories!.carbs;
+      _addCarbsProgress();
+    }
+    setLoadingState(false);
+  }
+
+  bool get isLoggedIn => firebaseService.checkIfLoggedIn();
+
+  List<Food> _proteinCalories = [];
+  List<Food> get proteinCalories => _proteinCalories;
+
+  List<Food> _carbsCalories = [];
+  List<Food> get carbsCalories => _carbsCalories;
 
   bool _showProteinMenu = false;
   bool get showProteinMenu => _showProteinMenu;
@@ -426,58 +483,6 @@ class CaloriesViewModel extends ChangeNotifier{
     );
   }
 
-  Future<void> getCardioAsync()async{
-    setLoadingState(true);
-    var isConnected = await connectionService.checkConnection();
-    if(!isConnected){
-      setLoadingState(false);
-      notifyListeners();
-    }
-    var response = await firebaseService.getUserCardio();
-
-    if (response.isError) {
-      messageService.showErrorSnackBar('', localization.error);
-      setLoadingState(false);
-      notifyListeners();
-      return;
-    }
-
-    _cardioResponse = response.asValue!.value;
-    getTodayCardio();
-    getYesterdayCardio();
-    setLoadingState(false);
-  }
-
-  Future<void> getCaloriesAsync()async{
-    setLoadingState(true);
-    var isConnected = await connectionService.checkConnection();
-    if(!isConnected){
-      setLoadingState(false);
-      notifyListeners();
-    }
-    var response = await firebaseService
-        .getCalories(date: _isTodaySelected ? _todayDate : _yesterdayDate);
-
-    if (response.isError) {
-      setLoadingState(false);
-      notifyListeners();
-      return;
-    }
-
-    _calories = response.asValue!.value;
-    _waterBottlesCount = _calories!.water;
-    if(_calories!.protein != null){
-      _proteinsSelectedItems += _calories!.protein;
-      _addProteinProgress();
-    }
-
-    if(_calories!.carbs != null){
-      _carbsSelectedItems += _calories!.carbs;
-      _addCarbsProgress();
-    }
-    setLoadingState(false);
-  }
-
   void getYesterdayCardio() {
     var yesterdayCardio = _cardioResponse!.entries
         .firstWhereOrNull((element) => element.key.day == _yesterdayDate.day);
@@ -511,6 +516,19 @@ class CaloriesViewModel extends ChangeNotifier{
       setLoadingState(false);
       messageService.showErrorSnackBar('', localization.noInternetConnection);
       notifyListeners();
+    }
+    if (!isLoggedIn) {
+      messageService.showDecisionAlertDialog(
+        title: '',
+        message: localization.notLoggedIn,
+        confirm: localization.login,
+        cancel: localization.signup,
+        onConfirm: () => Get.offAllNamed(loginRoute),
+        onCancel: () => Get.offAllNamed(onBoardingRoute),
+      );
+      setLoadingState(false);
+      notifyListeners();
+      return;
     }
     if (_proteinsSelectedItems.isEmpty && _carbsSelectedItems.isEmpty) {
       Fluttertoast.showToast(

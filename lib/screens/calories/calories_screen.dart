@@ -680,6 +680,8 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isLoggedIn = context.select((CaloriesViewModel vm) => vm.isLoggedIn);
+
     return Column(
       children: [
         Container(
@@ -708,7 +710,7 @@ class _Header extends StatelessWidget {
             ),
           ),
         ),
-        const _Date(),
+        if(isLoggedIn) const _Date(),
       ],
     );
   }

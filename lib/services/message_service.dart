@@ -36,4 +36,51 @@ class MessageService {
           style: const TextStyle(fontSize: 14, color: Colors.white),
         ));
   }
+
+  Future<dynamic>? showDecisionAlertDialog<T>({
+    String? title,
+    required String message,
+    required String confirm,
+    required String cancel,
+    required Function() onConfirm,
+    required Function() onCancel,
+  }) {
+    return showDialog(
+        barrierDismissible: false,
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColors.backgroundColor,
+            title: Text(title ?? ""),
+            content: Text(message,style: const TextStyle(color: Colors.white)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                onPressed: onCancel,
+                child: Text(
+                  cancel,
+                  style: const TextStyle(color: AppColors.primaryColor),
+                ),
+              ),
+              ElevatedButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                onPressed: onConfirm,
+                child: Text(
+                  confirm,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
 }
