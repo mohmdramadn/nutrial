@@ -18,15 +18,15 @@ class SavedItemsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18.w),
+      padding: EdgeInsets.only(left: 18.w),
       child: Row(
         children: [
           _Quantity(quantity: quantity ?? '0'),
           _ItemsButton(itemName: itemName),
           _EstimatedCalories(calories: calories),
-          IconButton(
-            onPressed: onDelete,
-            icon: const Icon(Icons.delete, color: Colors.red),
+          InkWell(
+            onTap: onDelete,
+            child: const Icon(Icons.delete, color: Colors.red),
           )
         ],
       ),
