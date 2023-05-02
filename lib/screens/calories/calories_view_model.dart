@@ -367,7 +367,7 @@ class CaloriesViewModel extends ChangeNotifier{
     }
     totalCarbsCalories += num.tryParse(_calculatedCarbsCalories!)!;
     carbsProgressRatio =
-        ((totalCarbsCalories * 1.0) / carbsGoalCalories).roundToDouble();
+        ((totalCarbsCalories * 1.0) / carbsGoalCalories);
     _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
         totalCarbsCalories <= (carbsGoalCalories + 50);
     totalCarbsCalories = totalCarbsCalories.roundToDouble();
