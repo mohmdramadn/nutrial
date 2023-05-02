@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SelectedItemRow extends StatelessWidget {
-  const SelectedItemRow({
+class SelectedItem extends StatelessWidget {
+  const SelectedItem({
     Key? key,
     required this.itemName,
     required this.calories,

@@ -14,7 +14,8 @@ class LinearProgressIndicatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0.w,vertical: 7.h),
+      padding:
+          EdgeInsets.only(left: 20.0.w, right: 25.w, top: 7.h, bottom: 7.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

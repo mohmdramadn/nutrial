@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nutrial/components/progress_bar.dart';
 import 'package:nutrial/constants/colors.dart';
 import 'package:nutrial/generated/l10n.dart';
@@ -92,8 +93,6 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     var showProteinMenu =
         context.select((CaloriesViewModel vm) => vm.showProteinMenu);
-    var showCarbsMenu =
-        context.select((CaloriesViewModel vm) => vm.showCarbsMenu);
     var vm = context.watch<CaloriesViewModel>();
 
     return Scaffold(
@@ -107,113 +106,47 @@ class _BodyState extends State<_Body> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const _Header(),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+                Stack(
                   children: [
-                    SizedBox(height: 30.h),
-                    const _WaterHeader(),
-                    if (vm.waterBottlesCount != 0) const _WaterBottles(),
-                    SizedBox(height: 50.h),
-                    _Category(
-                      imgName: 'protiens',
-                      isHasNumbers: true,
-                      caloriesRate:
-                          vm.proteinGoalCalories.roundToDouble().toString(),
-                      consumedCalories: vm.totalProteinCalories.toString(),
-                      controller: vm.proteinGoalController,
-                      initGoalValue: vm.proteinGoalCalories.toString(),
-                      isEditGoal: vm.isEditProteinGoal,
-                      onTap: () => context
-                          .read<CaloriesViewModel>()
-                          .setEditProteinGoalState(),
-                      onSubmitted: (value) => context
-                          .read<CaloriesViewModel>()
-                          .setProteinGoalValue(value),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 30.h),
+                        const _ProteinCategory(),
+                        _ProgressIndicator(
+                          progressRatio: vm.proteinProgressRatio,
+                          condition: vm.isMetProteinGoal,
+                        ),
+                        const _HeaderCategory(isProtein: true),
+                        const _ProteinItem(),
+                        if (showProteinMenu) const _Items(isProtein: true),
+                        SizedBox(height: 50.h),
+                        const _CarbsFatsCategory(),
+                        _ProgressIndicator(
+                          progressRatio: vm.carbsProgressRatio,
+                          condition: vm.isMetCarbsGoal,
+                        ),
+                        const _HeaderCategory(isProtein: false),
+                        const _CarbsItem(),
+                        const _CardioHeader(),
+                        const _CardioActivityList(),
+                        const _WaterHeader(),
+                        if (vm.waterBottlesCount != 0) const _WaterBottles(),
+                        SizedBox(height: 20.h),
+                        const _SaveButton()
+                      ],
                     ),
-                    _ProgressIndicator(
-                      progressRatio: vm.proteinProgressRatio,
-                      condition: vm.isMetProteinGoal,
-                    ),
-                    const _HeaderCategory(isProtein: true),
-                    if (vm.showNewProteinItem)
-                      NewItemsRow(
-                        itemName: S.of(context).chooseItem,
-                        showMenu: showProteinMenu,
-                        onMenuTapped: () => context
-                            .read<CaloriesViewModel>()
-                            .setProteinMenuState(),
-                        controller: vm.proteinQtyController,
-                      ),
-                    if (vm.showSelectedIProteinItem)
-                      SelectedItemRow(
-                        itemName: vm.selectedProteinItem!.itemName!,
-                        calories: vm.calculatedProteinCalories,
-                        controller: vm.proteinQtyController,
-                        onChanged: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onProteinQuantityAddedAction(),
-                        onSubmitted: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onSubmitProteinButtonAction(),
-                      ),
-                    if (!vm.isLoading && vm.proteinsSelectedItems.length != 0)
-                      _SavedItems(
-                        itemsList: vm.proteinsSelectedItems,
-                        isProtein: true,
-                      ),
-                    if (showProteinMenu) const _Items(isProtein: true),
-                    SizedBox(height: 50.h),
-                    _Category(
-                      imgName: 'fats',
-                      isHasNumbers: true,
-                      caloriesRate:
-                          vm.carbsGoalCalories.roundToDouble().toString(),
-                      consumedCalories: vm.totalCarbsCalories.toString(),
-                      controller: vm.carbsGoalController,
-                      initGoalValue: vm.carbsGoalCalories.toString(),
-                      isEditGoal: vm.isEditCarbsGoal,
-                      onTap: () => context
-                          .read<CaloriesViewModel>()
-                          .setEditCarbsGoalState(),
-                      onSubmitted: (value) => context
-                          .read<CaloriesViewModel>()
-                          .setCarbsGoalValue(value),
-                    ),
-                    _ProgressIndicator(
-                      progressRatio: vm.carbsProgressRatio,
-                      condition: vm.isMetCarbsGoal,
-                    ),
-                    const _HeaderCategory(isProtein: false),
-                    if (vm.showNewCarbsItem)
-                      NewItemsRow(
-                        itemName: S.of(context).chooseItem,
-                        showMenu: showCarbsMenu,
-                        onMenuTapped: () => context
-                            .read<CaloriesViewModel>()
-                            .setCarbsMenuState(),
-                        controller: vm.carbsQtyController,
-                      ),
-                    if (vm.showSelectedCarbsItem)
-                      SelectedItemRow(
-                        itemName: vm.selectedCarbsItem!.itemName!,
-                        calories: vm.calculatedCarbsCalories,
-                        controller: vm.carbsQtyController,
-                        onChanged: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onCarbsQuantityAddedAction(),
-                        onSubmitted: (value) => context
-                            .read<CaloriesViewModel>()
-                            .onSubmitCarbsButtonAction(),
-                      ),
-                    if (showCarbsMenu) const _Items(isProtein: false),
-                    if (!vm.isLoading &&vm.carbsSelectedItems.length != 0)
-                      _SavedItems(
-                        itemsList: vm.carbsSelectedItems,
-                        isProtein: false,
-                      ),
-                    const _CardioHeader(),
-                    const _CardioActivityList(),
-                    const _SaveButton(),
+                    vm.isLoading
+                        ? Positioned(
+                            top: 100.h,
+                            left: 150.w,
+                            right: 150.w,
+                            bottom: 100.h,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ],
@@ -221,6 +154,204 @@ class _BodyState extends State<_Body> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _CarbsItem extends StatelessWidget {
+  const _CarbsItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (vm.showNewCarbsItem) const _NewCarbsItem(),
+        if (vm.showSelectedCarbsItem) const _SelectedCarbsItems(),
+        if (vm.showCarbsMenu) const _Items(isProtein: false),
+        if (!vm.isLoading && vm.carbsSelectedItems.isNotEmpty)
+          const _SavedCarbsItems(),
+      ],
+    );
+  }
+}
+
+class _SavedCarbsItems extends StatelessWidget {
+  const _SavedCarbsItems({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return _SavedItems(
+      itemsList: vm.carbsSelectedItems,
+      isProtein: false,
+    );
+  }
+}
+
+class _NewCarbsItem extends StatelessWidget {
+  const _NewCarbsItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return NewItemsRow(
+      itemName: S.of(context).chooseItem,
+      showMenu: vm.showCarbsMenu,
+      onMenuTapped: () => context.read<CaloriesViewModel>().setCarbsMenuState(),
+      controller: vm.carbsQtyController,
+    );
+  }
+}
+
+class _ProteinItem extends StatelessWidget {
+  const _ProteinItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (vm.showNewProteinItem) const _NewProteinItem(),
+        if (vm.showSelectedIProteinItem) const _SelectedProteinItem(),
+        if (!vm.isLoading && vm.proteinsSelectedItems.isNotEmpty)
+          const _SavedProteinItem(),
+      ],
+    );
+  }
+}
+
+class _SavedProteinItem extends StatelessWidget {
+  const _SavedProteinItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return _SavedItems(
+      itemsList: vm.proteinsSelectedItems,
+      isProtein: true,
+    );
+  }
+}
+
+class _NewProteinItem extends StatelessWidget {
+  const _NewProteinItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return NewItemsRow(
+      itemName: S.of(context).chooseItem,
+      showMenu: vm.showProteinMenu,
+      onMenuTapped: () =>
+          context.read<CaloriesViewModel>().setProteinMenuState(),
+      controller: vm.proteinQtyController,
+    );
+  }
+}
+
+class _SelectedCarbsItems extends StatelessWidget {
+  const _SelectedCarbsItems({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return SelectedItem(
+      itemName: vm.selectedCarbsItem!.itemName!,
+      calories: vm.calculatedCarbsCalories,
+      controller: vm.carbsQtyController,
+      onChanged: (value) =>
+          context.read<CaloriesViewModel>().onCarbsQuantityAddedAction(),
+      onSubmitted: (value) =>
+          context.read<CaloriesViewModel>().onSubmitCarbsButtonAction(),
+    );
+  }
+}
+
+class _SelectedProteinItem extends StatelessWidget {
+  const _SelectedProteinItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return SelectedItem(
+      itemName: vm.selectedProteinItem!.itemName!,
+      calories: vm.calculatedProteinCalories,
+      controller: vm.proteinQtyController,
+      onChanged: (value) =>
+          context.read<CaloriesViewModel>().onProteinQuantityAddedAction(),
+      onSubmitted: (value) =>
+          context.read<CaloriesViewModel>().onSubmitProteinButtonAction(),
+    );
+  }
+}
+
+class _CarbsFatsCategory extends StatelessWidget {
+  const _CarbsFatsCategory({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return _Category(
+      imgName: 'fats',
+      isHasNumbers: true,
+      caloriesRate: vm.carbsGoalCalories.roundToDouble().toString(),
+      consumedCalories: vm.totalCarbsCalories.toString(),
+      controller: vm.carbsGoalController,
+      initGoalValue: vm.carbsGoalCalories.toString(),
+      isEditGoal: vm.isEditCarbsGoal,
+      onTap: () => context.read<CaloriesViewModel>().setEditCarbsGoalState(),
+      onSubmitted: (value) =>
+          context.read<CaloriesViewModel>().setCarbsGoalValue(value),
+    );
+  }
+}
+
+class _ProteinCategory extends StatelessWidget {
+  const _ProteinCategory({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
+    return _Category(
+      imgName: 'protiens',
+      isHasNumbers: true,
+      caloriesRate: vm.proteinGoalCalories.roundToDouble().toString(),
+      consumedCalories: vm.totalProteinCalories.toString(),
+      controller: vm.proteinGoalController,
+      initGoalValue: vm.proteinGoalCalories.toString(),
+      isEditGoal: vm.isEditProteinGoal,
+      onTap: () => context.read<CaloriesViewModel>().setEditProteinGoalState(),
+      onSubmitted: (value) =>
+          context.read<CaloriesViewModel>().setProteinGoalValue(value),
     );
   }
 }
@@ -240,8 +371,7 @@ class _ProgressIndicator extends StatelessWidget {
     return LinearProgressIndicatorApp(
       consumedCaloriesPercentage: progressRatio,
       color: condition
-          ? const AlwaysStoppedAnimation<Color>(
-              AppColors.floatingButton)
+          ? const AlwaysStoppedAnimation<Color>(AppColors.floatingButton)
           : AlwaysStoppedAnimation<Color>(Colors.red.shade300),
     );
   }
@@ -252,11 +382,11 @@ class _CardioActivityList extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     var vm = context.watch<CaloriesViewModel>();
-    var cardioList = vm.isTodaySelected ? vm.todayActivity : vm.yesterdayActivity;
+    var cardioList =
+        vm.isTodaySelected ? vm.todayActivity : vm.yesterdayActivity;
 
     return Flexible(
       child: Column(
@@ -297,8 +427,7 @@ class _CardioActivity extends StatelessWidget {
             border: Border.all(color: Colors.transparent),
             color: Colors.black.withOpacity(0.23)),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: 8.0.h, horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -359,34 +488,42 @@ class _WaterBottles extends StatelessWidget {
         context.select((CaloriesViewModel vm) => vm.waterBottlesCount);
 
     return Flexible(
-      child: Container(
-        height: 300.h,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(20.0),
-        child: GridView.builder(
-          controller: vm.scrollController,
-          itemCount: waterBottlesCount,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 18.0.w, vertical: 8.h),
+        child: Container(
+          height: waterBottlesCount > 3 ? 300.h : 170.h,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              color: AppColors.primaryLightColor.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(20)),
+          padding: const EdgeInsets.all(20.0),
+          child: Scrollbar(
+            child: GridView.builder(
+              controller: vm.scrollController,
+              itemCount: waterBottlesCount,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 2.0,
+                mainAxisSpacing: 2.0,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Stack(
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        'assets/images/water_bottle.png',
+                      ),
+                    ),
+                    Center(
+                      child: Image.asset(
+                        'assets/images/waterbottleSel.png',
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return Stack(
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/water_bottle.png',
-                  ),
-                ),
-                Center(
-                  child: Image.asset(
-                    'assets/images/waterbottleSel.png',
-                  ),
-                ),
-              ],
-            );
-          },
         ),
       ),
     );
@@ -400,6 +537,8 @@ class _WaterHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var vm = context.watch<CaloriesViewModel>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
       child: Row(
@@ -413,8 +552,28 @@ class _WaterHeader extends StatelessWidget {
           ),
           InkWell(
             onTap: () =>
-                context.read<CaloriesViewModel>().addWaterBottleAction(),
-            child: Image.asset('assets/icons/add.png'),
+                context.read<CaloriesViewModel>().onAddWaterBottleAction(),
+            child: Icon(
+              Icons.add_circle,
+              color: Colors.white,
+              size: 30.sp,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: Text(
+              vm.waterBottlesCount.toString(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+          InkWell(
+            onTap: () =>
+                context.read<CaloriesViewModel>().onSubtractWaterBottleAction(),
+            child: Icon(
+              Icons.remove_circle,
+              color: Colors.white,
+              size: 30.sp,
+            ),
           )
         ],
       ),
@@ -645,21 +804,38 @@ class _SaveButton extends StatelessWidget {
     var vm = context.watch<CaloriesViewModel>();
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: ()=> context.read<CaloriesViewModel>().saveCaloriesActionAsync(),
+      onTap: () => context.read<CaloriesViewModel>().saveCaloriesActionAsync(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: size.width * 0.23,
-            height: size.height * 0.065,
-            margin: const EdgeInsets.only(top: 20, bottom: 50),
-            decoration: BoxDecoration(
-                color: const Color(0xFFE59D80),
-                borderRadius: BorderRadius.circular(20)),
-            child: Center(
-              child: vm.isLoading
-                  ? const CircularProgressIndicator()
-                  : Text(
+          vm.showSaveProgress
+              ? vm.showErrorSaving
+                  ? Padding(
+                      padding: EdgeInsets.only(bottom: 26.0.h),
+                      child: Lottie.asset(
+                        width: 70.w,
+                        height: 50.h,
+                        "assets/lottie/error.json",
+                        fit: BoxFit.contain,
+                      ))
+                  : Padding(
+                      padding: EdgeInsets.only(bottom: 26.0.h),
+                      child: Lottie.asset(
+                        width: 70.w,
+                        height: 50.h,
+                        "assets/lottie/save.json",
+                        fit: BoxFit.contain,
+                      ),
+                    )
+              : Container(
+                  width: size.width * 0.23,
+                  height: size.height * 0.065,
+                  margin: EdgeInsets.only(bottom: 16.h),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFE59D80),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: Text(
                       S.of(context).save.toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
@@ -667,12 +843,8 @@ class _SaveButton extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 25.0.h),
-            child: Icon(Icons.check, size: 40.sp, color: Colors.white),
-          ),
+                  ),
+                ),
         ],
       ),
     );
@@ -785,23 +957,25 @@ class _HeaderCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width * 0.9,
-      height: size.height * 0.05,
-      decoration: BoxDecoration(
-        color: Colors.grey[600],
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const _Title(title: 'qty.'),
-          const VerticalDivider(thickness: 1, color: Colors.white),
-          const _Title(width: 0.5, title: 'Items'),
-          const VerticalDivider(thickness: 1, color: Colors.white),
-          const _Title(title: 'Cal.'),
-          Expanded(child: _AddButton(isProtein: isProtein)),
-        ],
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 25.w),
+      child: Container(
+        height: size.height * 0.05,
+        decoration: BoxDecoration(
+          color: Colors.grey[600],
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _Title(title: S().grams),
+            const VerticalDivider(thickness: 1, color: Colors.white),
+            _Title(width: 0.5, title: S().items),
+            const VerticalDivider(thickness: 1, color: Colors.white),
+            _Title(title: S().cal),
+            Expanded(child: _AddButton(isProtein: isProtein)),
+          ],
+        ),
       ),
     );
   }
@@ -825,12 +999,14 @@ class _Title extends StatelessWidget {
       decoration: const BoxDecoration(),
       child: Padding(
         padding: const EdgeInsets.all(2.0),
-        child: Text(
-          title.toUpperCase(),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: Colors.white,
+        child: Center(
+          child: Text(
+            title.toUpperCase(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

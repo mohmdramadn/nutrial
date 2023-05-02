@@ -790,10 +790,10 @@ class S {
     );
   }
 
-  /// `Cal`
+  /// `CAL`
   String get cal {
     return Intl.message(
-      'Cal',
+      'CAL',
       name: 'cal',
       desc: '',
       args: [],
@@ -849,17 +849,17 @@ class S {
       args: [],
     );
   }
-  
+
   /// `You are not logged in`
   String get notLoggedIn {
     return Intl.message(
       'You are not logged in',
       name: 'notLoggedIn',
-       desc: '',
+      desc: '',
       args: [],
     );
   }
-  
+
   /// `No calories added`
   String get caloriesError {
     return Intl.message(
@@ -885,6 +885,26 @@ class S {
     return Intl.message(
       'Enter Activity Minutes',
       name: 'enterMinutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `gm`
+  String get grams {
+    return Intl.message(
+      'gm',
+      name: 'grams',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items`
+  String get items {
+    return Intl.message(
+      'Items',
+      name: 'items',
       desc: '',
       args: [],
     );

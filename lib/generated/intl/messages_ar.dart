@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "الآن ..\nحان الوقت لملء التطبيق الخاص بك لالمتابعة اليومية\nللوصول إلى هدفك"),
         "boardTwoTitle": MessageLookupByLibrary.simpleMessage(
             "حساب الكلوريز الي الجسم محتاجه"),
-        "cal": MessageLookupByLibrary.simpleMessage("Cal"),
+        "cal": MessageLookupByLibrary.simpleMessage("CAL"),
         "calories": MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("حساب السعرات الحرارية"),
@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fatsPercentage": MessageLookupByLibrary.simpleMessage("نسبة الدهون"),
         "female": MessageLookupByLibrary.simpleMessage("انثي"),
         "genderTitle": MessageLookupByLibrary.simpleMessage("اختر الجنس"),
+        "grams": MessageLookupByLibrary.simpleMessage("جرام"),
         "height": MessageLookupByLibrary.simpleMessage("طولك"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
         "inviteFriend": MessageLookupByLibrary.simpleMessage("ادعو صديق"),
@@ -78,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("السعرات الحرارية"),
         "itemName": MessageLookupByLibrary.simpleMessage("الاسم"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("الكمية"),
+        "items": MessageLookupByLibrary.simpleMessage("الأصناف"),
         "lastBodyComp": MessageLookupByLibrary.simpleMessage("اخر تكوين للجسم"),
         "lastBodyComposition":
             MessageLookupByLibrary.simpleMessage("Last body composition"),

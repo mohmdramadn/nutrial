@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Now ..\nIts time to fill your own application for\nDaily follow up\nto reach your goal."),
         "boardTwoTitle": MessageLookupByLibrary.simpleMessage(
             "Calculate your needed calories per day"),
-        "cal": MessageLookupByLibrary.simpleMessage("Cal"),
+        "cal": MessageLookupByLibrary.simpleMessage("CAL"),
         "calories": MessageLookupByLibrary.simpleMessage("Calories"),
         "caloriesCalculator":
             MessageLookupByLibrary.simpleMessage("Calories Calculator"),
@@ -73,12 +73,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fats percentage"),
         "female": MessageLookupByLibrary.simpleMessage("FEMALE"),
         "genderTitle": MessageLookupByLibrary.simpleMessage("Choose sex"),
+        "grams": MessageLookupByLibrary.simpleMessage("gm"),
         "height": MessageLookupByLibrary.simpleMessage("Height"),
         "id": MessageLookupByLibrary.simpleMessage("ID"),
         "inviteFriend": MessageLookupByLibrary.simpleMessage("Invite a friend"),
         "itemCalories": MessageLookupByLibrary.simpleMessage("Item calories"),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
         "itemQuantity": MessageLookupByLibrary.simpleMessage("Item quantity"),
+        "items": MessageLookupByLibrary.simpleMessage("Items"),
         "lastBodyComp":
             MessageLookupByLibrary.simpleMessage("Last Body Composition"),
         "lastBodyComposition":

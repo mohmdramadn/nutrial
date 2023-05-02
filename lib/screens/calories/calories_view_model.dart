@@ -84,6 +84,20 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool _showSaveProgress = false;
+  bool get showSaveProgress => _showSaveProgress;
+  void setSaveProgressState(value){
+    _showSaveProgress = value;
+    notifyListeners();
+  }
+
+  bool _showErrorSaving = false;
+  bool get showErrorSaving => _showErrorSaving;
+  void setErrorSavingState(value){
+    _showErrorSaving = value;
+    notifyListeners();
+  }
+
   String? _calculatedProteinCalories;
   String? get calculatedProteinCalories => _calculatedProteinCalories;
 
@@ -94,6 +108,11 @@ class CaloriesViewModel extends ChangeNotifier{
   TextEditingController carbsQtyController = TextEditingController();
   TextEditingController proteinGoalController = TextEditingController();
   TextEditingController carbsGoalController = TextEditingController();
+
+  final ScrollController scrollController = ScrollController(
+    initialScrollOffset: 0.0,
+    keepScrollOffset: true,
+  );
 
   List<CaloriesModel> _proteinsSelectedItems = [];
   List<CaloriesModel> get proteinsSelectedItems => _proteinsSelectedItems;
@@ -108,22 +127,8 @@ class CaloriesViewModel extends ChangeNotifier{
   CaloriesModel? get selectedCarbsItem => _selectedCarbsItem;
 
   double totalProteinCalories = 0;
-  double proteinGoalCalories = 100;
+  double proteinGoalCalories = 1000;
   double proteinProgressRatio = 0.0;
-
-  void setProteinGoalValue(value){
-    var newValue = double.tryParse(value);
-    proteinGoalCalories = newValue ?? proteinGoalCalories;
-    addProteinProgress();
-    notifyListeners();
-  }
-
-  void setCarbsGoalValue(value){
-    var newValue = double.tryParse(value);
-    carbsGoalCalories = newValue ?? carbsGoalCalories;
-    addCarbsProgress();
-    notifyListeners();
-  }
 
   double totalCarbsCalories = 0;
   double carbsGoalCalories = 1000;
@@ -149,7 +154,7 @@ class CaloriesViewModel extends ChangeNotifier{
   String? get todayDate => _todayDate.dateOnly();
 
   final DateTime _yesterdayDate =
-      DateTime.now().subtract(const Duration(days: 1));
+  DateTime.now().subtract(const Duration(days: 1));
   String? get yesterdayDate => _yesterdayDate.dateOnly();
 
   Map<DateTime, List<QuerySnapshot>>? _cardioResponse = {};
@@ -170,29 +175,11 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void clearData(){
-    _proteinsSelectedItems.clear();
-    _carbsSelectedItems.clear();
-    proteinProgressRatio = 0.0;
-    carbsProgressRatio = 0.0;
-    totalProteinCalories = 0;
-    totalCarbsCalories = 0;
-    _waterBottlesCount = 0;
-    todayActivity.clear();
-    yesterdayActivity.clear();
-    notifyListeners();
-  }
-
-  final ScrollController scrollController = ScrollController(
-    initialScrollOffset: 0.0,
-    keepScrollOffset: true,
-  );
-
   bool _isEditProteinGoal = false;
   bool get isEditProteinGoal => _isEditProteinGoal;
   void setEditProteinGoalState(){
     _isEditProteinGoal = !_isEditProteinGoal;
-    if (!isEditProteinGoal && _calculatedProteinCalories != null) {
+    if (!isEditProteinGoal && _calculatedProteinCalories != '') {
       setProteinGoalValue(proteinGoalController.text);
     }
     notifyListeners();
@@ -202,7 +189,25 @@ class CaloriesViewModel extends ChangeNotifier{
   bool get isEditCarbsGoal => _isEditCarbsGoal;
   void setEditCarbsGoalState(){
     _isEditCarbsGoal = !_isEditCarbsGoal;
-    if (_isEditCarbsGoal) setCarbsGoalValue(carbsGoalController.text);
+    if (!_isEditCarbsGoal && _calculatedCarbsCalories != '') {
+      setCarbsGoalValue(carbsGoalController.text);
+    }
+    notifyListeners();
+  }
+
+  void setSelectedProteinItem({required Food food}) {
+    var item = CaloriesModel.fromLocalJsonDatabase(food);
+    _selectedProteinItem = item;
+    setSelectedProteinItemState();
+    setNewProteinItemState();
+    setProteinMenuState();
+    notifyListeners();
+  }
+
+  void setProteinGoalValue(value){
+    var newValue = double.tryParse(value);
+    proteinGoalCalories = newValue ?? proteinGoalCalories;
+    _addProteinProgress();
     notifyListeners();
   }
 
@@ -229,6 +234,69 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  void _addProteinItemAction(CaloriesModel? item) {
+    item!.itemQuantity = proteinQtyController.text;
+    item.totalCal = double.tryParse(_calculatedProteinCalories!);
+    _proteinsSelectedItems.add(item);
+    _addProteinProgress();
+    notifyListeners();
+  }
+
+  void _addProteinProgress() {
+    if (_proteinsSelectedItems.isEmpty) {
+      totalProteinCalories = 0;
+      proteinProgressRatio =
+          ((totalProteinCalories * 1.0) / proteinGoalCalories).roundToDouble();
+      _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
+          totalProteinCalories <= (proteinGoalCalories + 50);
+      notifyListeners();
+      return;
+    }
+    if(_calculatedProteinCalories == null || _calculatedProteinCalories == '0'){
+      var sum = 0.0;
+      for(var item in _proteinsSelectedItems){
+        sum += item.totalCal!;
+        _calculatedProteinCalories = sum.roundToDouble().toString();
+      }
+    }
+    totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
+    proteinProgressRatio =
+        ((totalProteinCalories * 1.0) / proteinGoalCalories);
+    _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
+        totalProteinCalories <= (proteinGoalCalories + 50);
+    totalProteinCalories = totalProteinCalories.roundToDouble();
+    notifyListeners();
+  }
+
+  void onProteinQuantityAddedAction() {
+    var numberOfPieces = int.tryParse(proteinQtyController.text) ?? 0;
+    var weightNumbers = _selectedProteinItem!.itemQuantity!.replaceAll(
+        RegExp(r'[^0-9]'), '');
+    var itemWeight = int.tryParse(weightNumbers);
+    var calories = itemWeight != null
+        ? (numberOfPieces * _selectedProteinItem!.itemCalories!) / itemWeight
+        : numberOfPieces * _selectedProteinItem!.itemCalories!;
+    _calculatedProteinCalories = calories.toString();
+    notifyListeners();
+  }
+
+  void onDeleteProteinItemSelectedAction({required CaloriesModel item}){
+    if (_isEditProteinGoal) {
+      setEditProteinGoalState();
+    }
+    _proteinsSelectedItems.remove(item);
+    _onDeleteAction(item,true);
+    notifyListeners();
+  }
+
+  void _addCarbsItemAction(CaloriesModel? item) {
+    item!.itemQuantity = carbsQtyController.text;
+    item.totalCal = double.tryParse(_calculatedCarbsCalories!);
+    _carbsSelectedItems.add(item);
+    _addCarbsProgress();
+    notifyListeners();
+  }
+
   void onAddCarbsButtonAction(){
     if(_selectedCarbsItem == null){
       setNewCarbsItemState();
@@ -252,28 +320,6 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _resetProteinValues() {
-    _selectedProteinItem = null;
-    _calculatedProteinCalories = '0';
-    proteinQtyController.text = '';
-    notifyListeners();
-  }
-
-  void _resetCarbsValues() {
-    _selectedCarbsItem = null;
-    _calculatedCarbsCalories = '0';
-    carbsQtyController.text = '';
-  }
-
-  void setSelectedProteinItem({required Food food}) {
-    var item = CaloriesModel.fromLocalJsonDatabase(food);
-    _selectedProteinItem = item;
-    setSelectedProteinItemState();
-    setNewProteinItemState();
-    setProteinMenuState();
-    notifyListeners();
-  }
-
   void setSelectedCarbsItem({required Food food}) {
     var item = CaloriesModel.fromLocalJsonDatabase(food);
     _selectedCarbsItem = item;
@@ -283,31 +329,10 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _addProteinItemAction(CaloriesModel? item) {
-    item!.itemQuantity = proteinQtyController.text;
-    item.totalCal = double.tryParse(_calculatedProteinCalories!);
-    _proteinsSelectedItems.add(item);
-    addProteinProgress();
-    notifyListeners();
-  }
-
-  void _addCarbsItemAction(CaloriesModel? item) {
-    item!.itemQuantity = carbsQtyController.text;
-    item.totalCal = double.tryParse(_calculatedCarbsCalories!);
-    _carbsSelectedItems.add(item);
-    addCarbsProgress();
-    notifyListeners();
-  }
-
-  void onProteinQuantityAddedAction() {
-    var numberOfPieces = int.tryParse(proteinQtyController.text) ?? 0;
-    var weightNumbers = _selectedProteinItem!.itemQuantity!.replaceAll(
-        RegExp(r'[^0-9]'), '');
-    var itemWeight = int.tryParse(weightNumbers);
-    var calories = itemWeight != null
-        ? (numberOfPieces * _selectedProteinItem!.itemCalories!) / itemWeight
-        : numberOfPieces * _selectedProteinItem!.itemCalories!;
-    _calculatedProteinCalories = calories.toString();
+  void setCarbsGoalValue(value){
+    var newValue = double.tryParse(value);
+    carbsGoalCalories = newValue ?? carbsGoalCalories;
+    _addCarbsProgress();
     notifyListeners();
   }
 
@@ -323,48 +348,11 @@ class CaloriesViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void addWaterBottleAction() {
-    if(_waterBottlesCount != 0)_scrollToTheEndAction();
-    _waterBottlesCount++;
-    notifyListeners();
-  }
-
-  void _scrollToTheEndAction() {
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.bounceOut,
-    );
-  }
-
-  void addProteinProgress() {
-    if (_proteinsSelectedItems.length == 0) {
-      totalProteinCalories = 0;
-      proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
-      _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
-          totalProteinCalories <= (proteinGoalCalories + 50);
-      notifyListeners();
-      return;
-    }
-    if(_calculatedProteinCalories == null || _calculatedProteinCalories == '0'){
-      var sum = 0.0;
-      for(var item in _proteinsSelectedItems){
-        sum += item.totalCal!;
-        _calculatedProteinCalories = sum.roundToDouble().toString();
-      }
-    }
-    totalProteinCalories += num.tryParse(_calculatedProteinCalories!)!;
-    proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
-    _isMetProteinGoal = (proteinGoalCalories - 50) <= totalProteinCalories &&
-        totalProteinCalories <= (proteinGoalCalories + 50);
-    totalProteinCalories = totalProteinCalories.roundToDouble();
-    notifyListeners();
-  }
-
-  void addCarbsProgress() {
-    if (_carbsSelectedItems.length == 0) {
+  void _addCarbsProgress() {
+    if (_carbsSelectedItems.isEmpty) {
       totalCarbsCalories = 0;
-      carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+      carbsProgressRatio =
+          ((totalCarbsCalories * 1.0) / carbsGoalCalories).roundToDouble();
       _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
           totalCarbsCalories <= (carbsGoalCalories + 50);
       notifyListeners();
@@ -378,40 +366,64 @@ class CaloriesViewModel extends ChangeNotifier{
       }
     }
     totalCarbsCalories += num.tryParse(_calculatedCarbsCalories!)!;
-    carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+    carbsProgressRatio =
+        ((totalCarbsCalories * 1.0) / carbsGoalCalories);
     _isMetCarbsGoal = (carbsGoalCalories - 50) <= totalCarbsCalories &&
         totalCarbsCalories <= (carbsGoalCalories + 50);
     totalCarbsCalories = totalCarbsCalories.roundToDouble();
     notifyListeners();
   }
 
-  void onDeleteProteinItemSelectedAction({required CaloriesModel item}){
-    _proteinsSelectedItems.remove(item);
-    subtractOnDeleteAction(item,true);
-    notifyListeners();
-  }
-
   void onDeleteCarbItemSelectedAction({required CaloriesModel item}){
+    if (_isEditCarbsGoal) {
+      setEditCarbsGoalState();
+    }
     _carbsSelectedItems.remove(item);
-    subtractOnDeleteAction(item,false);
+    _onDeleteAction(item,false);
     notifyListeners();
   }
 
-  void subtractOnDeleteAction(CaloriesModel item,bool isProtein){
-    var totalCalories = double.tryParse(
-        isProtein ? _calculatedProteinCalories! : _calculatedCarbsCalories!);
+  void _onDeleteAction(CaloriesModel item,bool isProtein){
     if (!isProtein) {
-      _calculatedCarbsCalories = (totalCalories! - item.totalCal!).toString();
       totalCarbsCalories =
-          num.tryParse(_calculatedCarbsCalories!)!.roundToDouble();
-      carbsProgressRatio = ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+      (totalCarbsCalories -
+          item.totalCal! * num.tryParse(item.itemQuantity!)!);
+
+      carbsProgressRatio =
+          ((totalCarbsCalories * 1.0) / carbsGoalCalories);
+
+      _calculatedCarbsCalories = totalCarbsCalories.toString();
       return;
     }
-    _calculatedProteinCalories = (totalCalories! - item.totalCal!).toString();
+
     totalProteinCalories =
-        num.tryParse(_calculatedProteinCalories!)!.roundToDouble();
-    proteinProgressRatio = ((totalProteinCalories * 1.0) / proteinGoalCalories);
+    (totalProteinCalories -
+        item.totalCal! * num.tryParse(item.itemQuantity!)!);
+
+    proteinProgressRatio =
+        ((totalProteinCalories * 1.0) / proteinGoalCalories);
+
+    _calculatedProteinCalories = totalProteinCalories.toString();
+  }
+
+  void onAddWaterBottleAction() {
+    if(_waterBottlesCount != 0)_scrollToTheEndAction();
+    _waterBottlesCount++;
     notifyListeners();
+  }
+
+  void onSubtractWaterBottleAction() {
+    if(_waterBottlesCount == 0) return;
+    _waterBottlesCount--;
+    notifyListeners();
+  }
+
+  void _scrollToTheEndAction() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.bounceOut,
+    );
   }
 
   Future<void> getCardioAsync()async{
@@ -456,12 +468,12 @@ class CaloriesViewModel extends ChangeNotifier{
     _waterBottlesCount = _calories!.water;
     if(_calories!.protein != null){
       _proteinsSelectedItems += _calories!.protein;
-      addProteinProgress();
+      _addProteinProgress();
     }
 
     if(_calories!.carbs != null){
       _carbsSelectedItems += _calories!.carbs;
-      addCarbsProgress();
+      _addCarbsProgress();
     }
     setLoadingState(false);
   }
@@ -497,6 +509,7 @@ class CaloriesViewModel extends ChangeNotifier{
     var isConnected = await connectionService.checkConnection();
     if(!isConnected){
       setLoadingState(false);
+      messageService.showErrorSnackBar('', localization.noInternetConnection);
       notifyListeners();
     }
     if (_proteinsSelectedItems.isEmpty && _carbsSelectedItems.isEmpty) {
@@ -519,22 +532,21 @@ class CaloriesViewModel extends ChangeNotifier{
     );
 
     if (response.isError) {
-      messageService.showErrorSnackBar('', localization.error);
       setLoadingState(false);
+      setSaveProgressState(true);
+      setErrorSavingState(true);
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        setErrorSavingState(false);
+        setSaveProgressState(false);
+      });
       notifyListeners();
       return;
     }
-
-    Fluttertoast.showToast(
-        msg: S.of(Get.context!).saved,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0);
-
     setLoadingState(false);
+    setSaveProgressState(true);
+    Future.delayed(const Duration(seconds: 1))
+        .then((value) => setSaveProgressState(false));
+    notifyListeners();
   }
 
   Future<void> navigateToCardioScreen() async {
@@ -543,5 +555,31 @@ class CaloriesViewModel extends ChangeNotifier{
     todayActivity.clear();
     yesterdayActivity.clear();
     getCardioAsync();
+  }
+
+  void _resetProteinValues() {
+    _selectedProteinItem = null;
+    _calculatedProteinCalories = '0';
+    proteinQtyController.text = '';
+    notifyListeners();
+  }
+
+  void _resetCarbsValues() {
+    _selectedCarbsItem = null;
+    _calculatedCarbsCalories = '0';
+    carbsQtyController.text = '';
+  }
+
+  void clearData(){
+    _proteinsSelectedItems.clear();
+    _carbsSelectedItems.clear();
+    proteinProgressRatio = 0.0;
+    carbsProgressRatio = 0.0;
+    totalProteinCalories = 0;
+    totalCarbsCalories = 0;
+    _waterBottlesCount = 0;
+    todayActivity.clear();
+    yesterdayActivity.clear();
+    notifyListeners();
   }
 }
