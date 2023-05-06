@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:nutrial/constants/constant_strings.dart';
+import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
@@ -52,6 +53,13 @@ class OnBoardViewModel extends ChangeNotifier{
   bool get showPassword => _showPassword;
   void setShowPassState(){
     _showPassword = !_showPassword;
+    notifyListeners();
+  }
+
+  bool _showConfirmPassword = false;
+  bool get showConfirmPassword => _showConfirmPassword;
+  void setShowConfirmPassState(){
+    _showConfirmPassword = !_showConfirmPassword;
     notifyListeners();
   }
 
