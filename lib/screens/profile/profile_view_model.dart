@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/helper/shared_prefrence.dart';
 import 'package:nutrial/models/profile_model.dart';
 import 'package:nutrial/routes/routes_names.dart';
@@ -46,6 +47,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
 
     _user = response.asValue!.value;
+    _calculateNextSession();
     setLoadingState(false);
     notifyListeners();
   }
@@ -84,4 +86,25 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   bool get isArabic => Get.locale == const Locale('ar');
+
+  void _calculateNextSession() {
+    var isStartNewSession = _user?.nextSession == DateTime.now().dateOnly();
+    if (!isStartNewSession) return;
+
+    _user?.nextSession ==
+        DateTime.now().add(const Duration(days: 7)).dateOnly();
+    _updateNextSession();
+
+    notifyListeners();
+  }
+
+  Future<void> _updateNextSession()async{
+    var isConnected = await connectionService.checkConnection();
+    if(!isConnected) return;
+
+    var response = await firebaseService.updateNextSessionAsync(
+        nextSession: _user!.nextSession!);
+    if (response.isError) return;
+
+  }
 }

@@ -130,6 +130,9 @@ class OnBoardViewModel extends ChangeNotifier{
     userProfileModel.height = heightController.text;
     userProfileModel.gender =
     _gender == 1 ? localization.male : localization.female;
+    userProfileModel.joinDate = DateTime.now().dateOnly();
+    userProfileModel.nextSession =
+        DateTime.now().add(const Duration(days: 7)).dateOnly();
   }
 
 }

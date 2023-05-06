@@ -55,6 +55,7 @@ class _BodyState extends State<_Body> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
@@ -210,7 +211,7 @@ class _ProfileDetails extends StatelessWidget {
             ),
             ProfileDetailsItem(
               title: S.of(context).nextSession,
-              value: '15/04/2022',
+              value: userData?.nextSession ??'',
               onTap: () {},
               isArabic: isArabic,
             ),
