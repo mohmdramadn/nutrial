@@ -75,12 +75,27 @@ class FirebaseService extends ChangeNotifier {
       'Age': model.age,
       'Muscles Percentage': model.musclesPercentage,
       'Water Percentage': model.waterPercentage,
-      'Fats Percentage': model.fatsPercentage
+      'Fats Percentage': model.fatsPercentage,
+      'Join Date': model.joinDate,
+      'Next session': model.nextSession
     };
     try {
       await database.collection('users_profile').doc(user?.uid).set(newUser);
       await addNewUserNameAsync(displayName: model.fullName);
       return Result.value(user!.uid);
+    } catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<bool>> updateNextSessionAsync(
+      {required String nextSession}) async {
+    try {
+      await database
+          .collection('users_profile')
+          .doc(user?.uid)
+          .update({'Next session': nextSession});
+      return Result.value(true);
     } catch (e) {
       return Result.error(e);
     }

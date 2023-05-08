@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nutrial/constants/constant_strings.dart';
+import 'package:intl/intl.dart';
 import 'package:nutrial/extensions/date_time_extension.dart';
 import 'package:nutrial/generated/l10n.dart';
-import 'package:nutrial/models/cardio.dart';
 import 'package:nutrial/services/connection_service.dart';
 import 'package:nutrial/services/firebase_service.dart';
 import 'package:nutrial/services/message_service.dart';
@@ -28,7 +26,7 @@ class SessionsViewModel extends ChangeNotifier{
       setLoadingState(false);
       notifyListeners();
     }
-    var response = await firebaseService.getUserCardio();
+    var response = await firebaseService.getUserProfile();
 
     if (response.isError) {
       messageService.showErrorSnackBar('', localization.error);
@@ -37,19 +35,17 @@ class SessionsViewModel extends ChangeNotifier{
       return;
     }
 
-    _sessionsResponse = response.asValue!.value;
-    _filterSessionsResponse();
+    _nextSession = response.asValue!.value.nextSession;
+    _formatSession();
     setLoadingState(false);
     notifyListeners();
   }
 
-  Map<DateTime, List<QuerySnapshot>>? _sessionsResponse = {};
+  String? _nextSession;
+  String? get nextSession => _nextSession;
 
-  List<CardioActivity>? _sessions = [];
-  List<CardioActivity>? get sessions => _sessions;
-
-  List<String> _sessionsTitle =[];
-  List<String> get sessionsTitle => _sessionsTitle;
+  List<String>? _sessions = [];
+  List<String>? get sessions => _sessions;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -58,36 +54,26 @@ class SessionsViewModel extends ChangeNotifier{
     notifyListeners();
   }
 
-  void _filterSessionsResponse() {
-    for (var entry in _sessionsResponse!.entries) {
-      var data = entry.value.first.docs.first.data() as Map<String, dynamic>;
-      var session = CardioActivity.fromJson(data);
-      _sessions!.add(session);
-      _sessionsTitle.add(_setSessionTime(entry.key));
+  void _formatSession() {
+    var today = DateTime.now().dateOnlyNotString();
+    var nextSession = DateFormat('dd/MM/yyyy').parse(_nextSession!);
+    var isNextWeekSession = today.isAfter(nextSession);
+    var isTodayStartOfNextSession = nextSession == today;
+
+    if (!isNextWeekSession && !isTodayStartOfNextSession) {
+      var currentSession = nextSession.subtract(const Duration(days: 7));
+      _sessions!
+          .add('${currentSession.weekDay()}, ${currentSession.dateOnly()}');
+      return;
     }
-  }
+    var pastSession = nextSession.subtract(const Duration(days: 7));
 
-  String _setSessionTime(DateTime sessionDate) {
-    var day = _getWeekDay(sessionDate.weekday);
-    var date = '${sessionDate.day}/${sessionDate.month}/${sessionDate.year}';
-    var time =
-        '${sessionDate.hoursMinutes()}${_getTimeOfDay(sessionDate)}';
-    return '$day, $date $time';
-  }
+    var diffBetweenTodayAndOldNextSession =
+        DateTime.now().difference(nextSession);
+    var currentSession =
+        DateTime.now().subtract(diffBetweenTodayAndOldNextSession);
 
-  String _getTimeOfDay(DateTime sessionDateTime) {
-    TimeOfDay timeOfDay = TimeOfDay.fromDateTime(sessionDateTime);
-    return timeOfDay.period.toString().split('.')[1].toUpperCase();
-  }
-
-  String _getWeekDay(int date) {
-    if (date == DateTime.monday) return WeekDays.monday;
-    if (date == DateTime.tuesday) return WeekDays.tuesday;
-    if (date == DateTime.wednesday) return WeekDays.wednesday;
-    if (date == DateTime.thursday) return WeekDays.thursday;
-    if (date == DateTime.friday) return WeekDays.friday;
-    if (date == DateTime.saturday) return WeekDays.friday;
-    if (date == DateTime.sunday) return WeekDays.sunday;
-    return '';
+    _sessions!.add('${currentSession.weekDay()}, ${currentSession.dateOnly()}');
+    _sessions!.add('${pastSession.weekDay()}, ${pastSession.dateOnly()}');
   }
 }

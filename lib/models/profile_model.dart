@@ -10,6 +10,8 @@ class UserProfileModel {
   String? fatsPercentage;
   String? waterPercentage;
   String? musclesPercentage;
+  String? joinDate;
+  String? nextSession;
 
   UserProfileModel({
     this.uid,
@@ -23,6 +25,8 @@ class UserProfileModel {
     this.waterPercentage,
     this.username,
     this.password,
+    this.joinDate,
+    this.nextSession,
   });
 
   factory UserProfileModel.fromFirestore(Map<String, dynamic> data) {
@@ -37,6 +41,8 @@ class UserProfileModel {
       waterPercentage: data["Water Percentage"] ?? "",
       username: data["username"] ?? "",
       fatsPercentage: data["Fats Percentage"] ?? "",
+      joinDate: data["Join Date"] ?? "",
+      nextSession: data["Next session"] ?? "",
     );
   }
 }

@@ -60,19 +60,23 @@ class _BodyState extends State<_Body> {
               SizedBox(height: 30.h),
               vm.isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 380.h,
-                      child: ListView.separated(
-                        itemCount: vm.sessions!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return _SessionItem(date: vm.sessionsTitle[index]);
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 20.h);
-                        },
-                      ),
-                    ),
+                  : vm.sessions!.isNotEmpty
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 380.h,
+                          child: ListView.separated(
+                            itemCount: vm.sessions!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return _SessionItem(
+                                  date: vm.sessions![index]);
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(height: 20.h);
+                            },
+                          ),
+                        )
+                      : Container(),
             ],
           ),
         ),

@@ -92,11 +92,17 @@ class _BodyState extends State<_Body> {
             _PasswordTextField(
               controller: passwordController,
               title: S.of(context).password,
+              showPassword: context.watch<OnBoardViewModel>().showPassword,
+              showHidePass: () =>
+                  context.read<OnBoardViewModel>().setShowPassState(),
             ),
             SizedBox(height: 15.h),
             _PasswordTextField(
               controller: confirmPassController,
               title: S.of(context).reEnter,
+              showPassword: context.watch<OnBoardViewModel>().showConfirmPassword,
+              showHidePass: () =>
+                  context.read<OnBoardViewModel>().setShowConfirmPassState(),
             ),
           ],
         ),
@@ -110,10 +116,14 @@ class _PasswordTextField extends StatefulWidget {
     Key? key,
     required this.controller,
     required this.title,
+    required this.showPassword,
+    required this.showHidePass,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String title;
+  final bool showPassword;
+  final Function() showHidePass;
 
   @override
   State<_PasswordTextField> createState() => _PasswordTextFieldState();
@@ -136,14 +146,12 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
-    var showPassword = context.select((OnBoardViewModel vm) => vm.showPassword);
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 60.0.w),
       child: InkWell(
         onTap: () => myFocusNode.requestFocus(),
         child: TextFormField(
-          obscureText: showPassword ? true : false,
+          obscureText: !widget.showPassword,
           focusNode: myFocusNode,
           controller: widget.controller,
           style: const TextStyle(color: Colors.white),
@@ -168,11 +176,11 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             ),
             suffixIcon: InkWell(
               splashColor: Colors.transparent,
-              onTap: () => context.read<OnBoardViewModel>().setShowPassState(),
+              onTap: widget.showHidePass,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
-                  showPassword ? Icons.visibility : Icons.visibility_off,
+                  widget.showPassword ? Icons.visibility : Icons.visibility_off,
                   color: Colors.white,
                 ),
               ),
